@@ -6,21 +6,27 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /* 
  * MemberDTO
  */
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@ToString
 public class MemberDTO {
 	
 	private String id;
-	private String pw;
+	private String password;
 	private String name;
 	private String email;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
+	private String address;
+	private String phoneNumber;
+	private int point;
+	
 }

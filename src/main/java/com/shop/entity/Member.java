@@ -28,5 +28,5 @@ public class Member extends BaseEntity {
 	private String email;
 	private String address;
 	private String phoneNumber;
-	private Long point;
+	private int point;
 }
