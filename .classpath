@@ -26,5 +26,11 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Manic-063/.gradle/caches/modules-2/files-2.1/net.coobird/thumbnailator/0.4.12/6dfa87737c85a306d9c63ae4b9c1049c41f3ab0e/thumbnailator-0.4.12.jar" sourcepath="C:/Users/Manic-063/.gradle/caches/modules-2/files-2.1/net.coobird/thumbnailator/0.4.12/bfa53e724e7c178ea42a0b4a89563f2e9aa07a2c/thumbnailator-0.4.12-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
