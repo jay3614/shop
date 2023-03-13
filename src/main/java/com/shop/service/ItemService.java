@@ -1,4 +1,4 @@
-package com.shop.entity.service;
+package com.shop.service;
 
 import com.shop.dto.ItemDTO;
 import com.shop.entity.Item;

@@ -14,8 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.dto.ItemDTO;
 import com.shop.dto.UploadResultDTO;
-import com.shop.entity.service.FileService;
-import com.shop.entity.service.ItemService;
+import com.shop.service.FileService;
+import com.shop.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

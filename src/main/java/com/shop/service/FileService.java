@@ -1,4 +1,4 @@
-package com.shop.entity.service;
+package com.shop.service;
 
 import java.io.File;
 
