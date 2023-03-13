@@ -1,5 +1,7 @@
 package com.shop.service;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.shop.dto.ItemDTO;
 import com.shop.entity.Item;
 
@@ -7,9 +9,7 @@ public interface ItemService {
 	
 	ItemDTO getImg(Long iNumber);
 	
-	Long management(ItemDTO itemDTO);
-	
-	void update(ItemDTO dto);
+	Long management(ItemDTO itemDTO, MultipartFile file);
 	
 	default Item dtoToEntity(ItemDTO dto) {
 		

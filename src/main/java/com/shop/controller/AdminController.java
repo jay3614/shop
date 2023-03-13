@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.dto.ItemDTO;
 import com.shop.dto.UploadResultDTO;
-import com.shop.service.FileService;
 import com.shop.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class AdminController {
 	
-	private final FileService fileService;
 	private final ItemService itemService;
 	
 	// DB에 상품 정보를 저장하는 페이지를 연결하는 메서드
@@ -47,12 +45,8 @@ public class AdminController {
 			try {
 	            log.warn("================================== 파일 업로드 성공 ==================================");
 	            
-	            fileService.saveFile(uploadFile);
-	            
-	            Long iNumber = itemService.management(dto);
+	            Long iNumber = itemService.management(dto, uploadFile);
 	            redirectAttributes.addFlashAttribute("msg", iNumber);
-	            
-	            System.out.println("+++++++++++++" + iNumber);
 	            
 	         } catch (Exception e) {
 	            e.printStackTrace();
@@ -63,14 +57,12 @@ public class AdminController {
 		return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
 	}
 	
-//	@PostMapping("uploadImg")
-//	public void insertImg(ItemDTO dto) {
-//		
-//		System.out.println(dto.getINumber());
-//		
-//		itemService.update(dto);
-//		
-//	}
+	
+	// item DB 수정 메서드(재고 추가, 가격 변동, 이미지 수정)
+	
+	
+	
+	
 	
 }
 

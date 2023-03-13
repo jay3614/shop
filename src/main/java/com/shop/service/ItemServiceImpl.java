@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.shop.dto.ItemDTO;
 import com.shop.entity.Item;
@@ -15,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
+	
+	private String fileDir = "https://i.imgur.com/";
 	
 	@Autowired
 	private ItemRepository itemRepository;
@@ -28,23 +31,30 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Long management(ItemDTO dto) {
+	public Long management(ItemDTO dto, MultipartFile file) {
 		
-		Item entity = dtoToEntity(dto);
+		
+		if(file.isEmpty()) {
+			return null;
+		}
+		
+		// 요청한 원본 파일명 추출
+		String orginName = file.getOriginalFilename();
+		
+		// 파일을 불러올 때 사용할 경로
+		String savedPath = fileDir + orginName;
+		
+		System.out.println("++++++" + savedPath);
+		
+		Item entity = dtoToEntity(dto).builder()
+				.iCategory(dto.getICategory()).iDeliveryPrice(dto.getIDeliveryPrice())
+				.iInfo(dto.getIInfo()).iInstock(dto.getIInstock())
+				.iName(dto.getIName()).iPrice(dto.getIPrice())
+				.iImg(savedPath).build();
 		
 		itemRepository.save(entity);
 		
 		return entity.getINumber();
 	}
-
-	@Override
-	public void update(ItemDTO dto) {
-		Item item = itemRepository.getById(dto.getINumber());
-		item.changeImg(dto.getIImg());
-		
-		// 수정했으니 save() 호출해서 완료 처리
-		itemRepository.save(item);
-	}
-	
 	
 }
