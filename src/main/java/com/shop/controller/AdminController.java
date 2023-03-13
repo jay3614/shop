@@ -1,0 +1,88 @@
+package com.shop.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.shop.dto.ItemDTO;
+import com.shop.dto.UploadResultDTO;
+import com.shop.entity.service.FileService;
+import com.shop.entity.service.ItemService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+@Controller
+@RequiredArgsConstructor
+@RestController	// 데이터만 주고받는 json
+@Log4j2
+public class AdminController {
+	
+	private final FileService fileService;
+	private final ItemService itemService;
+	
+	// DB에 상품 정보를 저장하는 페이지를 연결하는 메서드
+	@PostMapping("/uploadAjax")
+	public ResponseEntity<List<UploadResultDTO>> uploadFile(MultipartFile[] uploadFiles, ItemDTO dto, RedirectAttributes redirectAttributes) {
+		
+		// 리턴될 DTO 컬렉션 초기화 작업
+		List<UploadResultDTO> resultDTOList = new ArrayList<>();
+		
+		for(MultipartFile uploadFile : uploadFiles) {
+			
+			if(uploadFile.getContentType().startsWith("image") == false) {
+	            log.warn("이미지 파일이 아님.");
+	            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	         }
+			
+			// 업로드 처리
+			try {
+	            log.warn("================================== 파일 업로드 성공 ==================================");
+	            
+	            fileService.saveFile(uploadFile);
+	            
+	            Long iNumber = itemService.management(dto);
+	            redirectAttributes.addFlashAttribute("msg", iNumber);
+	            
+	            System.out.println("+++++++++++++" + iNumber);
+	            
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	            System.out.println(e.getMessage());
+	         }
+	      }
+		
+		return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
+	}
+	
+//	@PostMapping("uploadImg")
+//	public void insertImg(ItemDTO dto) {
+//		
+//		System.out.println(dto.getINumber());
+//		
+//		itemService.update(dto);
+//		
+//	}
+	
+}
+
+@Controller
+class UploadEx {
+	
+	@GetMapping("/uploadEx")
+	public void uploadEx() {
+		
+		
+		
+	}
+	
+	
+}

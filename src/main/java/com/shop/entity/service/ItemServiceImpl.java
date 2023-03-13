@@ -26,6 +26,25 @@ public class ItemServiceImpl implements ItemService {
 		
 		return result.isPresent()?entityToDto(result.get()):null;
 	}
+
+	@Override
+	public Long management(ItemDTO dto) {
+		
+		Item entity = dtoToEntity(dto);
+		
+		itemRepository.save(entity);
+		
+		return entity.getINumber();
+	}
+
+	@Override
+	public void update(ItemDTO dto) {
+		Item item = itemRepository.getById(dto.getINumber());
+		item.changeImg(dto.getIImg());
+		
+		// 수정했으니 save() 호출해서 완료 처리
+		itemRepository.save(item);
+	}
 	
 	
 }

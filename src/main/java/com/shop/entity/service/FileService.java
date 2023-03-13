@@ -34,9 +34,6 @@ public class FileService{
 	FileEntity fileEntity = FileEntity.builder()
 			.orgNm(orginName).savedPath(savedPath).build();
 	
-	
-	file.transferTo(new File(savedPath));
-	
 	// DB에 파일정보 저장
 	FileEntity savedFileEntity = fileRepository.save(fileEntity);
 	
