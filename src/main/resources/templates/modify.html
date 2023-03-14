@@ -35,6 +35,7 @@
 
 <script type="text/javascript">
  	
+	//썸네일 이벤트 등록
 	function setThumbnail(event) {
 		var reader = new FileReader();
 	
@@ -44,7 +45,7 @@
 			document.querySelector("div#image_container").appendChild(img);
 	    };
 		reader.readAsDataURL(event.target.files[0]);
-	}
+	}	// 썸네일 이벤트 등록 끝
  	
 	var actionForm = $("form");
  	
