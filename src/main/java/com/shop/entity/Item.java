@@ -32,9 +32,23 @@ public class Item {
 	private String iInfo;
 	private Long iInstock;
 	private String iImg;
+	private String isize;
+	
 	
 	public void changeImg(String iImg) {
 		this.iImg = iImg;
+	}
+	
+	public void changePrice(Long iPrice) {
+		this.iPrice = iPrice;
+	}
+	
+	public void changeInstock(Long iInstock) {
+		this.iInstock = iInstock;
+	}
+	
+	public void changeInfo(String iInfo) {
+		this.iInstock = iInstock;
 	}
 	
 }
