@@ -11,6 +11,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	
 	// Member의 id를 기준으로 회원 정보를 가져오는 메서드 선언
 	@Query("SELECT m FROM Member m WHERE m.id =:id")
-	Member getItemByNumber(@Param("id") String id);
+	Member getMemberByNumber(@Param("id") String id);
 	
 }

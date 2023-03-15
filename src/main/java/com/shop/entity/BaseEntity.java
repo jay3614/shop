@@ -44,6 +44,4 @@ abstract class BaseEntity {
 	@Column(name = "modDate")
 	private LocalDateTime modDate;
 	
-	
-	
 }

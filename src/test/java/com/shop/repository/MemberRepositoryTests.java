@@ -22,7 +22,7 @@ public class MemberRepositoryTests {
 		IntStream.rangeClosed(1, 20).forEach(i -> {
 			Member member = Member.builder().id("user" + i)
 					.password("1234").name("정영우")
-					.email("user" + i + "@gmail.com").address("의정부")
+					.email("user" + i + "@gmail.com").address("의정부시")
 					
 					.phoneNumber("010-1234-5678").point(0)
 					.build();

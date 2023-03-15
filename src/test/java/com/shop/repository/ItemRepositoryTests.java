@@ -1,5 +1,7 @@
 package com.shop.repository;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -15,18 +17,32 @@ public class ItemRepositoryTests {
 	@Autowired
 	private ItemRepository itemRepository;
 	
+	@Autowired
+	private AdminRepository adminRepository;
+	
 	// 스트림 이용해서 Member 테이블에 100개의 데이터를 한 번에 insert
+//	@Test
+//	public void insertDummies() {
+//		
+//		IntStream.rangeClosed(1, 20).forEach(i -> {
+//			Item item = Item.builder().iName("신발1").iCategory("30")
+//					.iPrice(150000L).iDeliveryPrice(5000L)
+//					.iInfo("좋은 신발").iInstock(30L)
+//					.iImg("https://i.imgur.com/UHRXuoe.png").build();
+//			
+//			itemRepository.save(item);
+//		});
+//	}
+	
+	// PK의 값을 기준으로 원하는 DB 데이터 뽑아오는 테스트
 	@Test
-	public void insertDummies() {
+	public void findByBoard_Bno() {
 		
-		IntStream.rangeClosed(1, 20).forEach(i -> {
-			Item item = Item.builder().iName("신발1").iCategory("30")
-					.iPrice(150000L).iDeliveryPrice(5000L)
-					.iInfo("좋은 신발").iInstock(30L)
-					.iImg("https://i.imgur.com/UHRXuoe.png").build();
-			
-			itemRepository.save(item);
-		});
+		Long iNumber = 1L;
+		
+		Optional<Item> result = itemRepository.findById(iNumber);
+		
+		System.out.println(result.get().getIPrice());
 	}
 	
 }
