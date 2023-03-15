@@ -9,7 +9,7 @@ import com.shop.entity.Item;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 	
 	// Item의 iNumber를 기준으로 상품 상세를 가져오는 메서드 선언
-		@Query("SELECT i FROM Item i WHERE i.iNumber =:iNumber")
-		Item getItemByNumber(@Param("iNumber") Long iNumber);
+	@Query("SELECT i FROM Item i WHERE i.iNumber =:iNumber")
+	Item getItemByNumber(@Param("iNumber") Long iNumber);
 	
 }
