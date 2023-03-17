@@ -13,13 +13,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Builder
-public class Item {
+public class Item extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class Item {
 	}
 	
 	public void changeInfo(String iInfo) {
-		this.iInstock = iInstock;
+		this.iInfo = iInfo;
 	}
 	
 }

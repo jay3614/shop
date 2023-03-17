@@ -10,7 +10,7 @@
 <form action="/modify" method="post">
 <!-- 바꿀 정보 입력 -->
 기존 이미지<br>
-<img alt="" th:src="${itemDTO.iImg}"><br><br>
+<img alt="" th:src="${itemDTO.iImg}" height="300"><br><br>
 바꿀 이미지<br>
 <div id="image_container"></div><br>
 카테고리 : <input name="iCategory" type="text" th:value="${itemDTO.iCategory}" readonly="readonly"><br>
@@ -42,6 +42,7 @@
 		reader.onload = function(event) {
 			var img = document.createElement("img");
 			img.setAttribute("src", event.target.result);
+			img.setAttribute("height", 300)
 			document.querySelector("div#image_container").appendChild(img);
 	    };
 		reader.readAsDataURL(event.target.files[0]);

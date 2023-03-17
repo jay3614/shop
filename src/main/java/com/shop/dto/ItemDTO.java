@@ -21,5 +21,6 @@ public class ItemDTO {
 	private String iInfo;	// 상품 설명
 	private Long iInstock;	// 재고
 	private String iImg;	// 상품 이미지
+	private String isize;	// 상품 사이즈
 	
 }
