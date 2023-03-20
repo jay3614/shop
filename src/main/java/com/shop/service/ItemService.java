@@ -58,7 +58,10 @@ public interface ItemService {
 	ItemDTO getImg(Long number);
 	
 	PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO);
-//	PageResultDTO<ItemDTO, List<Item>> getList(PageRequestDTO pageRequestDTO);
+
+	PageResultDTO<ItemDTO, Item> getTopList(PageRequestDTO pageRequestDTO);
+	
+	PageResultDTO<ItemDTO, Item> getShoesList(PageRequestDTO pageRequestDTO);
 	
 	ItemDTO read(Long iNumber);
 	

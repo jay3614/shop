@@ -18,5 +18,11 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	@Query(value = "SELECT * FROM Item WHERE i_number > 0 ORDER BY i_number ASC", nativeQuery = true)
 	Page<Item> getItem(Pageable pageable);
 	
+	@Query(value = "SELECT * FROM Item WHERE i_number > 0 AND i_category = 10 ORDER BY i_number ASC", nativeQuery = true)
+	Page<Item> getTopItem(Pageable pageable);
+	
+	@Query(value = "SELECT * FROM Item WHERE i_number > 0 AND i_category = 30 ORDER BY i_number ASC", nativeQuery = true)
+	Page<Item> getShoesItem(Pageable pageable);
+	
 	
 }
