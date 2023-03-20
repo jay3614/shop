@@ -38,7 +38,13 @@
 	//썸네일 이벤트 등록
 	function setThumbnail(event) {
 		var reader = new FileReader();
-	
+		
+		// 파일을 새로 선택 시 기존 이미지 삭제하고 새로 선택한 이미지 띄우는 코드
+		var imageContainer = document.querySelector("div#image_container");
+	    while (imageContainer.firstChild) {
+	        imageContainer.removeChild(imageContainer.firstChild);
+	    }
+		
 		reader.onload = function(event) {
 			var img = document.createElement("img");
 			img.setAttribute("src", event.target.result);
@@ -96,7 +102,7 @@
  	// 취소 버튼 이벤트 등록
  	$(".cancleBtn").click(function(){
  		
- 		actionForm.attr("action", "/modify").attr("method","post").submit();
+ 		actionForm.attr("action", "/itemList").attr("method","get").submit();
  		
  	});	// 취소 이벤트 등록 끝
  	
