@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.shop.dto.ItemDTO;
 import com.shop.dto.PageRequestDTO;
+import com.shop.entity.Item;
+import com.shop.repository.ItemRepository;
 import com.shop.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class IndexController {
 	
 	private final ItemService itemService;
+	private final ItemRepository itemRepository;
 	
 	@GetMapping("/index")
 	public void goIndex(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {
@@ -30,7 +33,7 @@ public class IndexController {
 	}
 	
 	@GetMapping("/product")
-	public void product(PageRequestDTO pageRequestDTO, Model model) {
+	public void product(Long iNumber, PageRequestDTO pageRequestDTO, Model model) {
 		
 		model.addAttribute("itemDTO", itemService.getList(pageRequestDTO));
 	}
@@ -42,9 +45,16 @@ public class IndexController {
 	}
 	
 	@GetMapping("/product-detail")
-	public void detail(PageRequestDTO pageRequestDTO, Model model) {
+	public void detail(Long iNumber, PageRequestDTO pageRequestDTO, Model model) {
 		
-		model.addAttribute("list", itemService.getList(pageRequestDTO));
+		ItemDTO itemDTO = itemService.read(iNumber);
+		
+		Long x = itemService.readAll();
+		Long random = Math.round(Math.random() * x-1) + 1;
+		
+		model.addAttribute("recommend", itemService.read(random));
+		
+		model.addAttribute("item", itemDTO);
 	}
 	
 	

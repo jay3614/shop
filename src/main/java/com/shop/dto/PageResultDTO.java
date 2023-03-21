@@ -42,8 +42,6 @@ public class PageResultDTO<DTO, EN> {
 		
 		dtoList = result.stream().map(fn).collect(Collectors.toList());
 		
-		System.out.println("+++ : " + dtoList);
-		
 		totalPage = result.getTotalPages();
 		
 		makePageList(result.getPageable());
@@ -71,9 +69,9 @@ public class PageResultDTO<DTO, EN> {
 		
 		
 		//먼저 가변의 endPage 변수 선언
-		int tempEnd = (int)(Math.ceil(page / 10.0) * 10);
+		int tempEnd = (int)(Math.ceil(page / 16.0) * 16);
 		
-		start = tempEnd -9;	// 항상 시작은 1페이지 때문에 -9 처리
+		start = tempEnd -15;	// 항상 시작은 1페이지 때문에 -9 처리
 		
 		// 이전 페이지를 표현할지의 여부
 		prev = start >  1;

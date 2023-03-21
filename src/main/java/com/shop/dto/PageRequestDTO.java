@@ -24,7 +24,7 @@ public class PageRequestDTO {
 	
 	public PageRequestDTO() {
 		this.page = 1;
-		this.size = 10;
+		this.size = 16;
 	}
 	
 	// 이후 추가 메서드는 페이지 결과 처리 DTO를 정의 후에 재정의 한다.

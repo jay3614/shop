@@ -26,7 +26,7 @@ public class Item extends BaseEntity {
 	private Long iNumber;
 	private String iName;
 	
-	private String iCategory;
+	private Long iCategory;
 	private Long iPrice;
 	private Long iDeliveryPrice;
 	private String iInfo;

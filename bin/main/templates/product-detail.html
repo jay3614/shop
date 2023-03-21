@@ -52,14 +52,14 @@
 
 					<div class="right-top-bar flex-w h-full">
 						<a href="#" class="flex-c-m trans-04 p-lr-20">
-							Help & FAQs
+							고객센터
 						</a>
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							LOG IN
+							로그인
 						</a>
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							SIGN UP
+							회원가입
 						</a>
 
 					</div>
@@ -82,10 +82,7 @@
 								<a href="#">HOME</a>
 							</li>
 							<li>
-								<a href="#">STYLE</a>
-							</li>
-							<li>
-								<a href="#">SHOP</a>
+								<a th:href="@{/product}">SHOP</a>
 								<ul class="sub-menu">
 									<li><a href="#">CLOTHING</a>
 										<ul class="sub-menu">
@@ -105,7 +102,7 @@
 							</li>
 
 							<li>
-								<a href="#">COMMUNITY</a>
+								<a href="#">커뮤니티</a>
 							</li>
 
 							<li>
@@ -124,11 +121,6 @@
 							data-notify="2">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-
-						<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-							data-notify="0">
-							<i class="zmdi zmdi-favorite-outline"></i>
-						</a>
 					</div>
 				</nav>
 			</div>
@@ -252,7 +244,7 @@
 		</div>
 	</header>
 
-	<!-- Cart -->
+	<!-- 장바구니 -->
 	<div class="wrap-header-cart js-panel-cart">
 		<div class="s-full js-hide-cart"></div>
 
@@ -337,7 +329,7 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 장바구니 끝 -->
 
 	<!-- breadcrumb -->
 	<div class="container">
@@ -353,7 +345,7 @@
 			</a>
 
 			<span class="stext-109 cl4 text-clip">
-				New Balance 993 Made in USA Grey - D Standard
+				[[${item.iName}]]
 			</span>
 		</div>
 	</div>
@@ -368,41 +360,10 @@
 						<div class="wrap-slick3 flex-sb flex-w">
 							<div class="wrap-slick3-dots"></div>
 							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
-							<div class="slick3 gallery-lb">
-								<div class="item-slick3" data-thumb="img/product/detail/detail1.jpg">
-									<div class="wrap-pic-w pos-relative">
-										<img src="img/product/detail/detail1.jpg" alt="IMG-PRODUCT">
-
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-											href="img/product/detail/detail1.jpg">
-											<i class="fa fa-expand"></i>
-										</a>
-									</div>
+								<div class="wrap-pic-w pos-relative">
+									<img th:src="${item.iImg}" alt="IMG-PRODUCT">
+									<i class="fa fa-expand"></i>
 								</div>
-
-								<div class="item-slick3" data-thumb="img/product/detail/detail2.jpg">
-									<div class="wrap-pic-w pos-relative">
-										<img src="img/product/detail/detail2.jpg" alt="IMG-PRODUCT">
-
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-											href="img/product/detail/detail2.jpg">
-											<i class="fa fa-expand"></i>
-										</a>
-									</div>
-								</div>
-
-								<div class="item-slick3" data-thumb="img/product/detail/detail3.jpg">
-									<div class="wrap-pic-w pos-relative">
-										<img src="img/product/detail/detail3.jpg" alt="IMG-PRODUCT">
-
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-											href="img/product/detail/detail3.jpg">
-											<i class="fa fa-expand"></i>
-										</a>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -410,15 +371,15 @@
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-							New Balance 993 Made in USA Grey - D Standard
+							[[${item.iName}]]
 						</h4>
 
-						<span class="mtext-106 cl2">
-							￦303,000
+						<span class="mtext-106 cl2" id="price">
+							₩[[${item.iPrice}]]
 						</span>
 
 						<p class="stext-102 cl3 p-t-23">
-							뉴발란스 993 메이드 인 USA 그레이 - D 스탠다드
+							[[${item.iInfo}]]
 						</p>
 
 						<!--  -->
@@ -430,32 +391,13 @@
 
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
-										<select class="js-select2" name="time">
-											<option>모든사이즈</option>
-											<option>220</option>
-											<option>225</option>
-											<option>230</option>
-											<option>235</option>
-											<option>240</option>
-											<option>245</option>
-											<option>250</option>
-											<option>255</option>
-											<option>260</option>
-											<option>265</option>
-											<option>270</option>
-											<option>275</option>
-											<option>280</option>
-											<option>285</option>
-											<option>290</option>
-											<option>295</option>
+										<select class="js-select2" name="time"><!-- th:each="dto : ${item.asdf}" -->
 											<option>300</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
 								</div>
 							</div>
-
-
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
 									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -473,7 +415,11 @@
 
 									<button
 										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-										Add to cart
+										장바구니 담기
+									</button>
+									<button
+										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-order-detail">
+										구매하기
 									</button>
 								</div>
 							</div>
@@ -481,13 +427,6 @@
 
 						<!--  -->
 						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-							<div class="flex-m bor9 p-r-10 m-r-11">
-								<a href="#"
-									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
-									data-tooltip="Add to Wishlist">
-									<i class="zmdi zmdi-favorite"></i>
-								</a>
-							</div>
 
 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
 								data-tooltip="Facebook">
@@ -509,389 +448,29 @@
 			</div>
 
 
+			<!-- 스타일이 존재했던 자리 -->
 
-			<section class="sec-product bg0 p-t-45 p-b-10">
-				<div class="container">
-					<div class="p-b-25">
-						<h3 class="mtext-111 cl5 txt-center respon1">
-							STYLE
-						</h3>
-					</div>
-
-					<div class="tab-content p-t-45 bor1">
-						<!-- popular-user -->
-						<div class="tab-pane fade show active" id="popular-user" role="tabpanel">
-							<!-- Slide2 -->
-							<div class="wrap-slick2">
-								<div class="slick2">
-									<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-										<!-- Block2 -->
-										<div class="block2">
-											<div class="block2-pic hov-img1">
-												<img src="img/user/user1.jpg" alt="IMG-USER">
-												<a href="#"
-													class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-													<div class="block1-txt-child2 p-b-4 trans-05">
-														<div class="block1-link stext-101 cl0 trans-09">
-															UserName
-														</div>
-													</div>
-												</a>
-											</div>
-
-											<div class="block2-txt flex-w flex-t p-t-14">
-												<div class="block2-txt-child1 flex-col-l">
-													<a href="product-detail.html"
-														class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text-clip">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</a>
-
-													<span class="stext-105 cl3 text-clip-content">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</span>
-												</div>
-
-												<div class="block2-txt-child2 flex-r p-t-3">
-													<a href="#"
-														class="btn-likeit-b2 dis-block pos-relative js-likeit-b2 icon-count" >
-														<img class="icon-thumbup1 dis-block trans-04"
-															src="img/icons/icon-thumbup-01.png" alt="ICON">
-														<img class="icon-thumbup2 dis-block trans-04 ab-t-l"
-															src="img/icons/icon-thumbup-02.png" alt="ICON">
-													</a>
-												</div>
-											</div>
-
-
-										</div>
-									</div>
-
-									<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-										<!-- Block2 -->
-										<div class="block2">
-											<div class="block2-pic hov-img1">
-												<img src="img/user/user2.jpg" alt="IMG-USER">
-												<a href="#"
-													class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-													<div class="block1-txt-child2 p-b-4 trans-05">
-														<div class="block1-link stext-101 cl0 trans-09">
-															UserName
-														</div>
-													</div>
-												</a>
-											</div>
-
-											<div class="block2-txt flex-w flex-t p-t-14">
-												<div class="block2-txt-child1 flex-col-l">
-													<a href="product-detail.html"
-														class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text-clip">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</a>
-
-													<span class="stext-105 cl3 text-clip-content">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</span>
-												</div>
-
-												<div class="block2-txt-child2 flex-r p-t-3">
-													<a href="#"
-														class="btn-likeit-b2 dis-block pos-relative js-likeit-b2">
-														<img class="icon-thumbup1 dis-block trans-04"
-															src="img/icons/icon-thumbup-01.png" alt="ICON">
-														<img class="icon-thumbup2 dis-block trans-04 ab-t-l"
-															src="img/icons/icon-thumbup-02.png" alt="ICON">
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-										<!-- Block2 -->
-										<div class="block2">
-											<div class="block2-pic hov-img1">
-												<img src="img/user/user3.jpg" alt="IMG-USER">
-												<a href="#"
-													class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-													<div class="block1-txt-child2 p-b-4 trans-05">
-														<div class="block1-link stext-101 cl0 trans-09">
-															UserName
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="block2-txt flex-w flex-t p-t-14">
-												<div class="block2-txt-child1 flex-col-l">
-													<a href="product-detail.html"
-														class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text-clip">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</a>
-
-													<span class="stext-105 cl3 text-clip-content">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</span>
-												</div>
-												<div class="block2-txt-child2 flex-r p-t-3">
-													<a href="#"
-														class="btn-likeit-b2 dis-block pos-relative js-likeit-b2">
-														<img class="icon-thumbup1 dis-block trans-04"
-															src="img/icons/icon-thumbup-01.png" alt="ICON">
-														<img class="icon-thumbup2 dis-block trans-04 ab-t-l"
-															src="img/icons/icon-thumbup-02.png" alt="ICON">
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-										<!-- Block2 -->
-										<div class="block2">
-											<div class="block2-pic hov-img1">
-												<img src="img/user/user4.jpg" alt="IMG-USER">
-												<a href="#"
-													class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-													<div class="block1-txt-child2 p-b-4 trans-05">
-														<div class="block1-link stext-101 cl0 trans-09">
-															UserName
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="block2-txt flex-w flex-t p-t-14">
-												<div class="block2-txt-child1 flex-col-l">
-													<a href="product-detail.html"
-														class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text-clip">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</a>
-
-													<span class="stext-105 cl3 text-clip-content">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</span>
-												</div>
-												<div class="block2-txt-child2 flex-r p-t-3">
-													<a href="#"
-														class="btn-likeit-b2 dis-block pos-relative js-likeit-b2">
-														<img class="icon-thumbup1 dis-block trans-04"
-															src="img/icons/icon-thumbup-01.png" alt="ICON">
-														<img class="icon-thumbup2 dis-block trans-04 ab-t-l"
-															src="img/icons/icon-thumbup-02.png" alt="ICON">
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-										<!-- Block2 -->
-										<div class="block2">
-											<div class="block2-pic hov-img1">
-												<img src="img/user/user5.jpg" alt="IMG-USER">
-												<a href="#"
-													class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-													<div class="block1-txt-child2 p-b-4 trans-05">
-														<div class="block1-link stext-101 cl0 trans-09">
-															UserName
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="block2-txt flex-w flex-t p-t-14">
-												<div class="block2-txt-child1 flex-col-l">
-													<a href="product-detail.html"
-														class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text-clip">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</a>
-
-													<span class="stext-105 cl3 text-clip-content">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</span>
-												</div>
-												<div class="block2-txt-child2 flex-r p-t-3">
-													<a href="#"
-														class="btn-likeit-b2 dis-block pos-relative js-likeit-b2">
-														<img class="icon-thumbup1 dis-block trans-04"
-															src="img/icons/icon-thumbup-01.png" alt="ICON">
-														<img class="icon-thumbup2 dis-block trans-04 ab-t-l"
-															src="img/icons/icon-thumbup-02.png" alt="ICON">
-													</a>
-												</div>
-											</div>
-
-										</div>
-									</div>
-
-									<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-										<!-- Block2 -->
-										<div class="block2">
-											<div class="block2-pic hov-img1">
-												<img src="img/user/user6.jpg" alt="IMG-USER">
-												<a href="#"
-													class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-													<div class="block1-txt-child2 p-b-4 trans-05">
-														<div class="block1-link stext-101 cl0 trans-09">
-															UserName
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="block2-txt flex-w flex-t p-t-14">
-												<div class="block2-txt-child1 flex-col-l">
-													<a href="product-detail.html"
-														class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text-clip">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</a>
-
-													<span class="stext-105 cl3 text-clip-content">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</span>
-												</div>
-												<div class="block2-txt-child2 flex-r p-t-3">
-													<a href="#"
-														class="btn-likeit-b2 dis-block pos-relative js-likeit-b2">
-														<img class="icon-thumbup1 dis-block trans-04"
-															src="img/icons/icon-thumbup-01.png" alt="ICON">
-														<img class="icon-thumbup2 dis-block trans-04 ab-t-l"
-															src="img/icons/icon-thumbup-02.png" alt="ICON">
-													</a>
-												</div>
-											</div>
-
-										</div>
-									</div>
-
-									<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-										<!-- Block2 -->
-										<div class="block2">
-											<div class="block2-pic hov-img1">
-												<img src="img/user/user7.jpg" alt="IMG-USER">
-												<a href="#"
-													class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-													<div class="block1-txt-child2 p-b-4 trans-05">
-														<div class="block1-link stext-101 cl0 trans-09">
-															UserName
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="block2-txt flex-w flex-t p-t-14">
-												<div class="block2-txt-child1 flex-col-l">
-													<a href="product-detail.html"
-														class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text-clip">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</a>
-
-													<span class="stext-105 cl3 text-clip-content">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</span>
-												</div>
-												<div class="block2-txt-child2 flex-r p-t-3">
-													<a href="#"
-														class="btn-likeit-b2 dis-block pos-relative js-likeit-b2">
-														<img class="icon-thumbup1 dis-block trans-04"
-															src="img/icons/icon-thumbup-01.png" alt="ICON">
-														<img class="icon-thumbup2 dis-block trans-04 ab-t-l"
-															src="img/icons/icon-thumbup-02.png" alt="ICON">
-													</a>
-												</div>
-											</div>
-
-										</div>
-									</div>
-
-									<div class="item-slick4p-l-15 p-r-15 p-t-15 p-b-15">
-										<!-- Block2 -->
-										<div class="block2">
-											<div class="block2-pic hov-img1 ">
-												<img src="img/user/user8.jpg" alt="IMG-USER">
-												<a href="#"
-													class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-													<div class="block1-txt-child2 p-b-4 trans-05">
-														<div class="block1-link stext-101 cl0 trans-09">
-															UserName
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="block2-txt flex-w flex-t p-t-14">
-												<div class="block2-txt-child1 flex-col-l">
-													<a href="product-detail.html"
-														class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 text-clip">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</a>
-
-													<span class="stext-105 cl3 text-clip-content">
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-														안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-													</span>
-												</div>
-												<div class="block2-txt-child2 flex-r p-t-3">
-													<a href="#"
-														class="btn-likeit-b2 dis-block pos-relative js-likeit-b2">
-														<img class="icon-thumbup1 dis-block trans-04"
-															src="img/icons/icon-thumbup-01.png" alt="ICON">
-														<img class="icon-thumbup2 dis-block trans-04 ab-t-l"
-															src="img/icons/icon-thumbup-02.png" alt="ICON">
-													</a>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+			<!-- 스타일 끝 -->
 	</section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<!-- Related Products -->
+	<!-- 연관 상품 나타내는 곳이니 보고 있는 상품의 카테고리와 같은 제품들 4개 나열... limit 거는 쿼리문이나 메서드를 못만들겠음-->
 	<section class="sec-relate-product bg0 p-t-45 p-b-105">
 		<div class="container">
 			<div class="p-b-45">
 				<h3 class="ltext-107 cl5 txt-center p-t-60">
-					Related Products
+					추천 상품
 				</h3>
 			</div>
 
 			<!-- Slide2 -->
 			<div class="wrap-slick2">
-				<div class="slick2">
+				<div class="slick2"><!--  th:each="related : ${related.dtoList}" -->
 					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img src="img/cart/cart3.jpg" alt="IMG-PRODUCT">
+								<img th:src="${recommend.iImg}" alt="IMG-PRODUCT">
 
 								<a href="#"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
@@ -903,140 +482,15 @@
 								<div class="block2-txt-child1 flex-col-l ">
 									<a href="product-detail.html"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Sony WH-1000XM5 Black (Korean Ver.)
+										[[${recommend.iName}]]
 									</a>
-
 									<span class="stext-105 cl3">
-										￦479,000
+										￦[[${recommend.iPrice}]]
 									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="img/icons/icon-heart-01.png"
-											alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l"
-											src="img/icons/icon-heart-02.png" alt="ICON">
-									</a>
 								</div>
 							</div>
 						</div>
 					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="img/product/product-4.jpg" alt="IMG-PRODUCT">
-
-								<a href="#"
-									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Quick View
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
-										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Diesel J-Blink Biker Jacket in Colour-Block Nylon Black White
-									</a>
-
-									<span class="stext-105 cl3">
-										￦560,000
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="img/icons/icon-heart-01.png"
-											alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l"
-											src="img/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="img/product/product-13.jpg" alt="IMG-PRODUCT">
-
-								<a href="#"
-									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Quick View
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
-										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Emis New Logo Ball Cap Black
-									</a>
-
-									<span class="stext-105 cl3">
-										￦38,000
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="img/icons/icon-heart-01.png"
-											alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l"
-											src="img/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="img/product/product-22.jpg" alt="IMG-PRODUCT">
-
-								<a href="#"
-									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Quick View
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
-										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Our Legacy Third Cut Digital Denim Print
-									</a>
-
-									<span class="stext-105 cl3">
-										￦358,000
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="img/icons/icon-heart-01.png"
-											alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l"
-											src="img/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-
-
-
 				</div>
 			</div>
 		</div>
@@ -1049,7 +503,7 @@
 			<div class="row">
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Categories
+						카테고리
 					</h4>
 
 					<ul>
@@ -1087,25 +541,25 @@
 					<ul>
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Track Order
+								배송추적
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns
+								환불
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shipping
+								배송
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								FAQs
+								FAQ
 							</a>
 						</li>
 					</ul>
@@ -1113,7 +567,7 @@
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						고객센터<a href="tel:031-837-4111" style="color:white;"> 031-837-4111</a>
+						고객센터<a href="tel:031-123-4567" style="color:white;"> 031-123-4567</a>
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
@@ -1137,28 +591,7 @@
 						</a>
 					</div>
 				</div>
-
-				<div class="col-sm-6 col-lg-3 p-b-50">
-					<h4 class="stext-301 cl0 p-b-30">
-						Newsletter
-					</h4>
-
-					<form>
-						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
-								placeholder="email@example.com">
-							<div class="focus-input1 trans-04"></div>
-						</div>
-
-						<div class="p-t-18">
-							<button class="flex-c-m stext-101 cl0 size-103 bg5 bor1 hov-btn2 p-lr-15 trans-04">
-								Subscribe
-							</button>
-						</div>
-					</form>
-				</div>
 			</div>
-
 
 			<p class="stext-107 cl6 txt-center">
 				<script>
@@ -1195,41 +628,11 @@
 					<div class="col-md-6 col-lg-7 p-b-30">
 						<div class="p-l-25 p-r-30 p-lr-0-lg">
 							<div class="wrap-slick3 flex-sb flex-w">
-								<div class="wrap-slick3-dots"></div>
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
 								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="img/product/detail/detail1.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="img/product/detail/detail1.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="img/product/detail/detail1.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="img/product/detail/detail2.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="img/product/detail/detail2.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="img/product/detail/detail2.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="img/product/detail/detail3.jpg">
-										<div class="wrap-pic-w pos-relative">
-											<img src="img/product/detail/detail3.jpg" alt="IMG-PRODUCT">
-
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-												href="img/product/detail/detail3.jpg">
-												<i class="fa fa-expand"></i>
-											</a>
-										</div>
+									<div class="wrap-pic-w pos-relative">
+										<img src="img/product/detail/detail1.jpg" alt="IMG-PRODUCT">
+										<!-- <img th:src="${dto.iImg}" alt="IMG-PRODUCT"> -->
 									</div>
 								</div>
 							</div>
@@ -1283,23 +686,6 @@
 										</div>
 									</div>
 								</div>
-
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Color
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-												<option>One Color</option>
-
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-204 flex-w flex-m respon6-next">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -1317,7 +703,7 @@
 
 										<button
 											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											Add to cart
+											장바구니 담기
 										</button>
 									</div>
 								</div>
@@ -1325,14 +711,6 @@
 
 							<!--  -->
 							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-								<div class="flex-m bor9 p-r-10 m-r-11">
-									<a href="#"
-										class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
-										data-tooltip="Add to Wishlist">
-										<i class="zmdi zmdi-favorite"></i>
-									</a>
-								</div>
-
 								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
 									data-tooltip="Facebook">
 									<i class="fa fa-facebook"></i>
@@ -1432,7 +810,15 @@
 		$('.js-addcart-detail').each(function () {
 			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
 			$(this).on('click', function () {
+				// 장바구니로 데이터 넘기기
 				swal(nameProduct, "장바구니에 담겼습니다 !", "success");
+			});
+		});
+		
+		$('.js-order-detail').each(function () {
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+			$(this).on('click', function () {
+				// 주문하는 페이지로 데이터 넘기며 이동하기
 			});
 		});
 
@@ -1468,9 +854,13 @@
 		document.querySelector("#show").addEventListener("click", show);
 		document.querySelector("#close").addEventListener("click", close);
 
-
-
-
+	</script>
+	<!--===============================================================================================-->
+	<script>
+		
+		
+		
+		
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>

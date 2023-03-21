@@ -65,6 +65,9 @@ public interface ItemService {
 	
 	ItemDTO read(Long iNumber);
 	
+	Long readAll();
+	
 	ItemDTO order(Long iNumber);
+	
 	
 }
