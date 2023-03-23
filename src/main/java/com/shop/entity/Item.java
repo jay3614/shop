@@ -25,7 +25,7 @@ public class Item extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long iNumber;
 	private String iName;
-	
+	private String brand;
 	private Long iCategory;
 	private Long iPrice;
 	private Long iDeliveryPrice;

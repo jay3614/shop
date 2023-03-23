@@ -18,13 +18,15 @@ public class PageRequestDTO {
 	private int page;
 	private int size;
 	
+	private String tex1;
+	
 	// 검색 시 맵핑되는 키워드 필드 추가
 	private String type;	// 조건 검색 키워드
 	private String keyword;	// 검색 키워드 필드
 	
 	public PageRequestDTO() {
 		this.page = 1;
-		this.size = 16;
+		this.size = 15;
 	}
 	
 	// 이후 추가 메서드는 페이지 결과 처리 DTO를 정의 후에 재정의 한다.

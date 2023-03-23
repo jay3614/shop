@@ -27,28 +27,13 @@ public interface ItemService {
 		return item;
 	}
 	
-	/*
-	 * db로부터 데이터 가져와서 작업하는 영역
-	 */
-//	default ItemDTO entityToDto(Item entity) {	// 이게 작동 안하는 중
-//			
-//		ItemDTO dto = ItemDTO.builder().iNumber(entity.getINumber()).iCategory(entity.getICategory())
-//				.iDeliveryPrice(entity.getIDeliveryPrice()).iImg(entity.getIImg())
-//				.iInfo(entity.getIInfo()).iInstock(entity.getIInstock())
-//				.iName(entity.getIName()).iPrice(entity.getIPrice())
-//				.build();
-//		
-//		return dto;
-//	}
-	
 	default ItemDTO entityToDto(Item iEntity) {
 		
-		System.out.println("entityToDto 값 출력 시작");
 		ItemDTO boardDTO = ItemDTO.builder()
 				.iNumber(iEntity.getINumber()).iCategory(iEntity.getICategory())
 				.iDeliveryPrice(iEntity.getIDeliveryPrice())
 				.iInfo(iEntity.getIInfo()).iInstock(iEntity.getIInstock())
-				.iImg(iEntity.getIImg())
+				.iImg(iEntity.getIImg()).brand(iEntity.getBrand())
 				.iName(iEntity.getIName()).iPrice(iEntity.getIPrice())
 				.isize(iEntity.getIsize()).build();
 		
@@ -59,9 +44,10 @@ public interface ItemService {
 	
 	PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO);
 
-	PageResultDTO<ItemDTO, Item> getTopList(PageRequestDTO pageRequestDTO);
+	PageResultDTO<ItemDTO, Item> getListByPriceAsc(PageRequestDTO pageRequestDTO);
+
+	PageResultDTO<ItemDTO, Item> getListByPriceDesc(PageRequestDTO pageRequestDTO);
 	
-	PageResultDTO<ItemDTO, Item> getShoesList(PageRequestDTO pageRequestDTO);
 	
 	ItemDTO read(Long iNumber);
 	
@@ -69,5 +55,16 @@ public interface ItemService {
 	
 	ItemDTO order(Long iNumber);
 	
+	PageResultDTO<ItemDTO, Item> getTopList(PageRequestDTO pageRequestDTO);
+	
+	PageResultDTO<ItemDTO, Item> getBottomList(PageRequestDTO pageRequestDTO);
+	
+	PageResultDTO<ItemDTO, Item> getFootwearList(PageRequestDTO pageRequestDTO);
+	
+	PageResultDTO<ItemDTO, Item> getBagList(PageRequestDTO pageRequestDTO);
+	
+	PageResultDTO<ItemDTO, Item> getHeadwearList(PageRequestDTO pageRequestDTO);
+	
+	PageResultDTO<ItemDTO, Item> getTechList(PageRequestDTO pageRequestDTO);
 	
 }

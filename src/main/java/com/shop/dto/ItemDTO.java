@@ -22,5 +22,6 @@ public class ItemDTO {
 	private Long iInstock;	// 재고
 	private String iImg;	// 상품 이미지
 	private String isize;	// 상품 사이즈
+	private String brand;	// 브랜드
 	
 }

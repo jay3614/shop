@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -77,26 +75,27 @@ public class ItemServiceImpl implements ItemService {
 	}
 	
 	@Override
-	public PageResultDTO<ItemDTO, Item> getTopList(PageRequestDTO pageRequestDTO) {
+	public PageResultDTO<ItemDTO, Item> getListByPriceAsc(PageRequestDTO pageRequestDTO) {
 		
 		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
 		
-		Page<Item> result = itemRepository.getTopItem(pageRequestDTO.getPageable(Sort.by("i_number").ascending()));
+		Page<Item> result = itemRepository.getItemPriceAsc(pageRequestDTO.getPageable(Sort.by("i_price").ascending()));
 		
 		
 		return new PageResultDTO<>(result, fn);
 	}
 	
 	@Override
-	public PageResultDTO<ItemDTO, Item> getShoesList(PageRequestDTO pageRequestDTO) {
+	public PageResultDTO<ItemDTO, Item> getListByPriceDesc(PageRequestDTO pageRequestDTO) {
 		
 		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
 		
-		Page<Item> result = itemRepository.getShoesItem(pageRequestDTO.getPageable(Sort.by("i_number").ascending()));
+		Page<Item> result = itemRepository.getItemPriceDesc(pageRequestDTO.getPageable(Sort.by("i_price").descending()));
 		
 		
 		return new PageResultDTO<>(result, fn);
 	}
+	
 	
 	@Override
 	public ItemDTO read(Long iNumber) {
@@ -122,5 +121,64 @@ public class ItemServiceImpl implements ItemService {
 		return entityToDto(result);
 	}
 	
+	@Override
+	public PageResultDTO<ItemDTO, Item> getTopList(PageRequestDTO pageRequestDTO) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.getTop(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()));
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
+	@Override
+	public PageResultDTO<ItemDTO, Item> getBottomList(PageRequestDTO pageRequestDTO) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.getBottom(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()));
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
+	@Override
+	public PageResultDTO<ItemDTO, Item> getFootwearList(PageRequestDTO pageRequestDTO) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.getFootwear(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()));
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
+	@Override
+	public PageResultDTO<ItemDTO, Item> getBagList(PageRequestDTO pageRequestDTO) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.getBag(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()));
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
+	@Override
+	public PageResultDTO<ItemDTO, Item> getHeadwearList(PageRequestDTO pageRequestDTO) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.getHeadwear(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()));
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
+	@Override
+	public PageResultDTO<ItemDTO, Item> getTechList(PageRequestDTO pageRequestDTO) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.getTech(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()));
+		
+		return new PageResultDTO<>(result, fn);
+	}
 	
 }

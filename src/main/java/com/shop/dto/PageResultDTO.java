@@ -69,9 +69,9 @@ public class PageResultDTO<DTO, EN> {
 		
 		
 		//먼저 가변의 endPage 변수 선언
-		int tempEnd = (int)(Math.ceil(page / 16.0) * 16);
+		int tempEnd = (int)(Math.ceil(page / 15.0) * 15);
 		
-		start = tempEnd -15;	// 항상 시작은 1페이지 때문에 -9 처리
+		start = tempEnd -14;	// 항상 시작은 1페이지 때문에 -9 처리
 		
 		// 이전 페이지를 표현할지의 여부
 		prev = start >  1;

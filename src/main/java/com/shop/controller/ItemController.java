@@ -38,18 +38,6 @@ public class ItemController {
 		model.addAttribute("list", itemService.getList(pageRequestDTO));
 	}
 	
-	@GetMapping("/topList")
-	public void topList(PageRequestDTO pageRequestDTO, Model model) {
-		
-		model.addAttribute("top", itemService.getTopList(pageRequestDTO));
-	}
-	
-	@GetMapping("/shoesList")
-	public void shoesList(PageRequestDTO pageRequestDTO, Model model) {
-		
-		model.addAttribute("shoes", itemService.getShoesList(pageRequestDTO));
-	}
-	
 	// 각 카테고리별로 해당 종류만 리스트 내보내는 서비스 메서드 작성하고 쿼리문에 조건으로 카테고리 번호 넣어야 함
 	
 }
