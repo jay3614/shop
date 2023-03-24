@@ -71,7 +71,7 @@
 				<nav class="limiter-menu-desktop container">
 
 					<!-- Logo desktop -->
-					<a href="#" class="logo">
+					<a href="index" class="logo">
 						<img src="img/icons/logo1.png" alt="IMG-LOGO">
 					</a>
 
@@ -392,7 +392,7 @@
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
 										<select class="js-select2" name="time"><!-- th:each="dto : ${item.asdf}" -->
-											<option>300</option>
+											<option>[[${item.iSize}]]</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -455,40 +455,99 @@
 
 	<!-- Related Products -->
 	<!-- 연관 상품 나타내는 곳이니 보고 있는 상품의 카테고리와 같은 제품들 4개 나열... limit 거는 쿼리문이나 메서드를 못만들겠음-->
+<!--  -->
+
+<!-- Related Products -->
 	<section class="sec-relate-product bg0 p-t-45 p-b-105">
 		<div class="container">
 			<div class="p-b-45">
 				<h3 class="ltext-107 cl5 txt-center p-t-60">
-					추천 상품
+					Related Products
 				</h3>
 			</div>
 
 			<!-- Slide2 -->
 			<div class="wrap-slick2">
-				<div class="slick2"><!--  th:each="related : ${related.dtoList}" -->
+				<div class="slick2">
 					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img th:src="${recommend.iImg}" alt="IMG-PRODUCT">
-
-								<!-- <a href="#"
-									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Quick View
-								</a> -->
-								<a th:href="@{/quickView(iNumber = ${recommend.iNumber})}" target="_blank" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
-								Quick View
-							</a>
+								<img th:src="${recommend1.iImg}" alt="IMG-PRODUCT">
 							</div>
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
 									<a href="product-detail.html"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										[[${recommend.iName}]]
+										[[${recommend1.iName}]]
 									</a>
+
 									<span class="stext-105 cl3">
-										￦[[${recommend.iPrice}]]
+										￦[[${recommend1.iPrice}]]
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+						<!-- Block2 -->
+						<div class="block2">
+							<div class="block2-pic hov-img0">
+								<img th:src="${recommend2.iImg}" alt="IMG-PRODUCT">
+							</div>
+
+							<div class="block2-txt flex-w flex-t p-t-14">
+								<div class="block2-txt-child1 flex-col-l ">
+									<a href="product-detail.html"
+										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+										[[${recommend2.iName}]]
+									</a>
+
+									<span class="stext-105 cl3">
+										￦[[${recommend2.iPrice}]]
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+						<!-- Block2 -->
+						<div class="block2">
+							<div class="block2-pic hov-img0">
+								<img th:src="${recommend3.iImg}" alt="IMG-PRODUCT">
+							</div>
+
+							<div class="block2-txt flex-w flex-t p-t-14">
+								<div class="block2-txt-child1 flex-col-l ">
+									<a href="product-detail.html"
+										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+										[[${recommend3.iName}]]
+									</a>
+
+									<span class="stext-105 cl3">
+										￦[[${recommend3.iPrice}]]
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+						<!-- Block2 -->
+						<div class="block2">
+							<div class="block2-pic hov-img0">
+								<img th:src="${recommend4.iImg}" alt="IMG-PRODUCT">
+							</div>
+
+							<div class="block2-txt flex-w flex-t p-t-14">
+								<div class="block2-txt-child1 flex-col-l ">
+									<a href="product-detail.html"
+										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+										[[${recommend4.iName}]]
+									</a>
+
+									<span class="stext-105 cl3">
+										￦[[${recommend4.iPrice}]]
 									</span>
 								</div>
 							</div>
@@ -499,7 +558,7 @@
 		</div>
 	</section>
 
-
+<!--  -->
 	<!-- Footer -->
 	<footer class="bg3 p-t-65 p-b-32">
 		<div class="container">
@@ -615,125 +674,6 @@
 		<span class="symbol-btn-back-to-top">
 			<i class="zmdi zmdi-chevron-up"></i>
 		</span>
-	</div>
-
-	<!-- 퀵뷰 -->
-	<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
-		<div class="overlay-modal1 js-hide-modal1"></div>
-
-		<div class="container">
-			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
-				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
-					<img src="img/icons/icon-close.png" alt="CLOSE">
-				</button>
-
-				<div class="row">
-					<div class="col-md-6 col-lg-7 p-b-30">
-						<div class="p-l-25 p-r-30 p-lr-0-lg">
-							<div class="wrap-slick3 flex-sb flex-w">
-								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-								<div class="slick3 gallery-lb">
-									<div class="wrap-pic-w pos-relative">
-										<img src="img/product/detail/detail1.jpg" alt="IMG-PRODUCT">
-										<!-- <img th:src="${dto.iImg}" alt="IMG-PRODUCT"> -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								New Balance 993 Made in USA Grey - D Standard
-							</h4>
-
-							<span class="mtext-106 cl2">
-								￦303,000
-							</span>
-
-							<p class="stext-102 cl3 p-t-23">
-								뉴발란스 993 메이드 인 USA 그레이 - D 스탠다드
-							</p>
-
-							<!--  -->
-							<div class="p-t-33">
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										Size
-									</div>
-
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
-											<option>모든사이즈</option>
-											<option>220</option>
-											<option>225</option>
-											<option>230</option>
-											<option>235</option>
-											<option>240</option>
-											<option>245</option>
-											<option>250</option>
-											<option>255</option>
-											<option>260</option>
-											<option>265</option>
-											<option>270</option>
-											<option>275</option>
-											<option>280</option>
-											<option>285</option>
-											<option>290</option>
-											<option>295</option>
-											<option>300</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-204 flex-w flex-m respon6-next">
-										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number"
-												name="num-product" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-
-										<button
-											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											장바구니 담기
-										</button>
-									</div>
-								</div>
-							</div>
-
-							<!--  -->
-							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-									data-tooltip="Facebook">
-									<i class="fa fa-facebook"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-									data-tooltip="Twitter">
-									<i class="fa fa-twitter"></i>
-								</a>
-
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-									data-tooltip="Google Plus">
-									<i class="fa fa-google-plus"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<!--===============================================================================================-->

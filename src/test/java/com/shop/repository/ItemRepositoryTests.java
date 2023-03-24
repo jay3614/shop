@@ -24,11 +24,12 @@ public class ItemRepositoryTests {
 	@Test
 	public void insertDummies() {
 		
-		IntStream.rangeClosed(1, 20).forEach(i -> {
+		IntStream.rangeClosed(1, 1).forEach(i -> {
 			Item item = Item.builder().iName("신발1").iCategory(30L)
 					.iPrice(150000L).iDeliveryPrice(5000L)
 					.iInfo("좋은 신발").iInstock(30L)
-					.iImg("https://i.imgur.com/UHRXuoe.png").build();
+					.iImg("https://i.imgur.com/UHRXuoe.png").iSize("275")
+					.build();
 			
 			itemRepository.save(item);
 		});

@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+	
     <title>Home</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,11 +61,16 @@
                         Help & FAQs
                     </a>
 
-                    <a href="#" class="flex-c-m trans-04 p-lr-25">
+                    <a sec:authorize="isAnonymous()" th:href="@{/login}" class="flex-c-m trans-04 p-lr-25">
                         LOG IN
                     </a>
-                    <a href="#" class="flex-c-m trans-04 p-lr-25">
-                        SIGN UP
+                    
+                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="flex-c-m trans-04 p-lr-25">
+                        LOGOUT
+                    </a>
+                    
+                    <a sec:authorize="isAnonymous()" th:href="@{/register}" class="flex-c-m trans-04 p-lr-25">
+                        Register
                     </a>
 
                 </div>
@@ -89,31 +95,31 @@
                             <a href="#">STYLE</a>
                         </li>
                         <li>
-                            <a href="#">SHOP</a>
+                            <a th:href="@{/product}">SHOP</a>
                             <ul class="sub-menu">
-                                <li><a href="#">CLOTHING</a>
+                                <li><a th:href="@{/product}">CLOTHING</a>
                                     <ul class="sub-menu">
-                                        <li><a href="#">TOP</a></li>
-                                        <li><a href="#">BOTTOM</a></li>
+                                        <li><a th:href="@{/producttop}">TOP</a></li>
+                                        <li><a th:href="@{/productbottom}">BOTTOM</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">FOOTWEAR</a></li>
+                                <li><a th:href="@{/productfootwear}">FOOTWEAR</a></li>
                                 <li><a href="#">ACCESSORIES</a>
                                     <ul class="sub-menu">
-                                        <li><a href="#">BAG</a></li>
-                                        <li><a href="#">HAEDWEAR</a></li>
+                                        <li><a th:href="@{/productbag}">BAG</a></li>
+                                        <li><a th:href="@{/productheadwear}">HAEDWEAR</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">TECH</a></li>
+                                <li><a th:href="@{/producttech}">TECH</a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a href="#">COMMUNITY</a>
+                            <a th:href="@{/community}">COMMUNITY</a>
                         </li>
 
                         <li>
-                            <a href="#">MYPAGE</a>
+                            <a th:href="@{/mypage}">MYPAGE</a>
                         </li>
                     </ul>
                 </div>
@@ -131,13 +137,6 @@
                          data-notify="2">
                         <i class="zmdi zmdi-shopping-cart"></i>
                     </div>
-
-                    <!----------------------찜하기 기능 (상품 찜하기 버튼 누르면 카운트 메서드 필요)--------------------------->
-                    <a href="#"
-                       class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                       data-notify="0">
-                        <i class="zmdi zmdi-favorite-outline"></i>
-                    </a>
                 </div>
             </nav>
         </div>
@@ -516,7 +515,7 @@
 
 
 
-<!-- Product -->
+<!-- Product --><!-- 이 부분은 기능 구현을 안했고 구현하기엔 시간이 부족하기 때문에 빼야할 듯 -->
 <section class="sec-product bg0 p-t-45 p-b-10">
     <div class="container">
         <div class="p-b-32">
@@ -555,11 +554,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-1.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -591,11 +585,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-2.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -626,12 +615,7 @@
                                 <!-- Block2 -->
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
-                                        <img th:src="${itemDTO.iImg}" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
+                                        <img src="/img/product/product-3.jpg" alt="IMG-PRODUCT">
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -663,11 +647,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-4.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -699,11 +678,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-5.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -736,11 +710,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-6.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -772,11 +741,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-7.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -808,11 +772,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-8.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -852,11 +811,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-9.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -888,11 +842,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-10.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -924,11 +873,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-11.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -960,11 +904,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-12.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -996,11 +935,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-13.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1032,11 +966,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-14.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1068,11 +997,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-15.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1104,11 +1028,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-16.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1148,11 +1067,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-17.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1184,11 +1098,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-18.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1221,11 +1130,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-20.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1256,12 +1160,7 @@
                                 <!-- Block2 -->
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
-                                        <img th:src="${itemDTO.iImg}" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
+                                        <img src="/img/product/product-3.jpg" alt="IMG-PRODUCT">
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1293,11 +1192,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-21.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1329,11 +1223,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-22.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1365,11 +1254,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-23.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1415,18 +1299,18 @@
             </div>
             <div class="col-lg-4">
                 <div class="categories__hot__deal">
-                    <img src="/img/product/draw.png" alt="">
+                    <img th:src="${itemDTO.iImg}" alt="">
                     <div class="hot__deal__sticker">
                         <span>진행예정</span>
                         <h5>100원</h5>
-                        <h6>6명</h6>
+                        <h6>10명</h6>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 offset-lg-1">
                 <div class="categories__deal__countdown">
                     <span>WELCOME DRAW</span>
-                    <h2>Arc'teryx & Stussy Clothing Set</h2>
+                    <h2>[[${itemDTO.iName}]]</h2><!-- 상품 이름 타임리프 적용 -->
                     <div class="categories__deal__countdown__timer" id="countdown">
                         <div class="cd-item">
                             <span>3</span>
@@ -1445,7 +1329,7 @@
                             <p>Seconds</p>
                         </div>
                     </div>
-                    <a href="#" class="flex-c-m stext-101 cl0 size-101 bg3 bor1 hov-btn3 p-lr-15 trans-04">Show
+                    <a th:href="@{/product-detail(iNumber = ${itemDTO.iNumber})}" class="flex-c-m stext-101 cl0 size-101 bg3 bor1 hov-btn3 p-lr-15 trans-04">Show
                         now</a>
 
 
@@ -1457,7 +1341,7 @@
 <!-- Categories Section End -->
 
 
-<!-- Product -->
+<!-- Product --><!-- style은 안만들었으니 후기 게시판을 여기에 넣음 -->
 <section class="sec-product bg0 p-t-40">
     <div class="container">
         <div class="row">
@@ -1683,12 +1567,7 @@
                                 <!-- Block2 -->
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
-                                        <img th:src="${itemDTO.iImg}" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
+                                        <img src="/img/product/product-3.jpg" alt="IMG-PRODUCT">
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1720,11 +1599,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-5.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1757,11 +1631,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-10.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">
@@ -1793,11 +1662,6 @@
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
                                         <img src="/img/product/product-23.jpg" alt="IMG-PRODUCT">
-
-                                        <a href="#"
-                                           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                                            Quick View
-                                        </a>
                                     </div>
 
                                     <div class="block2-txt flex-w flex-t p-t-14">

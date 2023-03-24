@@ -4,20 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.dto.ItemDTO;
 import com.shop.dto.PageRequestDTO;
-import com.shop.entity.Item;
-import com.shop.repository.ItemRepository;
-import com.shop.service.AdminService;
+import com.shop.dto.PageRequestDTO2;
 import com.shop.service.BrandService;
 import com.shop.service.CategoryService;
 import com.shop.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 @RequiredArgsConstructor
 @Controller
@@ -34,20 +29,19 @@ public class IndexController {
 		
 		ItemDTO itemDTO = itemService.read(iNumber);
 		
-		System.out.println("++++ : " + itemDTO);
-		
 		model.addAttribute("itemDTO", itemDTO);
 	}
 	
 	@GetMapping("/product")
-	public void product(PageRequestDTO pageRequestDTO, Model model) {
+	public void product(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model) {
 		
 		model.addAttribute("itemDTO", itemService.getList(pageRequestDTO));
+		model.addAttribute("topDTO", itemService.getTopList(pageRequestDTO));
 		model.addAttribute("itemAsc", itemService.getListByPriceAsc(pageRequestDTO));
 		model.addAttribute("itemDesc", itemService.getListByPriceDesc(pageRequestDTO));
 		model.addAttribute("count", itemService.readAll());
-		model.addAttribute("categoryDTO", categoryService.getCategoryList(pageRequestDTO));
-		model.addAttribute("brandDTO", brandService.getBrandList(pageRequestDTO));
+		model.addAttribute("categoryDTO", categoryService.getCategoryList(pageRequestDTO));	// getCategoryList
+		model.addAttribute("brandDTO", brandService.getBrandList(pageRequestDTO));			// getBrandList
 	}
 	
 	@GetMapping("/productPriceAsc")
@@ -143,24 +137,25 @@ public class IndexController {
 	}
 	
 	@GetMapping("/product-detail")
-	public void detail(Long iNumber, PageRequestDTO pageRequestDTO, Model model) {
+	public void detail(Long iNumber, PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model) {
 		
 		ItemDTO itemDTO = itemService.read(iNumber);
 		
 		Long x = itemService.readAll();
-		Long random = Math.round(Math.random() * x-1) + 1;
+		Long random1 = Math.round(Math.random() * x-1) + 1;
+		Long random2 = Math.round(Math.random() * x-1) + 1;
+		Long random3 = Math.round(Math.random() * x-1) + 1;
+		Long random4 = Math.round(Math.random() * x-1) + 1;
 		
-		model.addAttribute("recommend", itemService.read(random));
+		model.addAttribute("recommend1", itemService.read(random1));
+		model.addAttribute("recommend2", itemService.read(random2));
+		model.addAttribute("recommend3", itemService.read(random3));
+		model.addAttribute("recommend4", itemService.read(random4));
+		
 		
 		model.addAttribute("item", itemDTO);
-	}
-	
-	@GetMapping("/quickView")
-	public void quciView(Long iNumber, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {
 		
-		ItemDTO itemDTO = itemService.read(iNumber);
-		
-		model.addAttribute("quick", itemDTO);
+		model.addAttribute("limitDTO", itemService.getLimitList(pageRequestDTO2));
 	}
 	
 	@GetMapping("/community")

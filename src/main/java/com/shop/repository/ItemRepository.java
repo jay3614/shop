@@ -1,5 +1,7 @@
 package com.shop.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -53,7 +55,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	// iCategory=6인 상품 전체 리턴
 	@Query("SELECT i FROM Item i WHERE i.iCategory = 6")
 	Page<Item> getTech(Pageable pageable);
-	
-	
 	
 }

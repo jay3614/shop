@@ -18,8 +18,6 @@ public class PageRequestDTO {
 	private int page;
 	private int size;
 	
-	private String tex1;
-	
 	// 검색 시 맵핑되는 키워드 필드 추가
 	private String type;	// 조건 검색 키워드
 	private String keyword;	// 검색 키워드 필드

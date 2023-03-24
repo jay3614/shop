@@ -11,7 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.shop.dto.ItemDTO;
 import com.shop.dto.PageRequestDTO;
+import com.shop.dto.PageRequestDTO2;
 import com.shop.dto.PageResultDTO;
+import com.shop.dto.PageResultDTO2;
 import com.shop.entity.Item;
 import com.shop.repository.ItemRepository;
 
@@ -179,6 +181,16 @@ public class ItemServiceImpl implements ItemService {
 		Page<Item> result = itemRepository.getTech(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()));
 		
 		return new PageResultDTO<>(result, fn);
+	}
+	
+	@Override
+	public PageResultDTO2<ItemDTO, Item> getLimitList(PageRequestDTO2 pageRequestDTO2) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.getItem(pageRequestDTO2.getPageable(Sort.by("i_number").ascending()));
+		
+		return new PageResultDTO2<>(result, fn);
 	}
 	
 }

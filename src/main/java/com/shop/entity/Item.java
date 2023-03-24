@@ -32,7 +32,7 @@ public class Item extends BaseEntity {
 	private String iInfo;
 	private Long iInstock;
 	private String iImg;
-	private String isize;
+	private String iSize;
 	
 	
 	public void changeImg(String iImg) {

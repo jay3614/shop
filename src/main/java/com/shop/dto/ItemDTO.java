@@ -1,5 +1,7 @@
 package com.shop.dto;
 
+import com.shop.entity.Item;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +23,14 @@ public class ItemDTO {
 	private String iInfo;	// 상품 설명
 	private Long iInstock;	// 재고
 	private String iImg;	// 상품 이미지
-	private String isize;	// 상품 사이즈
+	private String iSize;	// 상품 사이즈
 	private String brand;	// 브랜드
 	
+	public ItemDTO(Item item) {
+	    // Item 객체의 필드를 ItemDTO 객체의 필드로 복사합니다.
+	    this.iNumber = item.getINumber();
+	    this.iName = item.getIName();
+	    this.iPrice = item.getIPrice();
+	    this.iImg = item.getIImg();
+	}
 }
