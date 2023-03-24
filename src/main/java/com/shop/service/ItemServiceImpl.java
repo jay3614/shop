@@ -58,9 +58,12 @@ public class ItemServiceImpl implements ItemService {
 		.iCategory(dto.getICategory()).iDeliveryPrice(dto.getIDeliveryPrice())
 		.iInfo(dto.getIInfo()).iInstock(dto.getIInstock())
 		.iName(dto.getIName()).iPrice(dto.getIPrice())
+		.brand(dto.getBrand()).iSize(dto.getISize())
 		.iImg(savedPath).build();
 		
 		itemRepository.save(entity);
+		
+		System.out.println("로직작동테스트1");
 		
 		return entity.getINumber();
 	}

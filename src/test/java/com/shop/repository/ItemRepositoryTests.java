@@ -17,9 +17,6 @@ public class ItemRepositoryTests {
 	@Autowired
 	private ItemRepository itemRepository;
 	
-	@Autowired
-	private AdminRepository adminRepository;
-	
 	// 스트림 이용해서 Member 테이블에 100개의 데이터를 한 번에 insert
 	@Test
 	public void insertDummies() {

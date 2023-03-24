@@ -25,11 +25,11 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/**")).permitAll();
-		http.csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/css/**"))
+		http.csrf().disable();
 
 
 		
-			.and()
+		http
 		.formLogin()
 		.loginPage("/login")
 		.loginProcessingUrl("/login")

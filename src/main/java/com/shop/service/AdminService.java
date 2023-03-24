@@ -23,6 +23,7 @@ public interface AdminService {
 				.iDeliveryPrice(dto.getIDeliveryPrice()).iImg(dto.getIImg())
 				.iInfo(dto.getIInfo()).iInstock(dto.getIInstock())
 				.iName(dto.getIName()).iPrice(dto.getIPrice())
+				.brand(dto.getBrand()).iSize(dto.getISize())
 				.build();
 		System.out.println(item);	// iImg가 null로 들어옴
 		return item;

@@ -21,13 +21,12 @@ public interface ItemService {
 	
 	default Item dtoToEntity(ItemDTO dto) {
 		
-		Item item = Item.builder().build();
-//				.iCategory(dto.getICategory())
-//				.iDeliveryPrice(dto.getIDeliveryPrice()).iImg(dto.getIImg())
-//				.iInfo(dto.getIInfo()).iInstock(dto.getIInstock())
-//				.iName(dto.getIName()).iPrice(dto.getIPrice())
-//				.build();
-//		System.out.println(item);	// iImg가 null로 들어옴
+		Item item = Item.builder()
+				.iCategory(dto.getICategory())
+				.iDeliveryPrice(dto.getIDeliveryPrice()).iImg(dto.getIImg())
+				.iInfo(dto.getIInfo()).iInstock(dto.getIInstock())
+				.iName(dto.getIName()).iPrice(dto.getIPrice())
+				.build();
 		return item;
 	}
 	
