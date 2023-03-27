@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.shop.dto.ItemDTO;
 import com.shop.dto.PageRequestDTO;
+import com.shop.dto.PageRequestDTO2;
 import com.shop.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class AdminController{
 	
 	@GetMapping("/insertItem")
 	public void insertItem() {
-		System.out.println("경로테스트3");
+		
 	}
 	
 	@GetMapping("/modify")
@@ -40,5 +41,22 @@ public class AdminController{
 		
 		model.addAttribute("itemDTO", itemDTO);
 	}
+	
+	@GetMapping("/modifyList")
+	public void modifyList(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model) {
+		
+		model.addAttribute("itemDTO", itemService.getList(pageRequestDTO));
+		
+	}
+	
+	@GetMapping("/modify-detail")
+	public void detail(Long iNumber, PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model) {
+		
+		ItemDTO itemDTO = itemService.read(iNumber);
+		
+		model.addAttribute("item", itemDTO);
+		model.addAttribute("limitDTO", itemService.getLimitList(pageRequestDTO2));
+	}
+	
 	
 }
