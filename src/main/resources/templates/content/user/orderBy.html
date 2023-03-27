@@ -367,7 +367,7 @@
                             <div class="col-lg-6">
                                 <div class="orderBy__input">
                                     <p>이름<span>*</span></p><!-- Member 완성되면 member.name 등으로 완성시켜야 함 -->
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" name="mName" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -375,14 +375,14 @@
                             <div class="col-lg-8">
                                 <div class="orderBy__input">
                                     <p>Phone<span>*</span></p><!-- Member 완성되면 member.phoneNumber 등으로 완성시켜야 함 -->
-                                    <input type="text">
+                                    <input type="text" name="phoneNumber">
                                 </div>
                             </div>
                         </div>
                         <h6 class="orderBy__title m-t-60">배송정보</h6>
                         <div class="orderBy__input">
                             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                            <input type="text" id="sample6_address" placeholder="도로명주소">
+                            <input type="text" name="roadAddress" id="sample6_address" placeholder="도로명주소">
                             <span id="guide" style="color:#999;display:none"></span>
                             <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                         </div>
@@ -443,7 +443,7 @@
                             </div>
 
 
-                            <button class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn5 p-lr-15 trans-04 pointer m-t-20"
+                            <button class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn5 p-lr-15 trans-04 pointer m-t-20 paymentBtn"
                                     type="submit">
                                 결제하기
                             </button>
@@ -675,28 +675,30 @@
 </script>
 <!--===============================================================================================-->
 <script>
-	$(".uploadBtn").click(function(){
+	$(".paymentBtn").click(function(){
 		var formData = new FormData();
 		
-		var files = inputFile[0].files;
-
 		// 파일 정보
-		var iNumber = $(".iNumber").text();
-		alert('iNumber');
+		const urlParams = new URL(location.href).searchParams;
+		const iNumber = urlParams.get('iNumber');//완료
 		var iImg = $("img[name='iImg']").val();// 아직 미구현
-		var mName = $("img[name='mName']").val();
-		var oCount = $("input[name='count']").val();
+		var mName = $("input[name='mName']").val()//완료
+		var oCount = urlParams.get('count');//완료
 		var oDeliveryPrice = $("input[name='iDeliveryPrice']").val();
 		var oItemPrice = $("input[name='iPrice']").val();
-		var oGetPoint = $("img[name='oGetPoint']").val();
+		var oGetPoint = oTotalPrice / 100;
 		var oName = $("input[name='iName']").val();
-		var oTotalPrice = $("input[name='totalPrice']").val();
+		var oTotalPrice = document.getElementById('totalPrice').innerHTML;
 		var oUsePoint = $("input[name='oUsePoint']").val();//아직 미구현
-		var phoneNumber = $("input[name='phoneNumber']").val();
-		var roadAddress = $("input[name='roadAddress']").val();
+		var phoneNumber = $("input[name='phoneNumber']").val()//완료
+		var roadAddress = $("input[name='roadAddress']").val();//완료
 		var detailAddress = $("input[name='detailAddress']").val();
 		var deliveryMessage = $("input[name='deliveryMessage']").val();
 		var iSize = $("input[name='iSize']").val();
+		//document.getElementById('phoneNumber').innerHTML;
+		
+		alert(iNumber + '\n' + iImg + '\n' + mName + '\n' + oCount + '\n' + oDeliveryPrice + '\n' + oItemPrice +  '\n' + oGetPoint +  '\n'
+			+ oName + '\n' + oTotalPrice + '\n' + oUsePoint + '\n' + phoneNumber + '\n' + roadAddress + '\n' + deliveryMessage + '\n' + iSize);
 
 		formData.append("iNumber", iNumber);
 		formData.append("iImg", iImg);

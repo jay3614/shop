@@ -13,7 +13,9 @@ import com.shop.service.CategoryService;
 import com.shop.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
@@ -141,11 +143,11 @@ public class IndexController {
 		
 		ItemDTO itemDTO = itemService.read(iNumber);
 		
-		Long x = itemService.readAll();
-		Long random1 = Math.round(Math.random() * x-1) + 1;
-		Long random2 = Math.round(Math.random() * x-1) + 1;
-		Long random3 = Math.round(Math.random() * x-1) + 1;
-		Long random4 = Math.round(Math.random() * x-1) + 1;
+		Long x = itemService.readAll();	// 25
+		Long random1 = Math.round(Math.random() * x-2) + 1;	// (0~24)+1=25
+		Long random2 = Math.round(Math.random() * x-2) + 1;
+		Long random3 = Math.round(Math.random() * x-2) + 1;
+		Long random4 = Math.round(Math.random() * x-2) + 1;
 		
 		model.addAttribute("recommend1", itemService.read(random1));
 		model.addAttribute("recommend2", itemService.read(random2));

@@ -24,11 +24,11 @@ public class OrderController {
 	private final ItemService itemService;
 	private final MemberService memberService;
 	
-	@GetMapping("/orderList")
-	public void orderList(PageRequestDTO pageRequestDTO, Model model) {
-		
-		model.addAttribute("orderList", orderService.getList(pageRequestDTO));
-	}
+//	@GetMapping("/orderList")
+//	public void orderList(PageRequestDTO pageRequestDTO, Model model) {
+//		
+//		model.addAttribute("orderList", orderService.getList(pageRequestDTO));
+//	}
 	
 	@GetMapping("/orderDetail")
 	public void orderDetail(Long oNumber, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {

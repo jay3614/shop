@@ -31,7 +31,7 @@ public interface OrderService {
 	}
 	//
 	
-	PageResultDTO<OrderDTO, OrderHistory> getList(PageRequestDTO pageRequestDTO);
+//	PageResultDTO<OrderDTO, OrderHistory> getList(PageRequestDTO pageRequestDTO);
 	
 	OrderDTO read(Long oNumber);
 	

@@ -22,17 +22,17 @@ public class OrderServiceImpl implements OrderService {
 
 	private final OrderRepository orderRepository;
 	
-	@Override
-	public PageResultDTO<OrderDTO, OrderHistory> getList(PageRequestDTO pageRequestDTO) {
-
-		Function<OrderHistory, OrderDTO> fn = (en -> entityToDto(en));
-		
-		String id = "user10";
-		
-		Page<OrderHistory> result = orderRepository.getListById(id, pageRequestDTO.getPageable(Sort.by("regDate").ascending()));
-		
-		return new PageResultDTO<>(result, fn);
-	}
+//	@Override
+//	public PageResultDTO<OrderDTO, OrderHistory> getList(PageRequestDTO pageRequestDTO) {
+//
+//		Function<OrderHistory, OrderDTO> fn = (en -> entityToDto(en));
+//		
+//		String id = "user10";
+//		
+//		Page<OrderHistory> result = orderRepository.getListById(id, pageRequestDTO.getPageable(Sort.by("regDate").ascending()));
+//		
+//		return new PageResultDTO<>(result, fn);
+//	}
 	
 	@Override
 	public OrderDTO read(Long oNumber) {
