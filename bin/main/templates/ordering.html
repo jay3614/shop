@@ -55,13 +55,15 @@ li{
 
 주문중
 <br><br><br>
-<div class="a">
-<img alt="" src="https://i.imgur.com/2NdyWEX.png"  height="150" width="180">
-</div>
-<div class="b">
-	<li>[[${ordering.iNumber}]]</li>
-	<li>[[${ordering.iName}]]</li>
-	<li>[[${ordering.iSize}]]사이즈 비어있음</li>
+<div th:each="products : ${ordering}">
+	<div class="a">
+	<img alt="" th:src="${products.iImg}"  height="150" width="180">
+	</div>
+	<div class="b">
+		<li>[[${products.iNumber}]]</li>
+		<li>[[${products.iName}]]</li>
+		<li>[[${products.iSize}]]사이즈 비어있음</li>
+	</div>
 </div>
 <div class="c">
 배송 주소</br>

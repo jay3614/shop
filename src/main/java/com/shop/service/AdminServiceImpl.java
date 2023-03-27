@@ -35,6 +35,8 @@ public class AdminServiceImpl implements AdminService {
 		entity.changePrice(dto.getIPrice());
 		entity.changeInstock(dto.getIInstock());
 		entity.changeInfo(dto.getIInfo());
+		entity.changeSize(dto.getISize());
+		entity.changeDeliveryPrice(dto.getIDeliveryPrice());
 		
 		adminRepository.save(entity);
 		

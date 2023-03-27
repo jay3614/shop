@@ -418,8 +418,8 @@
 										장바구니 담기
 									</button>
 									<button
-										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-order-detail">
-										구매하기
+										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+										<a th:href="@{/orderBy(iNumber = ${item.iNumber}, count=countX)}" onclick="orderWithCount(this)">구매하기</a>
 									</button>
 								</div>
 							</div>
@@ -757,13 +757,6 @@
 				swal(nameProduct, "장바구니에 담겼습니다 !", "success");
 			});
 		});
-		
-		$('.js-order-detail').each(function () {
-			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function () {
-				// 주문하는 페이지로 데이터 넘기며 이동하기
-			});
-		});
 
 	</script>
 	<!--===============================================================================================-->
@@ -800,10 +793,13 @@
 	</script>
 	<!--===============================================================================================-->
 	<script>
-		
-		
-		
-		
+		function orderWithCount(element) {
+			// input 태그의 값을 읽어와 count 변수에 저장
+			const count = document.querySelector('input[name="num-product"]').value;
+			
+			// countX를 count 변수로 치환하여 href 속성을 변경
+			element.href = element.href.replace('countX', count);
+		}
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>

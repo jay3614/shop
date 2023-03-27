@@ -63,8 +63,6 @@ public class ItemServiceImpl implements ItemService {
 		
 		itemRepository.save(entity);
 		
-		System.out.println("로직작동테스트1");
-		
 		return entity.getINumber();
 	}
 	

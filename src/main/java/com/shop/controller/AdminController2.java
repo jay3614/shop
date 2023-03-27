@@ -92,10 +92,6 @@ public class AdminController2 {
 	            log.warn("================================== 파일 업로드 성공 ==================================");
 	            
 	            adminService.modifyAll(dto, uploadFile);
-//	            adminService.modifyInstock(dto);
-//	            adminService.modifyPrice(dto);
-//	            adminService.modifyInfo(dto);
-//	            adminService.modifyImg(dto, uploadFile);
 	            
 	         } catch (Exception e) {
 	            e.printStackTrace();

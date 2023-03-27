@@ -17,12 +17,6 @@ public class ItemController {
 	
 	private final ItemService itemService;
 	
-	// 이미지 출력 하는 메서드 (테스트)
-	@GetMapping("/imgShow")
-	public void showImage(Model model) {
-		 
-	}
-	 
 	// 테스트중
 	@GetMapping("/ordering")
 	public void ordering(Long iNumber, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {

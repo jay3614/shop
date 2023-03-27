@@ -15,7 +15,7 @@ public interface OrderService {
 		OrderDTO dto = OrderDTO.builder().oNumber(entity.getONumber())
 				.iNumber(entity.getINumber()).oCount(entity.getOCount())
 				.oItemPrice(entity.getOItemPrice()).oDeliveryPrice(entity.getODeliveryPrice())
-				.oTotalPrice(entity.getOTotalPrice()).regDate(entity.getRegDate())
+				.oTotalPrice(entity.getOTotalPrice())
 				.oName(entity.getOName()).img(entity.getImg())
 				.oGetPoint(entity.getOGetPoint()).build();
 		

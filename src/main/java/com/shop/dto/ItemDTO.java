@@ -32,5 +32,8 @@ public class ItemDTO {
 	    this.iName = item.getIName();
 	    this.iPrice = item.getIPrice();
 	    this.iImg = item.getIImg();
+	    this.iInstock = item.getIInstock();
+	    this.iSize = item.getISize();
+	    this.iDeliveryPrice = item.getIDeliveryPrice();
 	}
 }

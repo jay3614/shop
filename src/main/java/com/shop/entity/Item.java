@@ -51,4 +51,12 @@ public class Item extends BaseEntity {
 		this.iInfo = iInfo;
 	}
 	
+	public void changeSize(String iInfo) {
+		this.iInfo = iInfo;
+	}
+	
+	public void changeDeliveryPrice(Long iDeliveryPrice) {
+		this.iDeliveryPrice = iDeliveryPrice;
+	}
+	
 }
