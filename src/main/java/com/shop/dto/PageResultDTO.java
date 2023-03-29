@@ -36,13 +36,7 @@ public class PageResultDTO<DTO, EN> {
 	
 	public PageResultDTO(Page<EN> result, Function<EN, DTO> fn){
 		
-		System.out.println("pageResult 시작");
-		System.out.println(result);
-		System.out.println(fn);
-		
 		dtoList = result.stream().map(fn).collect(Collectors.toList());
-		
-		System.out.println(",,,,, : " + dtoList.size());
 		
 		totalPage = result.getTotalPages();
 		

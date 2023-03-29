@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Reply extends BaseEntity{
+public class Reply extends BaseTimeEntity{
 
 	@Id
 	private Long pno;

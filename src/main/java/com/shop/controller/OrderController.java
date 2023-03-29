@@ -1,14 +1,16 @@
 package com.shop.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.shop.config.auth.UserAdapter;
 import com.shop.dto.ItemDTO;
-import com.shop.dto.MemberDTO;
 import com.shop.dto.OrderDTO;
 import com.shop.dto.PageRequestDTO;
+import com.shop.dto.MemberDTO.ResponseDTO;
 import com.shop.service.ItemService;
 import com.shop.service.MemberService;
 import com.shop.service.OrderService;
@@ -37,27 +39,21 @@ public class OrderController {
 		model.addAttribute("dto", dto);
 	}
 	
-	// 테스트용
-	@GetMapping("/myPage")
-	public void myPage(String id, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {
-		
-		MemberDTO dto = orderService.page(id);
-		
-		model.addAttribute("myPage", dto);
-	}
-	
 	@GetMapping("/orderBy")
-	public String orderBy(Long iNumber, Long count, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {
+	public String orderBy(Long iNumber, Long oCount, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
 		
 		ItemDTO dto = itemService.order(iNumber);
 		
 		Long iPrice = dto.getIPrice();
 		Long dPrice = dto.getIDeliveryPrice();
+		Long member_id = user.getMemberDTO().getId();
+		ResponseDTO responseDto = memberService.getById(member_id);
 		
-		Long totalPrice = iPrice * count + dPrice;
+		Long totalPrice = iPrice * oCount + dPrice;
 
 		model.addAttribute("ordering", dto);
 		model.addAttribute("total", totalPrice);
+		model.addAttribute("member", responseDto);
 		
 		return "content/user/orderBy";
 	}

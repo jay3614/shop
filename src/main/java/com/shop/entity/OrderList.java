@@ -19,7 +19,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class OrderHistory extends BaseEntity {
+public class OrderList extends BaseTimeEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +31,16 @@ public class OrderHistory extends BaseEntity {
 	private Long oDeliveryPrice;	// 배송비
 	private Long oUsePoint;	// 사용포인트
 	private Long oGetPoint;	// 적립포인트
+	private Long mId;	// 주문자아이디
 	private String mName;	// 주문자명
-	private String phoneNumber;	// 주문자 전화번호
 	private String oName;	// 주문상품명
 	private String iNumber;	// 상품번호
 	private String img;	// 상품 이미지
-	private String roadAddress;	// 도로명 주소
-	private String detailAddress;	// 상세 주소
-	private String paymentMethod;	// 결제 수단
-	private String deliveryMessage;	// 배송 메세지
-	
-	
+	private String deliveryMessage;
+	private String detailAddress;
+	private String paymentMethod;
+	private String phoneNumber;
+	private String roadAddress;
+	private String deliveryStatus;
 
 }

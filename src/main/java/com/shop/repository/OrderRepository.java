@@ -6,20 +6,36 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.shop.entity.Member;
-import com.shop.entity.OrderHistory;
+import com.shop.entity.OrderList;
 
-public interface OrderRepository extends JpaRepository<OrderHistory, Long> {
+public interface OrderRepository extends JpaRepository<OrderList, Long> {
 	
-	// Order의 회원아이디를 기준으로 일치하는 주문내역만을 가져오는 메서드
-//	@Query(value = "SELECT o FROM OrderHistory o WHERE o.mId=:id")
-//	Page<OrderHistory> getListById(@Param("id") String id, Pageable pageable);
+	@Query("SELECT o FROM OrderList o WHERE o.oNumber =:oNumber")
+	OrderList getOrderByNumber(@Param("oNumber") Long oNumber);
 	
-	@Query("SELECT o FROM OrderHistory o WHERE o.oNumber =:oNumber")
-	OrderHistory getOrderByNumber(@Param("oNumber") Long oNumber);
+	@Query("SELECT o FROM OrderList o WHERE o.mId =:id")
+	Page<OrderList> getOrderById(@Param("id") Long oNumber, Pageable pageable);
 	
-	// 테스트용
-	@Query("SELECT m FROM Member m WHERE m.id =:id")
-	Member getTest(@Param("id") String id);
+	@Query("SELECT count(o) FROM OrderList o WHERE o.deliveryStatus = '입금확인' AND o.mId =:id")
+	Long getBeforeDeposit(@Param("id") Long oNumber);
+	
+	@Query("SELECT count(o) FROM OrderList o WHERE o.deliveryStatus = '배송준비중' AND o.mId =:id")
+	Long getBeforeDelivery(@Param("id") Long oNumber);
+	
+	@Query("SELECT count(o) FROM OrderList o WHERE o.deliveryStatus = '배송중' AND o.mId =:id")
+	Long getDeliverying(@Param("id") Long oNumber);
+	
+	@Query("SELECT count(o) FROM OrderList o WHERE o.deliveryStatus = '배송완료' AND o.mId =:id")
+	Long getAfterDelivery(@Param("id") Long oNumber);
+	
+	@Query("SELECT count(o) FROM OrderList o WHERE o.deliveryStatus = '취소' AND o.mId =:id")
+	Long getCancle(@Param("id") Long oNumber);
+	
+	@Query("SELECT count(o) FROM OrderList o WHERE o.deliveryStatus = '교환' AND o.mId =:id")
+	Long getExchange(@Param("id") Long oNumber);
+	
+	@Query("SELECT count(o) FROM OrderList o WHERE o.deliveryStatus = '반품' AND o.mId =:id")
+	Long getReturn(@Param("id") Long oNumber);
+	
 	
 }

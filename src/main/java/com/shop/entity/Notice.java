@@ -11,7 +11,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class Notice extends BaseEntity{
+public class Notice extends BaseTimeEntity{
 
 	@Id
 	private Long nno; 

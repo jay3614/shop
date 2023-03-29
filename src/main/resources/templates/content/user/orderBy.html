@@ -342,10 +342,7 @@
                     Shop
                     <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
                 </a>
-
-                <span class="stext-109 cl4 iNumber">
-                	[[${ordering.iNumber}]]
-                </span>
+                <span class="stext-109 cl8 hov-cl1 trans-04">상품번호 [[${ordering.iNumber}]]</span>
             </div>
         </div>
     </div>
@@ -360,14 +357,17 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <h6 class="member_tag"><span class="fa fa-user"></span>
-                            <a href="#">user</a>님은 현재 <strong>일반회원</strong> 입니다.<!-- 대체할 내용 뭐 넣지 -->
+                            <a href="#">[[${member.name}]]</a>님은 현재 <strong>일반회원</strong> 입니다.<!-- 대체할 내용 뭐 넣지 -->
+                            <input name="iNumber" type="hidden" th:value="${ordering.iNumber}">
+                            <input name="id" type="hidden" th:value="${member.id}">
                         </h6>
                         <h6 class="orderBy__title">주문정보</h6>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="orderBy__input">
                                     <p>이름<span>*</span></p><!-- Member 완성되면 member.name 등으로 완성시켜야 함 -->
-                                    <input type="text" name="mName" class="form-control" required>
+                                    <input type="hidden" name="mId" th:value="${member.id}">
+                                    <input type="text" name="mName" class="form-control" th:value="${member.name}" readonly="readonly" required>
                                 </div>
                             </div>
                         </div>
@@ -375,7 +375,7 @@
                             <div class="col-lg-8">
                                 <div class="orderBy__input">
                                     <p>Phone<span>*</span></p><!-- Member 완성되면 member.phoneNumber 등으로 완성시켜야 함 -->
-                                    <input type="text" name="phoneNumber">
+                                    <input type="text" name="phoneNumber" th:value="${member.phone}">
                                 </div>
                             </div>
                         </div>
@@ -384,12 +384,12 @@
                             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                             <input type="text" name="roadAddress" id="sample6_address" placeholder="도로명주소">
                             <span id="guide" style="color:#999;display:none"></span>
-                            <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                            <input type="text" id="sample6_detailAddress" name="detailAddress" placeholder="상세주소">
                         </div>
 
                         <div class="orderBy__input">
                             <p class="m-t-50">배송메세지</p>
-                            <input type="text" placeholder="배송 시 참고사항">
+                            <input type="text" name="deliveryMessage" placeholder="배송 시 참고사항">
                         </div>
                     </div>
 
@@ -397,32 +397,28 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="orderBy__order">
                             <h4 class="order__title mtext-109">Payment</h4>
-                            <div class="orderBy__order__products">상품명 <span>가격</span></div>
+                            
                             <ul class="orderBy__total__products">
-                                <li class="iName">[[${ordering.iName}]] <span class="iPrice">[[${ordering.iPrice}]]</span></li>
+                                <li><img th:src="${ordering.iImg}" width="200" height="200"><input name="img" type="hidden" th:value="${ordering.iImg}"></li>
+                                <li>상품명 <input name="iName" th:value="${ordering.iName}" readonly="readonly"></li>
+                                <li>가격 <input name="iPrice" th:value="${ordering.iPrice}" readonly="readonly"></li>
                             </ul><br>
                             <ul class="orderBy__total__products">
-                            	<li>사이즈<span class="iSize">[[${ordering.iSize}]]</span></li>
-                            	<li>주문 갯수<span class="oCount" th:text="${param.count}"></span></li>
+                            	<li>사이즈 <input name="iSize" th:value="${ordering.iSize}" readonly="readonly"></li>
+                            	<li>주문 갯수 <input name="oCount" th:value="${param.oCount}" readonly="readonly"></li>
                             </ul>
-                            <ul class="orderBy__total__all">
-                                <li>배송비 <span style="color: black;" class="dPrice">[[${ordering.iDeliveryPrice}]]</span></li>
-                                <li>총금액 <span class="totalPrice">[[${total}]]</span></li>
+                            <ul class="orderBy__total__products">
+                                <li>배송비 <input name="dPrice" th:value="${ordering.iDeliveryPrice}" readonly="readonly"></li>
+                                <li>보유 포인트 <input name="firPoint" th:value="${member.point}" readonly="readonly"></li>
+                                <li>사용 포인트 <input name="oUsePoint" th:placeholder="${member.point}"> <input id="point" name="point" type="hidden" value=""></li>
+                                <li>총금액 <input name="totalPrice" th:value="${total}" readonly="readonly"></li>
                             </ul>
-                            <div class="orderBy__input__checkbox">
-                                <label for="acc-or">
-                                    결제수단과 입력정보를 다음에도 사용<!-- 이건 빼야할듯 -->
-                                    <input type="checkbox" id="acc-or" checked>
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-
 
                             <div class="form-check">
                                 <label for="credit-card">
                                     카드결제
                                     <input class="form-check-input" type="radio"
-                                           name="payment" id="credit-card">
+                                           name="payment" id="credit-card" value="카드결제">
                                 </label>
                             </div>
 
@@ -430,7 +426,7 @@
                                 <label for="deposit">
                                     무통장입금
                                     <input class="form-check-input" type="radio"
-                                           name="payment" id="deposit">
+                                           name="payment" id="deposit" value="무통장입금">
                                 </label>
                             </div>
 
@@ -438,7 +434,7 @@
                                 <label for="easy-payment">
                                     간편결제
                                     <input class="form-check-input" type="radio"
-                                           name="payment" id="easy-payment">
+                                           name="payment" id="easy-payment" value="간편결제">
                                 </label>
                             </div>
 
@@ -678,33 +674,45 @@
 	$(".paymentBtn").click(function(){
 		var formData = new FormData();
 		
-		// 파일 정보
-		const urlParams = new URL(location.href).searchParams;
-		const iNumber = urlParams.get('iNumber');//완료
-		var iImg = $("img[name='iImg']").val();// 아직 미구현
-		var mName = $("input[name='mName']").val()//완료
-		var oCount = urlParams.get('count');//완료
-		var oDeliveryPrice = $("input[name='iDeliveryPrice']").val();
+		var iNumber = $("input[name='iNumber']").val();
+		var img = $("input[name='img']").val();
+		var mId = $("input[name='mId']").val();
+		var id = $("input[name='id']").val();
+		var mName = $("input[name='mName']").val();
+		var oCount = $("input[name='oCount']").val()
+		var oDeliveryPrice = $("input[name='dPrice']").val();
 		var oItemPrice = $("input[name='iPrice']").val();
-		var oGetPoint = oTotalPrice / 100;
+		var oGetPoint = Math.floor($("input[name='totalPrice']").val() / 100);
 		var oName = $("input[name='iName']").val();
-		var oTotalPrice = document.getElementById('totalPrice').innerHTML;
-		var oUsePoint = $("input[name='oUsePoint']").val();//아직 미구현
-		var phoneNumber = $("input[name='phoneNumber']").val()//완료
-		var roadAddress = $("input[name='roadAddress']").val();//완료
+		var oTotalPrice = $("input[name='totalPrice']").val();
+		var firPoint = $("input[name='firPoint']").val();
+		var oUsePoint = $("input[name='oUsePoint']").val();
+		var phoneNumber = $("input[name='phoneNumber']").val()
+		var roadAddress = $("input[name='roadAddress']").val();
 		var detailAddress = $("input[name='detailAddress']").val();
 		var deliveryMessage = $("input[name='deliveryMessage']").val();
 		var iSize = $("input[name='iSize']").val();
-		//document.getElementById('phoneNumber').innerHTML;
+		var paymentMethod = $(":input:radio[name='payment']:checked").val();
 		
-		alert(iNumber + '\n' + iImg + '\n' + mName + '\n' + oCount + '\n' + oDeliveryPrice + '\n' + oItemPrice +  '\n' + oGetPoint +  '\n'
-			+ oName + '\n' + oTotalPrice + '\n' + oUsePoint + '\n' + phoneNumber + '\n' + roadAddress + '\n' + deliveryMessage + '\n' + iSize);
-
+		if(oUsePoint > point){
+			alert('보유 포인트를 초과할 수 없습니다.');
+			window.location.href = window.location.href;
+			return false;
+		}
+		
+		var tmpPoint = parseInt(firPoint) + oGetPoint - oUsePoint;
+		$('#point').val(tmpPoint);
+		var point = $("input[name='point']").val();
+		
+		alert(point);
+		
 		formData.append("iNumber", iNumber);
-		formData.append("iImg", iImg);
+		formData.append("img", img);
+		formData.append("mId", mId);
+		formData.append("id", id);
 		formData.append("mName", mName);
 		formData.append("oCount", oCount);
-		formData.append("iDeliveryPrice", iDeliveryPrice);
+		formData.append("oDeliveryPrice", oDeliveryPrice);
 		formData.append("oItemPrice", oItemPrice);
 		formData.append("oGetPoint", oGetPoint);
 		formData.append("oName", oName);
@@ -715,8 +723,8 @@
 		formData.append("detailAddress", detailAddress);
 		formData.append("deliveryMessage", deliveryMessage);
 		formData.append("iSize", iSize);
-
-		alert('업로드 완료');
+		formData.append("paymentMethod", paymentMethod);
+		formData.append("point", point);
 
 		$.ajax({
 			url : 'insertOrder',
@@ -726,10 +734,11 @@
 			type : 'POST',
 			dataType : 'json',
 			success : function(result){
+				alert('성공');
 				console.log(result);
-				
 			},
 			error : function(jqXHR, textStatus, errThrown){
+				alert('실패');
 				console.log(errThrown);
 			}
 			

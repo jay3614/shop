@@ -27,5 +27,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="/board"/>
+	<classpathentry kind="lib" path="C:/Users/Manic-063/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-oauth2-core/5.7.7/3c5a2f698b04f922c3753799bbd0a6507e02ebe5/spring-security-oauth2-core-5.7.7.jar" sourcepath="C:/Users/Manic-063/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-oauth2-core/5.7.7/f371de48b048d8630efdd8c489a356a327cf5a32/spring-security-oauth2-core-5.7.7-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

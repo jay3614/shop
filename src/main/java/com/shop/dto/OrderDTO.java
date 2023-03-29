@@ -20,6 +20,7 @@ public class OrderDTO {
 	private Long oDeliveryPrice;
 	private Long oUsePoint;
 	private Long oGetPoint;
+	private Long mId;
 	private String mName;
 	private String phoneNumber;
 	private String oName;
@@ -28,4 +29,8 @@ public class OrderDTO {
 	private String roadAddress;
 	private String detailAddress;
 	private String deliveryMessage;
+	private String paymentMethod;
+	private String createdDate;
+	private String updatedDate;
+	private String deliveryStatus;
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class QnA extends BaseEntity{
+public class QnA extends BaseTimeEntity{
 
 	@Id
 	private Long qno;

@@ -16,7 +16,7 @@ import org.thymeleaf.util.StringUtils;
 
 import com.shop.entity.Item;
 import com.shop.entity.Member;
-import com.shop.entity.OrderHistory;
+import com.shop.entity.OrderList;
 
 @SpringBootTest
 public class OrderRepositoryTests {
@@ -31,7 +31,7 @@ public class OrderRepositoryTests {
 	private MemberRepository memberRepository;
 	
 	
-	// OrderHistory 테이블에 주문내역을 insert
+	// OrderList 테이블에 주문내역을 insert
 //	@Test
 //	public void insertOrders() {
 //		
@@ -39,7 +39,7 @@ public class OrderRepositoryTests {
 //		
 //		Item item = itemRepository.getItemByNumber(1L);
 //		
-//		OrderHistory order = OrderHistory.builder()
+//		OrderList order = OrderList.builder()
 //				.member(member).item(item).oItemPrice(item.getIPrice()).build();
 //		
 //		orderRepository.save(order);
@@ -59,7 +59,7 @@ public class OrderRepositoryTests {
 //		for(int i = 0; i < count; i++) {
 //			Long number = iNumber[i]; 
 //
-//			Optional<OrderHistory> result = orderRepository.findById(number);
+//			Optional<OrderList> result = orderRepository.findById(number);
 //			
 //			System.out.println("oNumber : " + result.get().getONumber());
 //			System.out.println("itemName : " + result.get().getItem().getIName());
