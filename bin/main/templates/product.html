@@ -345,10 +345,26 @@
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
-                            <form action="#">
+                            <!-- <form action="#">
                                 <input type="text" placeholder="Search...">
                                 <button type="submit"><span class="icon_search"></span></button>
-                            </form>
+                            </form> -->
+                            <!-- 검색 테스트 시작 -->
+                            <form action="/product" method="get" id="searchForm">
+					            <div class="input-group">
+					                <input type="hidden" name="page" value = "1">
+					                <div class="input-group-prepend">
+					                    <select class="custom-select" name="type">
+					                        <option value="nb" th:selected="${pageRequestDTO.type =='nb'}" >이름 + 브랜드</option>
+					                    </select>
+					                </div>
+					                <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="Search..">
+					                <div class="input-group-append" id="button-addon4">
+					                    <button type="button"><span class="icon_search"></span></button>
+					                </div>
+					            </div>
+					        </form>
+					        <!-- 검색 테스트 끝 -->
                         </div>
                         <div class="shop__sidebar__accordion">
                             <div class="accordion" id="accordionExample">
@@ -927,9 +943,31 @@
      //가격정렬
     </script>
     <!--===============================================================================================-->
-    <script th:inline="javascript">
-    
-    </script>
+	<script th:inline="javascript">
+
+		var msg = "메세지";
+
+		console.log(msg);
+
+		if(msg){
+			$(".modal").modal();
+		}
+		var searchForm = $("#searchForm");
+
+		$('.btn-search').click(function(e){
+
+		searchForm.submit();
+
+		});
+
+		$('.btn-clear').click(function(e){
+
+			searchForm.empty().submit();
+
+		});
+
+
+	</script>
     <!--===============================================================================================-->
     <script src="js/main.js"></script>
 

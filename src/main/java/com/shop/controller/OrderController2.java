@@ -26,7 +26,7 @@ public class OrderController2 {
 		
 		memberService.changePoint(requestDTO, dto.getMId());
 		
-		redirectAttributes.addFlashAttribute("msg", oNumber);
+		redirectAttributes.addFlashAttribute(oNumber);
 		
 		return "content/user/orderBy";
 	}

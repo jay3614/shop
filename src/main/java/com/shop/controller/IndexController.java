@@ -189,5 +189,10 @@ public class IndexController {
 		return "content/user/myPage";
 	}
 	
+	@GetMapping("/shopping-cart")
+	public String cart() {
+		
+		return "content/cart/shoping-cart";
+	}
 	
 }
