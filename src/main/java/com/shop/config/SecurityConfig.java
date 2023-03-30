@@ -44,18 +44,18 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/**")).permitAll();
-//		http.csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/css/**"))
-		http.csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/css/**"), new AntPathRequestMatcher("/insertOrder/**"), new AntPathRequestMatcher("/insertItem/**"))
-//		http.csrf().disable();
-		
-
-		
-//		http
+		http.csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/css/**")
+				, new AntPathRequestMatcher("/insertOrder/**")
+				, new AntPathRequestMatcher("/insertItem/**")
+				,new AntPathRequestMatcher("/notice/**")
+				,new AntPathRequestMatcher("/review/**")
+				,new AntPathRequestMatcher("/qna/**")
+				,new AntPathRequestMatcher("/reply/**"))
 			.and()
 		.formLogin()
 		.loginPage("/login") // 로그인 페이지 URL
 		.loginProcessingUrl("/loginProc") // 로그인 시도 (버튼 눌렀을때)
-		.defaultSuccessUrl("/") // 로그인 성공했을 경우 연결되는 페이지
+		.defaultSuccessUrl("/index") // 로그인 성공했을 경우 연결되는 페이지
 		.passwordParameter("password")
 		.failureHandler(authenticationFailureHandler)
 		.permitAll()
@@ -63,7 +63,7 @@ public class SecurityConfig {
 			.and()
 		.logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/")
+		.logoutSuccessUrl("/index")
 		.invalidateHttpSession(true)
 		.deleteCookies("JSESSIONID")
 		.clearAuthentication(true)

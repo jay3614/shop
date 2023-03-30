@@ -19,7 +19,7 @@ public class ItemDTO {
 	private String iName;	// 상품명
 	private Long iCategory;	// 상품 카테고리
 	private Long iPrice;	// 상품 가격
-	private Long iDeliveryPrice;	// 배송비
+//	private Long iDeliveryPrice;	// 배송비
 	private String iInfo;	// 상품 설명
 	private Long iInstock;	// 재고
 	private String iImg;	// 상품 이미지
@@ -34,6 +34,6 @@ public class ItemDTO {
 	    this.iImg = item.getIImg();
 	    this.iInstock = item.getIInstock();
 	    this.iSize = item.getISize();
-	    this.iDeliveryPrice = item.getIDeliveryPrice();
+//	    this.iDeliveryPrice = item.getIDeliveryPrice();
 	}
 }

@@ -23,7 +23,8 @@ public interface ItemService {
 		
 		Item item = Item.builder()
 				.iCategory(dto.getICategory())
-				.iDeliveryPrice(dto.getIDeliveryPrice()).iImg(dto.getIImg())
+//				.iDeliveryPrice(dto.getIDeliveryPrice())
+				.iImg(dto.getIImg())
 				.iInfo(dto.getIInfo()).iInstock(dto.getIInstock())
 				.iName(dto.getIName()).iPrice(dto.getIPrice())
 				.build();
@@ -34,7 +35,7 @@ public interface ItemService {
 		
 		ItemDTO boardDTO = ItemDTO.builder()
 				.iNumber(iEntity.getINumber()).iCategory(iEntity.getICategory())
-				.iDeliveryPrice(iEntity.getIDeliveryPrice())
+//				.iDeliveryPrice(iEntity.getIDeliveryPrice())
 				.iInfo(iEntity.getIInfo()).iInstock(iEntity.getIInstock())
 				.iImg(iEntity.getIImg()).brand(iEntity.getBrand())
 				.iName(iEntity.getIName()).iPrice(iEntity.getIPrice())

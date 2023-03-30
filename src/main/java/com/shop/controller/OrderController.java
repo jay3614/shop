@@ -40,12 +40,11 @@ public class OrderController {
 	}
 	
 	@GetMapping("/orderBy")
-	public String orderBy(Long iNumber, Long oCount, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
+	public String orderBy(Long iNumber, Long oCount, Long dPrice, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
 		
 		ItemDTO dto = itemService.order(iNumber);
 		
 		Long iPrice = dto.getIPrice();
-		Long dPrice = dto.getIDeliveryPrice();
 		Long member_id = user.getMemberDTO().getId();
 		ResponseDTO responseDto = memberService.getById(member_id);
 		

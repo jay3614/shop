@@ -1,17 +1,9 @@
-buildscript {
-   dependencies {
-      classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
-   }
-}// querydsl추가한 부분
 plugins {
 	id 'java'
 	id 'war'
 	id 'org.springframework.boot' version '2.7.8'
 	id 'io.spring.dependency-management' version '1.1.0'
-	//query DSL
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
-apply plugin: "com.ewerk.gradle.plugins.querydsl"// 추가
 
 group = 'com.shop'
 version = '0.0.1-SNAPSHOT'
@@ -57,39 +49,8 @@ dependencies {
 	// JQuery
 	implementation group: 'org.webjars', name: 'jquery', version: '3.6.0'
 
-	//추가
-	apply plugin: "io.spring.dependency-management" 
-
-	ext["hibernate.version"] = "5.4.2.Final" 
-	
-	// querydsl
-	implementation 'com.querydsl:querydsl-jpa'
-	implementation 'com.querydsl:querydsl-apt'//여기까지
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
-}
-
-//여기서부터 추가함..
-
-
-def querydslDir = "src/main/generated/queryDsl"
-
-querydsl {
-	library = "com.querydsl:querydsl-apt"
-	jpa = true
-	querydslSourcesDir = querydslDir
-}
-
-sourceSets {
-	main.java.srcDirs = ['src/main/java', querydslDir]
-}
-
-compileQuerydsl {
-	options.annotationProcessorPath = configurations.querydsl
-}
-
-configurations {
-	querydsl.extendsFrom compileClasspath
 }

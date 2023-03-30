@@ -28,7 +28,7 @@ public class Item extends BaseTimeEntity {
 	private String brand;
 	private Long iCategory;
 	private Long iPrice;
-	private Long iDeliveryPrice;
+//	private Long iDeliveryPrice;
 	private String iInfo;
 	private Long iInstock;
 	private String iImg;
@@ -55,8 +55,8 @@ public class Item extends BaseTimeEntity {
 		this.iInfo = iInfo;
 	}
 	
-	public void changeDeliveryPrice(Long iDeliveryPrice) {
-		this.iDeliveryPrice = iDeliveryPrice;
-	}
+//	public void changeDeliveryPrice(Long iDeliveryPrice) {
+//		this.iDeliveryPrice = iDeliveryPrice;
+//	}
 	
 }

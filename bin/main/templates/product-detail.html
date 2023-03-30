@@ -55,10 +55,10 @@
 							고객센터
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a href="login" class="flex-c-m trans-04 p-lr-25">
 							로그인
 						</a>
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a href="register" class="flex-c-m trans-04 p-lr-25">
 							회원가입
 						</a>
 
@@ -334,12 +334,12 @@
 	<!-- breadcrumb -->
 	<div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-			<a href="#" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="index" class="stext-109 cl8 hov-cl1 trans-04">
 				Home
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
-
-			<a href="#" class="stext-109 cl8 hov-cl1 trans-04">
+			
+			<a href="product" class="stext-109 cl8 hov-cl1 trans-04">
 				Shop
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
@@ -391,12 +391,27 @@
 
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
-										<select class="js-select2" name="time"><!-- th:each="dto : ${item.asdf}" -->
+										<select class="js-select2" name="time">
 											<option>[[${item.iSize}]]</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
 								</div>
+								<div class="size-203 flex-c-m respon6">
+									배송 방법
+								</div>
+
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+										<div class="dropDownSelect2"></div>
+										<select class="js-select2" name="time">
+											<option class="deliveryPrice" value="3000">일반 배송</option>
+											<option class="deliveryPrice" value="5000">빠른 배송</option>
+										</select>
+										<div class="dropDownSelect2"></div>
+									</div>
+								</div>
+								
 							</div>
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
@@ -419,7 +434,7 @@
 									</button>
 									<button
 										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-										<a th:href="@{/orderBy(iNumber = ${item.iNumber}, oCount=countX)}" onclick="orderWithCount(this)">구매하기</a>
+										<a th:href="@{/orderBy(iNumber = ${item.iNumber}, oCount=countX, dPrice=deliveryX)}" onclick="orderWithCount(this); orderWithDelivery(this)">구매하기</a>
 									</button>
 								</div>
 							</div>
@@ -478,10 +493,12 @@
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
+									<a th:href="@{/product-detail(iNumber = ${recommend1.iNumber})}" 
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">[[${recommend1.iName}]]</a>
+									<!-- <a href="product-detail.html"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										[[${recommend1.iName}]]
-									</a>
+									</a> -->
 
 									<span class="stext-105 cl3">
 										￦[[${recommend1.iPrice}]]
@@ -499,10 +516,12 @@
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
+									<a th:href="@{/product-detail(iNumber = ${recommend2.iNumber})}" 
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">[[${recommend2.iName}]]</a>
+									<!-- <a href="product-detail.html"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										[[${recommend2.iName}]]
-									</a>
+									</a> -->
 
 									<span class="stext-105 cl3">
 										￦[[${recommend2.iPrice}]]
@@ -520,10 +539,12 @@
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
+									<a th:href="@{/product-detail(iNumber = ${recommend3.iNumber})}" 
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">[[${recommend3.iName}]]</a>
+									<!-- <a href="product-detail.html"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										[[${recommend3.iName}]]
-									</a>
+									</a> -->
 
 									<span class="stext-105 cl3">
 										￦[[${recommend3.iPrice}]]
@@ -541,10 +562,12 @@
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="product-detail.html"
+									<a th:href="@{/product-detail(iNumber = ${recommend4.iNumber})}" 
+									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">[[${recommend4.iName}]]</a>
+									<!-- <a href="product-detail.html"
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 										[[${recommend4.iName}]]
-									</a>
+									</a> -->
 
 									<span class="stext-105 cl3">
 										￦[[${recommend4.iPrice}]]
@@ -570,25 +593,25 @@
 
 					<ul>
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="producttop" class="stext-107 cl7 hov-cl1 trans-04">
 								Clothing
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="productfootwear" class="stext-107 cl7 hov-cl1 trans-04">
 								Footwear
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="productbag" class="stext-107 cl7 hov-cl1 trans-04">
 								Accessories
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="producttech" class="stext-107 cl7 hov-cl1 trans-04">
 								Tech
 							</a>
 						</li>
@@ -794,12 +817,15 @@
 	<!--===============================================================================================-->
 	<script>
 		function orderWithCount(element) {
-			// input 태그의 값을 읽어와 count 변수에 저장
 			const count = document.querySelector('input[name="num-product"]').value;
-			
-			// countX를 count 변수로 치환하여 href 속성을 변경
 			element.href = element.href.replace('countX', count);
 		}
+		
+		function orderWithDelivery(element) {
+			const delivery = document.querySelector('option.deliveryPrice:checked').value;
+			element.href = element.href.replace('deliveryX', delivery);
+		}
+		
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
