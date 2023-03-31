@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <title>Shoping Cart</title>
@@ -45,16 +45,21 @@
         </div>
 
         <div class="right-top-bar flex-w h-full">
-          <a href="#" class="flex-c-m trans-04 p-lr-20">
-            Help & FAQs
-          </a>
-
-          <a href="#" class="flex-c-m trans-04 p-lr-25">
-            LOG IN
-          </a>
-          <a href="#" class="flex-c-m trans-04 p-lr-25">
-            SIGN UP
-          </a>
+			<a href="#" class="flex-c-m trans-04 p-lr-20">
+				Help & FAQs
+			</a>
+				
+			<a sec:authorize="isAnonymous()" th:href="@{/login}" class="flex-c-m trans-04 p-lr-25">
+				LOG IN
+			</a>
+				                    
+			<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="flex-c-m trans-04 p-lr-25">
+				LOGOUT
+			</a>
+				                    
+			<a sec:authorize="isAnonymous()" th:href="@{/register}" class="flex-c-m trans-04 p-lr-25">
+				Register
+			</a>
 
         </div>
       </div>
@@ -118,11 +123,6 @@
                data-notify="2">
             <i class="zmdi zmdi-shopping-cart"></i>
           </div>
-
-          <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-             data-notify="0">
-            <i class="zmdi zmdi-favorite-outline"></i>
-          </a>
         </div>
       </nav>
     </div>
@@ -365,7 +365,7 @@
                 <th class="column-5">금액</th>
               </tr>
 
-              <tr class="table_row">
+              <tr class="table_row" th:each="list : ${cartList}">
                 <td class="column-1">
                   <div class="how-itemcart1">
                     <img src="/img/cart/cart1.jpg" alt="IMG">
@@ -389,45 +389,10 @@
                 </td>
                 <td class="column-5">￦1,700,000</td>
               </tr>
-
-              <tr class="table_row">
-                <td class="column-1">
-                  <div class="how-itemcart1">
-                    <img src="/img/cart/cart2.jpg" alt="IMG">
-                  </div>
-                </td>
-                <td class="column-2">Gucci GG Marmont Half Moon Shaped Mini Bag Blackp</td>
-                <td class="column-3">￦1,870,000</td>
-                <td class="column-4">
-                  <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                      <i class="fs-16 zmdi zmdi-minus"></i>
-                    </div>
-
-                    <input class="mtext-104 cl3 txt-center num-product" type="number"
-                           name="num-product2" value="1">
-
-                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                      <i class="fs-16 zmdi zmdi-plus"></i>
-                    </div>
-                  </div>
-                </td>
-                <td class="column-5">￦1,870,000</td>
-              </tr>
             </table>
           </div>
 
           <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-            <div class="flex-w flex-m m-r-20 m-tb-5">
-              <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
-                     name="coupon" placeholder="Coupon Code">
-
-              <div
-                      class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-                Coupon
-              </div>
-            </div>
-
             <div
                     class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
               Update Cart

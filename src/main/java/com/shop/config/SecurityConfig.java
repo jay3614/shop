@@ -46,6 +46,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests().requestMatchers(new AntPathRequestMatcher("/**")).permitAll();
 		http.csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/css/**")
 				, new AntPathRequestMatcher("/insertOrder/**")
+				, new AntPathRequestMatcher("/addCart/**")
 				, new AntPathRequestMatcher("/insertItem/**")
 				,new AntPathRequestMatcher("/notice/**")
 				,new AntPathRequestMatcher("/review/**")

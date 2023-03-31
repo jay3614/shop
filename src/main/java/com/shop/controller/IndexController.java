@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shop.config.auth.UserAdapter;
 import com.shop.dto.BrandDTO;
+import com.shop.dto.CartDTO;
 import com.shop.dto.CategoryDTO;
 import com.shop.dto.ItemDTO;
 import com.shop.dto.PageRequestDTO;
 import com.shop.dto.PageRequestDTO2;
 import com.shop.dto.MemberDTO.ResponseDTO;
 import com.shop.service.BrandService;
+import com.shop.service.CartService;
 import com.shop.service.CategoryService;
 import com.shop.service.ItemService;
 import com.shop.service.MemberService;
@@ -31,6 +33,7 @@ public class IndexController {
 	
 	private final MemberService memberService;
 	private final ItemService itemService;
+	private final CartService cartService;
 	private final CategoryService categoryService;
 	private final BrandService brandService;
 	private final OrderService orderService;
@@ -172,9 +175,15 @@ public class IndexController {
 	}
 	
 	@GetMapping("/shoping-cart")
-	public void cart(PageRequestDTO pageRequestDTO, Model model) {
+	public String cart(Model model, @AuthenticationPrincipal UserAdapter user) {
+		System.out.println("테스트1");
+		Long id = user.getMemberDTO().getId();
+		System.out.println("테스트2" + id);
+		List<CartDTO> cartDTOList = cartService.getCartList(id);
 		
-		model.addAttribute("list", itemService.getList(pageRequestDTO));
+		model.addAttribute("cartList", cartDTOList);
+		
+		return "content/cart/shoping-cart";
 	}
 	
 	@GetMapping("/product-detail")
@@ -217,10 +226,10 @@ public class IndexController {
 		return "content/user/myPage";
 	}
 	
-	@GetMapping("/shopping-cart")
-	public String cart() {
-		
-		return "content/cart/shoping-cart";
-	}
+//	@GetMapping("/shopping-cart")
+//	public String cart() {
+//		
+//		return "content/cart/shoping-cart";
+//	}
 	
 }

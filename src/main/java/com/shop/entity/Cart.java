@@ -1,6 +1,8 @@
 package com.shop.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Builder;
@@ -12,11 +14,13 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Cart {
-
+	
 	@Id
-	private Long cId;
-	private String cItemName;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String cName;
 	private Long cPrice;
 	private String cInfo;
 	private String cImg;
+	private Long mId;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<title>Product Detail</title>
@@ -435,6 +435,10 @@
 									
 									<input type="hidden" name="iNumber" th:value="${param.iNumber}">
 									<input type="hidden" name="mId" th:value="${member.id}">
+									<input type="hidden" name="cImg" th:value="${item.iImg}">
+									<input type="hidden" name="cName" th:value="${item.iName}">
+									<input type="hidden" name="cInfo" th:value="${item.iInfo}">
+									<input type="hidden" name="cPrice" th:value="${item.iPrice}">
 									<button
 										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail addCart" type="submit">
 										장바구니 담기
@@ -768,13 +772,13 @@
 		});
 
 		$('.js-addwish-detail').each(function () {
-			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+			//var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
 			$(this).on('click', function () {
-				swal(nameProduct, "위시리스트에서 제거되었습니다 ! ", "success");
+				//swal(nameProduct, "위시리스트에서 제거되었습니다 ! ", "success");
 
-				$(this).addClass('js-addedwish-detail');
-				$(this).off('click');
+				//$(this).addClass('js-addedwish-detail');
+				//$(this).off('click');
 			});
 		});
 
@@ -839,11 +843,20 @@
 		$(".addCart").click(function(){
 			var formData = new FormData();
 			
-			var iNumber = $("input[name='iNumber']").val();
-			var member_id = $("input[name='mId']").val();
-			alert(mId);
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
 			
-			formData.append("member_id", member_id);
+			var iNumber = $("input[name='iNumber']").val();
+			var mId = $("input[name='mId']").val();
+			var cImg = $("input[name='cImg']").val();
+			var cName = $("input[name='cName']").val();
+			var cInfo = $("input[name='cInfo']").val();
+			var cPrice = $("input[name='cPrice']").val();
+			
+			formData.append("mId", mId);
+			formData.append("cImg", cImg);
+			formData.append("cName", cName);
+			formData.append("cInfo", cInfo);
+			formData.append("cPrice", cPrice);
 			
 			$.ajax({
 				url : 'addCart',
@@ -853,12 +866,12 @@
 				type : 'POST',
 				dataType : 'json',
 				success : function(result){
-					alert('성공');
-					console.log(result);
+					swal(nameProduct, "위시리스트에서 제거되었습니다 ! ", "success");
+					window.location.href = '/shopping-cart';
 				},
 				error : function(jqXHR, textStatus, errThrown){
-					alert('실패');
-					console.log(errThrown);
+					swal(nameProduct, "위시리스트에서 제거되었습니다 ! ", "success");
+					window.location.href = '/shopping-cart';
 				}
 				
 			})
