@@ -127,7 +127,7 @@ public class ReviewService {
 				.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "regDate")));
 		
 		Page<ReviewDTO> reviewDTOS = reviewEntities.map(review -> new ReviewDTO(review.getReviewTitle(),
-				review.getReviewContent(), review.getReviewRating(), review.getRegDate()));
+				review.getReviewWriter(), review.getReviewContent(), review.getReviewRating(), review.getRegDate()));
 		return reviewDTOS;
 	}
 

@@ -40,10 +40,6 @@ public class ReviewController {
 		int endPage = ((startPage + blockLimit - 1) < reviewList.getTotalPages()) ? startPage + blockLimit - 1
 				: reviewList.getTotalPages();
 		
-		Long member_id = user.getMemberDTO().getId();
-		ResponseDTO responseDto = memberService.getById(member_id);
-		model.addAttribute("member", responseDto);
-		
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);

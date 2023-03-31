@@ -23,7 +23,7 @@ public class ReviewDTO {
 	    private int reviewRating;
 	    private LocalDateTime regDate;
 	    private LocalDateTime modDate;
-	    
+	    private String reviewWriter;
 
 	    private MultipartFile reviewFile;
 	    private String originalFileName; //원본파일 이름
@@ -55,8 +55,9 @@ public class ReviewDTO {
 	        }
 	       
 
-		public ReviewDTO(String reviewTitle, String reviewContent, int reviewRating, LocalDateTime regDate) {
+		public ReviewDTO(String reviewTitle, String reviewWriter, String reviewContent, int reviewRating, LocalDateTime regDate) {
 			this.reviewTitle = reviewTitle;
+			this.reviewWriter = reviewWriter;
 			this.reviewContent = reviewContent;
 			this.reviewRating = reviewRating;
 			this.regDate = regDate;

@@ -67,7 +67,7 @@
 	                        Register
 	                    </a>
 
-                </div>
+					</div>
                 </div>
             </div>
 
@@ -109,7 +109,7 @@
                             </li>
 
                             <li>
-                                <a href="/community">COMMUNITY</a>
+                                <a href="/com">COMMUNITY</a>
                             </li>
 
                             <li>
@@ -376,8 +376,10 @@
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
-                                                <ul class="nice-scroll" th:each="category : ${categoryDTO.dtoList}">
-                                                    <li><a th:href="@{/product{categoryName}(categoryName = ${category.engName}, iCategory = ${category.categoryNumber})}">[[${category.categoryName}]]</a></li>
+                                                <ul class="nice-scroll" th:each="category : ${categoryDTOList}">
+                                                    <!-- <li><a th:href="@{/product{categoryName}(categoryName = ${category.engName}, iCategory = ${category.categoryNumber})}">[[${category.categoryName}]]</a></li> -->
+                                                    <li><a th:href="@{/product{categoryName}(categoryName = ${category.engName}, iCategory = ${category.categoryNumber})}" 
+                                                    th:data-category="${category.categoryNumber}" onclick="categoryClicked(event)">[[${category.categoryName}]]</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -393,7 +395,7 @@
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__brand">
-                                                <ul class="js-pscroll" th:each="brand : ${brandDTO.dtoList}">
+                                                <ul class="js-pscroll" th:each="brand : ${brandDTOList}">
                                                     <li><a th:href="@{/product{brandName}(brandName = ${brand.brandName}, brandNumber = ${brand.brandNumber})}">[[${brand.brandName}]]</a></li>
                                                 </ul>
                                             </div>
@@ -437,7 +439,7 @@
                     <!--------------------------상품페이지-------------------------------------------------->
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-6" th:each="dto : ${itemDTO.dtoList}">
-                            <div class="block2">
+                            <div class="block2" th:data-category="${dto.iCategory}">
                                 <div class="block2-pic hov-img0">
                                     <img th:src="${dto.iImg}" alt="IMG-PRODUCT">
                                 </div>
@@ -551,25 +553,25 @@
                     <ul>
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl2 trans-04">
-                                Track Order
+                                배송 추적
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl2 trans-04">
-                                Returns
+                                환불
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl2 trans-04">
-                                Shipping
+                                배송
                             </a>
                         </li>
 
                         <li class="p-b-10">
                             <a href="#" class="stext-107 cl7 hov-cl2 trans-04">
-                                FAQs
+                                FAQ
                             </a>
                         </li>
                     </ul>
@@ -577,7 +579,7 @@
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        고객센터<a href="tel:031-837-4111" style="color:white;"> 031-837-4111</a>
+                        고객센터<a href="tel:031-837-4111" style="color:white;"> 031-123-4567</a>
                     </h4>
 
                     <p class="stext-107 cl7 size-201">
@@ -947,8 +949,6 @@
 
 		var msg = "메세지";
 
-		console.log(msg);
-
 		if(msg){
 			$(".modal").modal();
 		}
@@ -968,6 +968,29 @@
 
 
 	</script>
+    <!--===============================================================================================-->
+    <script>
+    function categoryClicked(event) {
+    	  event.preventDefault(); // 기본 동작 중단
+
+    	  const categoryNumber = event.target.getAttribute('data-category'); // 클릭한 카테고리 번호
+
+    	  const blocks = document.querySelectorAll('.block2'); // 모든 블록 가져오기
+
+    	  // 각 블록을 순회하면서 해당 카테고리에 속하는지 확인
+    	  blocks.forEach((block) => {
+    	    const blockCategory = block.getAttribute('data-category'); // 블록이 속한 카테고리 번호
+
+    	    const col = block.parentElement; // 부모 요소 가져오기
+
+    	    if (blockCategory !== categoryNumber) { // 다른 카테고리에 속하는 경우
+    	      col.style.display = 'none'; // 숨김 처리
+    	    } else { // 해당 카테고리에 속하는 경우
+    	      col.style.display = 'block'; // 보이게 처리
+    	    }
+    	  });
+    	}
+</script>
     <!--===============================================================================================-->
     <script src="js/main.js"></script>
 

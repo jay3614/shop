@@ -1,5 +1,7 @@
 package com.shop.service;
 
+import java.util.List;
+
 import com.shop.dto.BrandDTO;
 import com.shop.dto.PageRequestDTO;
 import com.shop.dto.PageRequestDTO2;
@@ -18,6 +20,6 @@ public interface BrandService {
 		return brandDTO;
 	}
 	
-	PageResultDTO<BrandDTO, Brand> getBrandList(PageRequestDTO pageRequestDTO);
+	List<BrandDTO> getBrandList();
 	
 }

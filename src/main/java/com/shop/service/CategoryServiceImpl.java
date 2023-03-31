@@ -1,6 +1,8 @@
 package com.shop.service;
 
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -24,17 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
 	private final CategoryRepository categoryRepository;
 	
 	@Override
-	public PageResultDTO<CategoryDTO, Category> getCategoryList(PageRequestDTO pageRequestDTO) {
-		
-		Function<Category, CategoryDTO> fn = (en -> entityToDto(en));
-		
-		Page<Category> result = categoryRepository.getCategory(pageRequestDTO.getPageable(Sort.by("category_number").ascending()));
-		
-		System.out.println("_____ : " + result);
-		
-		System.out.println("+++ : " + result);
-		
-		return new PageResultDTO<>(result, fn);
+	public List<CategoryDTO> getCategoryList() {
+	    List<Category> categoryList = categoryRepository.findAll();
+	    List<CategoryDTO> result = categoryList.stream().map(category -> entityToDto(category)).collect(Collectors.toList());
+	    return result;
 	}
 	
 }

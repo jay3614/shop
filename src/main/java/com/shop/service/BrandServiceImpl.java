@@ -1,6 +1,8 @@
 package com.shop.service;
 
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -23,12 +25,9 @@ public class BrandServiceImpl implements BrandService {
 	private final BrandRepository brandRepository;
 	
 	@Override
-	public PageResultDTO<BrandDTO, Brand> getBrandList(PageRequestDTO pageRequestDTO) {
-		
-		Function<Brand, BrandDTO> fn = (en -> BrandEntityToDto(en));
-		
-		Page<Brand> result = brandRepository.getBrand(pageRequestDTO.getPageable(Sort.by("brand_name").ascending()));
-		return new PageResultDTO<>(result, fn);
+	public List<BrandDTO> getBrandList() {
+	    List<Brand> brandList = brandRepository.findAll();
+	    List<BrandDTO> result = brandList.stream().map(brand -> BrandEntityToDto(brand)).collect(Collectors.toList());
+	    return result;
 	}
-	
 }
