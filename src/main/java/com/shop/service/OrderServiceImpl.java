@@ -47,9 +47,8 @@ public class OrderServiceImpl implements OrderService {
 				.deliveryMessage(dto.getDeliveryMessage()).detailAddress(dto.getDetailAddress())
 				.img(dto.getImg()).mId(dto.getMId()).mName(dto.getMName())
 				.oCount(dto.getOCount()).oDeliveryPrice(dto.getODeliveryPrice())
-				.oGetPoint(dto.getOGetPoint()).oItemPrice(dto.getOItemPrice())
+				.oItemPrice(dto.getOItemPrice()).oTotalPrice(dto.getOTotalPrice())
 				.oName(dto.getOName()).iNumber(dto.getINumber())
-				.oTotalPrice(dto.getOTotalPrice()).oUsePoint(dto.getOUsePoint())
 				.paymentMethod(dto.getPaymentMethod()).phoneNumber(dto.getPhoneNumber())
 				.roadAddress(dto.getRoadAddress()).deliveryStatus("배송준비중")
 				.build();
@@ -64,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		Function<OrderList, OrderDTO> fn = (en -> entityToDto(en));
 		
-		Page<OrderList> result = orderRepository.getOrderById(id, pageRequestDTO.getPageable(Sort.by("updated_date").ascending()));
+		Page<OrderList> result = orderRepository.getOrderById(id, pageRequestDTO.getPageable(Sort.by("updatedDate").ascending()));
 		
 		return new PageResultDTO<>(result, fn);
 	}

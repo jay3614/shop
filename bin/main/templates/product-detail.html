@@ -266,50 +266,18 @@
 
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
-					<li class="header-cart-item flex-w flex-t m-b-12">
+					<li class="header-cart-item flex-w flex-t m-b-12" th:each="cart : ${cartList}">
 						<div class="header-cart-item-img">
-							<img src="img/cart/cart1.jpg" alt="IMG">
+							<img th:src="${cart.cImg}" alt="IMG">
 						</div>
 
 						<div class="header-cart-item-txt p-t-8">
 							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nike x Tiffany & Co. Air Force 1 Low SP 1837
+								[[${cart.cName}]]
 							</a>
 
 							<span class="header-cart-item-info">
-								{1} x ￦1,700,000
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="img/cart/cart2.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Gucci GG Marmont Half Moon Shaped Mini Bag Blackp
-							</a>
-
-							<span class="header-cart-item-info">
-								{1} x ￦1,870,000
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="img/cart/cart3.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Sony WH-1000XM5 Black (Korean Ver.)
-							</a>
-
-							<span class="header-cart-item-info">
-								{1} x ￦479,000
+								{[[${cart.count}]]} x ￦[[${cart.cPrice}]]
 							</span>
 						</div>
 					</li>
@@ -317,7 +285,7 @@
 
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
-						Total: ￦{0,000}
+						Total: ￦[[${#vars.totalPrice}]]<input type="hidden" th:value="${#vars.totalPrice}" />
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
@@ -426,7 +394,7 @@
 										</div>
 
 										<input class="mtext-104 cl3 txt-center num-product" type="number"
-											name="num-product" value="1">
+											name="num-product" value="1"><!-- 수정필요 -->
 
 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
@@ -851,12 +819,14 @@
 			var cName = $("input[name='cName']").val();
 			var cInfo = $("input[name='cInfo']").val();
 			var cPrice = $("input[name='cPrice']").val();
-			
+			var count = $("input.count").val();//수정필요
+			alert("count : " + count)//수정필요
 			formData.append("mId", mId);
 			formData.append("cImg", cImg);
 			formData.append("cName", cName);
 			formData.append("cInfo", cInfo);
 			formData.append("cPrice", cPrice);
+			formData.append("count", count);//수정필요
 			
 			$.ajax({
 				url : 'addCart',

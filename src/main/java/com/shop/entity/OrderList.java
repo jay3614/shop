@@ -29,8 +29,6 @@ public class OrderList extends BaseTimeEntity {
 	private Long oCount;	// 주문 갯수
 	private Long oTotalPrice;	// 최종결제금액
 	private Long oDeliveryPrice;	// 배송비
-	private Long oUsePoint;	// 사용포인트
-	private Long oGetPoint;	// 적립포인트
 	private Long mId;	// 주문자아이디
 	private String mName;	// 주문자명
 	private String oName;	// 주문상품명

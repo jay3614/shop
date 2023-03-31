@@ -16,6 +16,7 @@ import com.shop.dto.CategoryDTO;
 import com.shop.dto.ItemDTO;
 import com.shop.dto.PageRequestDTO;
 import com.shop.dto.PageRequestDTO2;
+import com.shop.entity.Cart;
 import com.shop.dto.MemberDTO.ResponseDTO;
 import com.shop.service.BrandService;
 import com.shop.service.CartService;
@@ -49,7 +50,7 @@ public class IndexController {
 	}
 	
 	@GetMapping("/product")
-	public void product(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model) {
+	public void product(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model, @AuthenticationPrincipal UserAdapter user) {
 		
 		List<CategoryDTO> categoryDTOList = categoryService.getCategoryList();
 		List<BrandDTO> brandDTOList = brandService.getBrandList();
@@ -62,6 +63,11 @@ public class IndexController {
 		model.addAttribute("categoryDTOList", categoryDTOList);
 		model.addAttribute("brandDTOList", brandDTOList);
 		
+		Long id = user.getMemberDTO().getId();
+		
+		List<CartDTO> cartDTOList = cartService.getCartList(id);
+		
+		model.addAttribute("cartList", cartDTOList);
 	}
 	
 	@GetMapping("/productPriceAsc")
@@ -176,12 +182,19 @@ public class IndexController {
 	
 	@GetMapping("/shoping-cart")
 	public String cart(Model model, @AuthenticationPrincipal UserAdapter user) {
-		System.out.println("테스트1");
+		
 		Long id = user.getMemberDTO().getId();
-		System.out.println("테스트2" + id);
+		
 		List<CartDTO> cartDTOList = cartService.getCartList(id);
 		
 		model.addAttribute("cartList", cartDTOList);
+		
+		List<CartDTO> cartList = cartService.getCartList(id); // 장바구니 리스트 가져오기
+		int totalPrice = 0;
+	    for (CartDTO cart : cartList) {
+	        totalPrice += cart.getCPrice()*cart.getCount();
+	    }
+	    model.addAttribute("totalPrice", totalPrice);
 		
 		return "content/cart/shoping-cart";
 	}
@@ -207,15 +220,35 @@ public class IndexController {
 		model.addAttribute("recommend4", itemService.read(random4));
 		model.addAttribute("item", itemDTO);
 		model.addAttribute("limitDTO", itemService.getLimitList(pageRequestDTO2));
-	}
-	
-	@GetMapping("/myPage2")
-	public String myPage(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
 		
 		Long id = user.getMemberDTO().getId();
 		
-		model.addAttribute("list", orderService.getList(id, pageRequestDTO));	// 사용자 id에 따른 전체 목록 출력
-		model.addAttribute("coun1", orderService.beforeDeposit(id));	// 입금확인 숫자
+		List<CartDTO> cartDTOList = cartService.getCartList(id);
+		
+		model.addAttribute("cartList", cartDTOList);
+		
+		List<CartDTO> cartList = cartService.getCartList(id); // 장바구니 리스트 가져오기
+		int totalPrice = 0;
+	    for (CartDTO cart : cartList) {
+	        totalPrice += cart.getCPrice()*cart.getCount();
+	    }
+	    model.addAttribute("totalPrice", totalPrice);
+	    
+	    model.addAttribute("cartList", cartList);
+	    model.addAttribute("totalPrice", totalPrice);
+		
+	}
+	
+	@GetMapping("/myPage-orderlist")
+	public String myPage(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
+		
+		Long id = user.getMemberDTO().getId();
+		System.out.println(",,,,,,,,"+id);
+		ResponseDTO member = memberService.getById(id);
+		
+		model.addAttribute("member", member);
+		model.addAttribute("orderList", orderService.getList(id, pageRequestDTO));	// 사용자 id에 따른 전체 목록 출력
+		model.addAttribute("count1", orderService.beforeDeposit(id));	// 입금확인 숫자
 		model.addAttribute("count2", orderService.beforeDelivery(id));	// 배송준비중 숫자
 		model.addAttribute("count3", orderService.Deliverying(id));		// 배송중 숫자
 		model.addAttribute("count4", orderService.afterDelivery(id));	// 배송완료 숫자
@@ -223,7 +256,7 @@ public class IndexController {
 		model.addAttribute("count6", orderService.exchangeStatus(id));	// 교환 숫자
 		model.addAttribute("count7", orderService.returnStatus(id));	// 반품 숫자
 		
-		return "content/user/myPage";
+		return "content/user/myPage-orderlist";
 	}
 	
 //	@GetMapping("/shopping-cart")

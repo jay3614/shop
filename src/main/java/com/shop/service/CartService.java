@@ -17,7 +17,8 @@ default Cart dtoToEntity(CartDTO dto, @AuthenticationPrincipal UserAdapter user)
 	Cart cart = Cart.builder()
 				.cImg(dto.getCImg()).cInfo(dto.getCInfo())
 				.cName(dto.getCName()).cPrice(dto.getCPrice())
-				.mId(id).build();
+				.mId(id).count(dto.getCount())
+				.build();
 	
 		return cart;
 	}
@@ -27,7 +28,8 @@ default Cart dtoToEntity(CartDTO dto, @AuthenticationPrincipal UserAdapter user)
 		CartDTO cartDTO = CartDTO.builder()
 				.id(cEntity.getId()).cImg(cEntity.getCImg())
 				.cInfo(cEntity.getCInfo()).cName(cEntity.getCName())
-				.cPrice(cEntity.getCPrice()).build();
+				.cPrice(cEntity.getCPrice()).count(cEntity.getCount())
+				.build();
 		
 		return cartDTO;
 	}

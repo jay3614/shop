@@ -95,6 +95,7 @@ public class MemberDTO implements Serializable{
 		private String phone;
 		private MemberRole role;
 		private int point;
+		private String createdDate;
 		private String updatedDate;
 		
 		public ResponseDTO(Member member) {
@@ -107,6 +108,7 @@ public class MemberDTO implements Serializable{
 			this.phone = member.getPhone();
 			this.role = member.getRole();
 			this.point = member.getPoint();
+			this.createdDate = member.getCreatedDate();
 			this.updatedDate = member.getUpdatedDate();
 		}
 		

@@ -18,8 +18,6 @@ public class OrderDTO {
 	private Long oCount;
 	private Long oTotalPrice;
 	private Long oDeliveryPrice;
-	private Long oUsePoint;
-	private Long oGetPoint;
 	private Long mId;
 	private String mName;
 	private String phoneNumber;

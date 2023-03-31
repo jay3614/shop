@@ -19,6 +19,7 @@ public class CartDTO {
 	private String cInfo;
 	private String cImg;
 	private Long mId;
+	private Long count;
 	
 	
 }

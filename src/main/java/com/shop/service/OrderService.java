@@ -17,7 +17,7 @@ public interface OrderService {
 				.oItemPrice(entity.getOItemPrice()).oDeliveryPrice(entity.getODeliveryPrice())
 				.oTotalPrice(entity.getOTotalPrice()).createdDate(entity.getCreatedDate())
 				.oName(entity.getOName()).img(entity.getImg()).updatedDate(entity.getUpdatedDate())
-				.oGetPoint(entity.getOGetPoint()).build();
+				.build();
 		
 		return dto;
 	}
@@ -28,9 +28,8 @@ public interface OrderService {
 				.deliveryMessage(dto.getDeliveryMessage()).detailAddress(dto.getDetailAddress())
 				.img(dto.getImg()).mName(dto.getMName())
 				.oCount(dto.getOCount()).oDeliveryPrice(dto.getODeliveryPrice())
-				.oGetPoint(dto.getOGetPoint()).oItemPrice(dto.getOItemPrice())
+				.oItemPrice(dto.getOItemPrice()).oTotalPrice(dto.getOTotalPrice())
 				.oName(dto.getOName()).iNumber(dto.getINumber())
-				.oTotalPrice(dto.getOTotalPrice()).oUsePoint(dto.getOUsePoint())
 				.paymentMethod(dto.getPaymentMethod()).phoneNumber(dto.getPhoneNumber())
 				.roadAddress(dto.getRoadAddress())
 				.build();
