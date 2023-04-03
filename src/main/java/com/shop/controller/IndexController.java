@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shop.config.auth.UserAdapter;
 import com.shop.dto.BrandDTO;
@@ -16,7 +15,6 @@ import com.shop.dto.CategoryDTO;
 import com.shop.dto.ItemDTO;
 import com.shop.dto.PageRequestDTO;
 import com.shop.dto.PageRequestDTO2;
-import com.shop.entity.Cart;
 import com.shop.dto.MemberDTO.ResponseDTO;
 import com.shop.service.BrandService;
 import com.shop.service.CartService;
@@ -26,7 +24,6 @@ import com.shop.service.MemberService;
 import com.shop.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 @RequiredArgsConstructor
 @Controller
@@ -39,14 +36,32 @@ public class IndexController {
 	private final BrandService brandService;
 	private final OrderService orderService;
 	
-	@GetMapping("/index")
-	public void goIndex(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {
+	@GetMapping({"/","/index"})
+	public String goIndex(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
 		
-		Long iNumber = 1L;
-		
-		ItemDTO itemDTO = itemService.read(iNumber);
-		
-		model.addAttribute("itemDTO", itemDTO);
+		if(user == null) {
+			ItemDTO itemDTO = itemService.read(1L);
+			model.addAttribute("itemDTO", itemDTO);
+		}else {
+			
+			Long id = user.getMemberDTO().getId();
+			
+			ItemDTO itemDTO = itemService.read(1L);
+			
+			Long cartCount = cartService.getCartCount(id);
+			List<CartDTO> cartDTOList = cartService.getCartList(id);
+			
+			int totalPrice = 0;
+			for (CartDTO cart : cartDTOList) {
+				totalPrice += cart.getCPrice() * cart.getCount();
+			}
+			model.addAttribute("totalPrice", totalPrice);
+			model.addAttribute("cartList", cartDTOList);
+			model.addAttribute("count", cartCount);
+			model.addAttribute("itemDTO", itemDTO);
+			
+		}
+		return "/index";
 	}
 	
 	@GetMapping("/product")
@@ -56,9 +71,9 @@ public class IndexController {
 		List<BrandDTO> brandDTOList = brandService.getBrandList();
 		
 		model.addAttribute("itemDTO", itemService.getList(pageRequestDTO));
-		model.addAttribute("topDTO", itemService.getTopList(pageRequestDTO));
-		model.addAttribute("itemAsc", itemService.getListByPriceAsc(pageRequestDTO));
-		model.addAttribute("itemDesc", itemService.getListByPriceDesc(pageRequestDTO));
+//		model.addAttribute("topDTO", itemService.getTopList(pageRequestDTO));
+//		model.addAttribute("itemAsc", itemService.getListByPriceAsc(pageRequestDTO));
+//		model.addAttribute("itemDesc", itemService.getListByPriceDesc(pageRequestDTO));
 		model.addAttribute("count", itemService.readAll());
 		model.addAttribute("categoryDTOList", categoryDTOList);
 		model.addAttribute("brandDTOList", brandDTOList);
@@ -66,10 +81,19 @@ public class IndexController {
 		Long id = user.getMemberDTO().getId();
 		
 		List<CartDTO> cartDTOList = cartService.getCartList(id);
-		
+		Long cartCount = cartService.getCartCount(id);
+		//
+		int totalPrice = 0;
+		for (CartDTO cart : cartDTOList) {
+			totalPrice += cart.getCPrice() * cart.getCount();
+		}
+		model.addAttribute("totalPrice", totalPrice);
+		//
 		model.addAttribute("cartList", cartDTOList);
+		model.addAttribute("count", cartCount);
 	}
 	
+	/*
 	@GetMapping("/productPriceAsc")
 	public void productAsc(PageRequestDTO pageRequestDTO, Model model) {
 		
@@ -179,24 +203,31 @@ public class IndexController {
 		model.addAttribute("categoryDTOList", categoryDTOList);
 		model.addAttribute("brandDTOList", brandDTOList);
 	}
+	*/
 	
-	@GetMapping("/shoping-cart")
-	public String cart(Model model, @AuthenticationPrincipal UserAdapter user) {
+	@GetMapping("/shopping-cart")
+	public String cart(Long cNumber, Long oCount, Long dPrice, Model model, @AuthenticationPrincipal UserAdapter user) {
 		
 		Long id = user.getMemberDTO().getId();
 		
 		List<CartDTO> cartDTOList = cartService.getCartList(id);
 		
-		model.addAttribute("cartList", cartDTOList);
+//		CartDTO dto = cartService.order(cNumber);
+//		Long cPrice = dto.getCPrice();
+//		Long totalPrice = cPrice * oCount + dPrice;
 		
 		List<CartDTO> cartList = cartService.getCartList(id); // 장바구니 리스트 가져오기
-		int totalPrice = 0;
+		int totalPrice2 = 0;
 	    for (CartDTO cart : cartList) {
-	        totalPrice += cart.getCPrice()*cart.getCount();
+	        totalPrice2 += cart.getCPrice() * cart.getCount();
 	    }
-	    model.addAttribute("totalPrice", totalPrice);
+	    Long cartCount = cartService.getCartCount(id);
 		
-		return "content/cart/shoping-cart";
+	    model.addAttribute("totalPrice", totalPrice2);
+	    model.addAttribute("cartList", cartDTOList);
+//	    model.addAttribute("total", totalPrice);
+	    model.addAttribute("count", cartCount);
+		return "content/cart/shopping-cart";
 	}
 	
 	@GetMapping("/product-detail")
@@ -237,32 +268,29 @@ public class IndexController {
 	    model.addAttribute("cartList", cartList);
 	    model.addAttribute("totalPrice", totalPrice);
 		
+	    Long cartCount = cartService.getCartCount(id);
+	    model.addAttribute("count", cartCount);
+	    
 	}
 	
 	@GetMapping("/myPage-orderlist")
 	public String myPage(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
-		
 		Long id = user.getMemberDTO().getId();
-		System.out.println(",,,,,,,,"+id);
+		
 		ResponseDTO member = memberService.getById(id);
+		
+		Long cartCount = cartService.getCartCount(id);
+		model.addAttribute("count", cartCount);
 		
 		model.addAttribute("member", member);
 		model.addAttribute("orderList", orderService.getList(id, pageRequestDTO));	// 사용자 id에 따른 전체 목록 출력
-		model.addAttribute("count1", orderService.beforeDeposit(id));	// 입금확인 숫자
-		model.addAttribute("count2", orderService.beforeDelivery(id));	// 배송준비중 숫자
-		model.addAttribute("count3", orderService.Deliverying(id));		// 배송중 숫자
-		model.addAttribute("count4", orderService.afterDelivery(id));	// 배송완료 숫자
-		model.addAttribute("count5", orderService.cancleStatus(id));	// 취소 숫자
-		model.addAttribute("count6", orderService.exchangeStatus(id));	// 교환 숫자
-		model.addAttribute("count7", orderService.returnStatus(id));	// 반품 숫자
+		model.addAttribute("count0", orderService.allStatus(id));
+		model.addAttribute("count1", orderService.deliverying(id));
+		model.addAttribute("count2", orderService.afterDelivery(id));
+		model.addAttribute("count3", orderService.beforeCancle(id));
+		model.addAttribute("count4", orderService.afterCancle(id));
 		
 		return "content/user/myPage-orderlist";
 	}
-	
-//	@GetMapping("/shopping-cart")
-//	public String cart() {
-//		
-//		return "content/cart/shoping-cart";
-//	}
 	
 }

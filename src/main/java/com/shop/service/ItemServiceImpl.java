@@ -54,7 +54,6 @@ public class ItemServiceImpl implements ItemService {
 		
 		Item entity = dtoToEntity(dto).builder()
 		.iCategory(dto.getICategory())
-//		.iDeliveryPrice(dto.getIDeliveryPrice())
 		.iInfo(dto.getIInfo()).iInstock(dto.getIInstock())
 		.iName(dto.getIName()).iPrice(dto.getIPrice())
 		.brand(dto.getBrand()).iSize(dto.getISize())
@@ -103,7 +102,7 @@ public class ItemServiceImpl implements ItemService {
 	public ItemDTO read(Long iNumber) {
 		
 		Item result = itemRepository.getItemByNumber(iNumber);
-		
+		System.out.println("++++++++++"+result);
 		return entityToDto(result);
 	}
 	

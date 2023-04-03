@@ -1,10 +1,10 @@
 package com.shop.service;
 
-import com.shop.dto.MemberDTO;
+import java.util.List;
+
 import com.shop.dto.OrderDTO;
 import com.shop.dto.PageRequestDTO;
 import com.shop.dto.PageResultDTO;
-import com.shop.entity.Member;
 import com.shop.entity.OrderList;
 
 public interface OrderService {
@@ -13,10 +13,11 @@ public interface OrderService {
 	default OrderDTO entityToDto(OrderList entity) {
 		
 		OrderDTO dto = OrderDTO.builder().oNumber(entity.getONumber())
-				.iNumber(entity.getINumber()).oCount(entity.getOCount())
+				.iNumber(entity.getINumber()).oCount(entity.getOCount()).mName(entity.getMName())
 				.oItemPrice(entity.getOItemPrice()).oDeliveryPrice(entity.getODeliveryPrice())
 				.oTotalPrice(entity.getOTotalPrice()).createdDate(entity.getCreatedDate())
-				.oName(entity.getOName()).img(entity.getImg()).updatedDate(entity.getUpdatedDate())
+				.oName(entity.getOName()).img(entity.getImg()).oSize(entity.getOSize())
+				.updatedDate(entity.getUpdatedDate()).deliveryStatus(entity.getDeliveryStatus())
 				.build();
 		
 		return dto;
@@ -31,7 +32,7 @@ public interface OrderService {
 				.oItemPrice(dto.getOItemPrice()).oTotalPrice(dto.getOTotalPrice())
 				.oName(dto.getOName()).iNumber(dto.getINumber())
 				.paymentMethod(dto.getPaymentMethod()).phoneNumber(dto.getPhoneNumber())
-				.roadAddress(dto.getRoadAddress())
+				.roadAddress(dto.getRoadAddress()).oSize(dto.getOSize())
 				.build();
 		
 		return order;
@@ -41,20 +42,22 @@ public interface OrderService {
 	
 	Long order(OrderDTO dto);
 	
+	Long modify(OrderDTO dto, Long oNumber);	// 수정 필요
+	
 	PageResultDTO<OrderDTO, OrderList> getList(Long id, PageRequestDTO pageRequestDTO);
 	
-	Long beforeDeposit(Long id);
+	List<OrderDTO> getAllList();
 	
-	Long beforeDelivery(Long id);
+	Long getAllCount();
 	
-	Long Deliverying(Long id);
+	Long allStatus(Long id);
+	
+	Long deliverying(Long id);
 	
 	Long afterDelivery(Long id);
 	
-	Long cancleStatus(Long id);
+	Long beforeCancle(Long id);
 	
-	Long exchangeStatus(Long id);
-	
-	Long returnStatus(Long id);
+	Long afterCancle(Long id);
 	
 }

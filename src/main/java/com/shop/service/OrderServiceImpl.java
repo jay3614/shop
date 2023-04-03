@@ -1,6 +1,8 @@
 package com.shop.service;
 
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -48,16 +50,30 @@ public class OrderServiceImpl implements OrderService {
 				.img(dto.getImg()).mId(dto.getMId()).mName(dto.getMName())
 				.oCount(dto.getOCount()).oDeliveryPrice(dto.getODeliveryPrice())
 				.oItemPrice(dto.getOItemPrice()).oTotalPrice(dto.getOTotalPrice())
-				.oName(dto.getOName()).iNumber(dto.getINumber())
+				.oName(dto.getOName()).iNumber(dto.getINumber()).oSize(dto.getOSize())
 				.paymentMethod(dto.getPaymentMethod()).phoneNumber(dto.getPhoneNumber())
-				.roadAddress(dto.getRoadAddress()).deliveryStatus("배송준비중")
+				.roadAddress(dto.getRoadAddress()).deliveryStatus("결제완료")
 				.build();
 		
 		orderRepository.save(entity);
 		
 		return entity.getONumber();
 	}
-
+	
+	// 수정 필요
+	@Override
+	public Long modify(OrderDTO dto, Long oNumber) {
+		
+		OrderList entity = orderRepository.getById(oNumber);
+		entity.changeDeliveryStatus(dto.getDeliveryStatus());
+		
+		orderRepository.save(entity);
+		
+		return entity.getONumber();
+		
+	}
+	
+	
 	@Override
 	public PageResultDTO<OrderDTO, OrderList> getList(Long id, PageRequestDTO pageRequestDTO) {
 		
@@ -69,25 +85,36 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public Long beforeDeposit(Long id) {
+	public List<OrderDTO> getAllList() {
 		
-		Long result = orderRepository.getBeforeDeposit(id);
+		List<OrderList> orderList = orderRepository.findAll();
 		
-		return result;
-	}
-	
-	@Override
-	public Long beforeDelivery(Long id) {
-		
-		Long result = orderRepository.getBeforeDelivery(id);
+		List<OrderDTO> result = orderList.stream().map(order -> entityToDto(order)).collect(Collectors.toList());
 		
 		return result;
 	}
 	
 	@Override
-	public Long Deliverying(Long id) {
+	public Long getAllCount() {
 		
-		Long result = orderRepository.getDeliverying(id);
+		Long result = orderRepository.count();
+		
+		
+		return result;
+	}
+	
+	@Override
+	public Long allStatus(Long id) {
+		
+		Long result = orderRepository.countAll(id);
+		
+		return result;
+	}
+	
+	@Override
+	public Long deliverying(Long id) {
+		
+		Long result = orderRepository.deliverying(id);
 		
 		return result;
 	}
@@ -95,31 +122,23 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Long afterDelivery(Long id) {
 		
-		Long result = orderRepository.getAfterDelivery(id);
+		Long result = orderRepository.afterDelivery(id);
 		
 		return result;
 	}
 
 	@Override
-	public Long cancleStatus(Long id) {
+	public Long beforeCancle(Long id) {
 		
-		Long result = orderRepository.getCancle(id);
-		
-		return result;
-	}
-
-	@Override
-	public Long exchangeStatus(Long id) {
-		
-		Long result = orderRepository.getExchange(id);
+		Long result = orderRepository.beforeCancle(id);
 		
 		return result;
 	}
 
 	@Override
-	public Long returnStatus(Long id) {
+	public Long afterCancle(Long id) {
 		
-		Long result = orderRepository.getReturn(id);
+		Long result = orderRepository.afterCancle(id);
 		
 		return result;
 	}
