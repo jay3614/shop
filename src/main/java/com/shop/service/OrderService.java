@@ -3,8 +3,6 @@ package com.shop.service;
 import java.util.List;
 
 import com.shop.dto.OrderDTO;
-import com.shop.dto.PageRequestDTO;
-import com.shop.dto.PageResultDTO;
 import com.shop.entity.OrderList;
 
 public interface OrderService {
@@ -44,13 +42,15 @@ public interface OrderService {
 	
 	Long modify(OrderDTO dto, Long oNumber);	// 수정 필요
 	
-	PageResultDTO<OrderDTO, OrderList> getList(Long id, PageRequestDTO pageRequestDTO);
+	List<OrderDTO> getList(Long id);
 	
 	List<OrderDTO> getAllList();
 	
 	Long getAllCount();
 	
 	Long allStatus(Long id);
+	
+	Long donePayment(Long id);
 	
 	Long deliverying(Long id);
 	
@@ -59,5 +59,7 @@ public interface OrderService {
 	Long beforeCancle(Long id);
 	
 	Long afterCancle(Long id);
+	
+	List<OrderList> getImgList(Long id);
 	
 }

@@ -25,15 +25,31 @@ public class Item extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long iNumber;
 	private String iName;
+	private Long brandNumber;
 	private String brand;
 	private Long iCategory;
 	private Long iPrice;
-//	private Long iDeliveryPrice;
 	private String iInfo;
 	private Long iInstock;
 	private String iImg;
 	private String iSize;
 	
+	
+	public void changeIName(String iName) {
+		this.iName = iName;
+	}
+	
+	public void changeBrandNumber(Long brandNumber) {
+		this.brandNumber = brandNumber;
+	}
+	
+	public void changeBrand(String brand) {
+		this.brand = brand;
+	}
+	
+	public void changeICategory(Long iCategory) {
+		this.iCategory = iCategory;
+	}
 	
 	public void changeImg(String iImg) {
 		this.iImg = iImg;
@@ -51,8 +67,8 @@ public class Item extends BaseTimeEntity {
 		this.iInfo = iInfo;
 	}
 	
-	public void changeSize(String iInfo) {
-		this.iInfo = iInfo;
+	public void changeSize(String iSize) {
+		this.iSize = iSize;
 	}
 	
 //	public void changeDeliveryPrice(Long iDeliveryPrice) {

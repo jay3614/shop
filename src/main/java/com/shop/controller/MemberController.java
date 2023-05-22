@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +11,6 @@ import javax.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,17 +21,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shop.config.auth.UserAdapter;
-import com.shop.dto.MemberDTO;
-import com.shop.dto.MemberEditDTO;
-import com.shop.dto.PasswordEditDTO;
+import com.shop.dto.CartDTO;
+import com.shop.dto.OrderDTO;
+import com.shop.dto.PageRequestDTO;
 import com.shop.dto.MemberDTO.RequestDTO;
 import com.shop.dto.MemberDTO.ResponseDTO;
-import com.shop.entity.Member;
+import com.shop.service.CartService;
+import com.shop.service.MailService;
 import com.shop.service.MemberService;
+import com.shop.service.OrderService;
+import com.shop.service.ReviewService;
 import com.shop.validator.CheckEmailValidator;
 import com.shop.validator.CheckUsernameValidator;
 
@@ -44,36 +48,41 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class MemberController {
 
+	/** 서비스 **/
 	private final MemberService memberService;
+	private final MailService mailService;
+	private final CartService cartService;
+	private final OrderService orderService;
+	private final ReviewService reviewService;
 
 	/** 중복 체크 유효성 검사 **/
 	private final CheckUsernameValidator checkUsernameValidator;
 	private final CheckEmailValidator checkEmailValidator;
-	private final PasswordEncoder passwordEncoder;
-
+	
+	/** Binder **/
 	@InitBinder
 	public void validatorBinder(WebDataBinder binder) {
 		binder.addValidators(checkUsernameValidator);
 		binder.addValidators(checkEmailValidator);
 	}
-
+	
+	/** 회원가입 페이지 **/
 	@GetMapping("/register")
 	public String register(Model model) {
-		model.addAttribute("memberDTO", new MemberDTO.RequestDTO());
-		return "/register";
+		model.addAttribute("memberDto", new RequestDTO());
+		return "/content/user/register";
 	}
 
+	/** 회원가입 요청 처리 **/
 	@PostMapping("/register")
 	public String register(@ModelAttribute @Valid RequestDTO memberDTO, BindingResult bindingResult, Model model) {
-
+		
 		if(bindingResult.hasErrors()) {
 
 			log.info("======== 회원 가입에 예외 있음");
-
 			model.addAttribute("memberDto", memberDTO);
-
 			Map<String, String> errorMap = new HashMap<>();
-
+			
 			for(FieldError error : bindingResult.getFieldErrors()) {
 				errorMap.put("valid_" + error.getField(), error.getDefaultMessage());
 				log.info("회원가입실패. : " + error.getDefaultMessage());
@@ -84,26 +93,29 @@ public class MemberController {
 				model.addAttribute(key, errorMap.get(key));
 			}
 
-			return "register";
+			return "content/user/register";
 		}
-
+	
+		log.info("회원가입 성공 : " + memberDTO.toString());
 		memberService.userJoin(memberDTO);
 		return "redirect:/login";
 	}
 
+	/** 로그인 요청 처리 시 예외 핸들링 **/
 	@GetMapping("/login")
 	public String login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "exception", required = false) String exception,
 			Model model) {
+		/** 에러와 예외가 존재하는 경우우 모델에 담아 view resolve **/
 
-		/** 에러와 예외가 존재하는 경우우 모델에 담아 view resolv **/
 		model.addAttribute("error", error);
+
 		model.addAttribute("exception", exception);
 
-		return "/login";
+		return "/content/user/login";
 	}
 
-
+	/** 로그아웃 **/
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -118,113 +130,141 @@ public class MemberController {
 		log.info("로그아웃 성공");
 		return "redirect:/"; // 메인 페이지로 리다이렉트
 	}
+	
+	/** 패스워드 찾기 페이지 **/
+	@GetMapping("/findPassword")
+	public String findPassword() {
+		return "/content/user/findPassword";
+	}
 
-	@GetMapping("/fail")
+	/** 패스워드 찾기 요청 시 이메일 보내주기 **/
+	@PostMapping("/sendPwd")
 	@ResponseBody
-	public String fail() {
-		return "FAILED";
-	}
-
-	// 엑세스 거부 페이지
-	@GetMapping("/denied")
-	public String denied() {
-		return "denied";
-	}
-
-	// 어드민 페이지
-	@GetMapping("admin")
-	public String admin() {
-		return "admin/admin";
+	public boolean sendPwdEmail(@RequestParam("memberEmail") String memberEmail) throws Exception {
+		log.info("요청된 이메일 : " + memberEmail);
+		
+		if(!memberService.checkEmail(memberEmail)) {
+			return false;
+		}
+		
+		String tmpPassword = memberService.getTmpPassword();
+		memberService.updatePassword(tmpPassword, memberEmail);
+		mailService.createMail(tmpPassword, memberEmail);
+		
+		return true;
+		
 	}
 
 	//////////////////////////////////////////////////////////////////
 
-	@GetMapping("/mypage")
-	public String myPage(Model model, @AuthenticationPrincipal Member currentMember) {
-
-		MemberEditDTO dto = new MemberEditDTO();
-		dto.setUsername(currentMember.getUsername());
-		dto.setEmail(currentMember.getEmail());
-
-		model.addAttribute(dto);
-		return "mypage";
-	}
-
 	/** 마이페이지 **/
-	@GetMapping("/myPage")
+	@GetMapping("/mypage")
 	public String findByMemberId(@AuthenticationPrincipal UserAdapter user,
 			Model model) {
 
-		Long member_id = user.getMemberDTO().getId();
-		ResponseDTO responseDto = memberService.getById(member_id);
+		Long id = user.getMemberDTO().getId();
+		ResponseDTO responseDto = memberService.getById(id);
+		
+		
+		List<CartDTO> cartDTOList = cartService.getCartList(id);
+		Long cartCount = cartService.getCartCount(id);
+		
+		int totalPrice = 0;
+		for (CartDTO cart : cartDTOList) {
+			totalPrice += cart.getCPrice() * cart.getCount();
+		}
+		model.addAttribute("reviewCount", reviewService.myReviewCount(id));
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("cartList", cartDTOList);
+		model.addAttribute("count", cartCount);
 		model.addAttribute("member", responseDto);
-		return "member/myPage";
+		return "/content/user/mypage";
 	}
 
-	@PostMapping("/mypage/password")
-	public String passwordEdit(Model model,
-			PasswordEditDTO dto,
-			BindingResult result,
-			@AuthenticationPrincipal Member currentMember) {
-		if (result.hasErrors()) {
-			return "redirect:/mypage/password";
-		}
-
-		if (!passwordEncoder.matches(dto.getPassword(), currentMember.getPassword())) {
-			model.addAttribute("error", "현재 패스워드 불일치");
-			return "mypage/passwordError";
-		}
-
-		if(dto.getNewPassword().equals(dto.getPassword())){
-			model.addAttribute("error", "동일한 패스워드");
-			return "mypage/passwordError";
-		}
-
-		if (!dto.getNewPassword().equals(dto.getRetype())) {
-			model.addAttribute("error", "새 패스워드 불일치");
-			return "mypage/passwordError";
-		}
-
-		String encodedNewPwd = passwordEncoder.encode(dto.getNewPassword());
-		memberService.updatePassword(currentMember.getUsername(), encodedNewPwd);
-		currentMember.setPassword(encodedNewPwd);
-		return "redirect:/mypage";
+	/** 회원정보 수정 페이지 **/
+	@GetMapping("/update")
+	public String MemberUpdate(@AuthenticationPrincipal UserAdapter user, Model model) {
+		Long id = user.getMemberDTO().getId();
+		ResponseDTO responseDTO = memberService.getById(id);
+		Long cartCount = cartService.getCartCount(id);
+		model.addAttribute("count", cartCount);
+		
+		List<CartDTO> cartList = cartService.getCartList(id); // 장바구니 리스트 가져오기
+		int totalPrice = 0;
+	    for (CartDTO cart : cartList) {
+	        totalPrice += cart.getCPrice()*cart.getCount();
+	    }
+	    model.addAttribute("cartList", cartList);
+	    model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("reviewCount", reviewService.myReviewCount(id));
+		model.addAttribute("member", responseDTO);
+		return "/content/user/update";
 	}
-
-	@GetMapping("/deleteMember")
-	public String delMember(Model model, String checkWords){
-		model.addAttribute("passwordForm", new PasswordEditDTO());
-		model.addAttribute("checkWords", checkWords);
-
-		return "mypage/deleteMember";
+	
+	@GetMapping("/orderlist")
+	public String myPage(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
+		Long id = user.getMemberDTO().getId();
+		
+		ResponseDTO member = memberService.getById(id);
+		
+		Long cartCount = cartService.getCartCount(id);
+		model.addAttribute("count", cartCount);
+		
+		List<CartDTO> cartList = cartService.getCartList(id); // 장바구니 리스트 가져오기
+		int totalPrice = 0;
+	    for (CartDTO cart : cartList) {
+	        totalPrice += cart.getCPrice()*cart.getCount();
+	    }
+	    model.addAttribute("cartList", cartList);
+	    model.addAttribute("totalPrice", totalPrice);
+	    model.addAttribute("reviewCount", reviewService.myReviewCount(id));
+		model.addAttribute("member", member);
+		model.addAttribute("orderList", orderService.getList(id));	// 사용자 id에 따른 전체 목록 출력
+		model.addAttribute("count0", orderService.allStatus(id));
+		model.addAttribute("count1", orderService.donePayment(id));
+		model.addAttribute("count2", orderService.deliverying(id));
+		model.addAttribute("count3", orderService.afterDelivery(id));
+		model.addAttribute("count4", orderService.beforeCancle(id));
+		model.addAttribute("count5", orderService.afterCancle(id));
+		
+		return "content/user/mypage-orderlist";
 	}
-
-	@PostMapping("/deleteMember")
-	public String delMember(PasswordEditDTO dto,
-			String checkWords,
-			@AuthenticationPrincipal Member currentMember){
-
-		if (!passwordEncoder.matches(dto.getPassword(), currentMember.getPassword())) {
-			System.out.println("패스워드가 일치하지 않음.");
-			return "redirect:/deleteMember";
-		}
-		else{
-			System.out.println("비밀번호 일치");
-		}
-
-		if(!checkWords.equals("Delete Member")){
-			System.out.println("불일치");
-			return "redirect:/deleteMember";
-		}
-		else{
-			System.out.println("일치");
-		}
-
-		Member member = memberService.findByUsername(currentMember.getUsername())
-				.orElseThrow(()-> new UsernameNotFoundException(currentMember.getUsername()));
-		memberService.deleteMember(member.getUsername());
-
-		return "redirect:/logout";
+	
+	@PostMapping("/returnDeliveryStatus")
+	public String returnDeliveryStatus(OrderDTO dto, RedirectAttributes redirectAttributes, RequestDTO requestDTO) {
+		
+		Long oNumber = dto.getONumber();
+		
+		orderService.modify(dto, oNumber);
+		
+		redirectAttributes.addFlashAttribute("message", "반품처리 되었습니다.");
+	    return "redirect:/orderlist";
 	}
-
+	
+    @GetMapping("/myReviewList")
+    public String myReviewList(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
+    	
+    	Long id = user.getMemberDTO().getId();
+    	String username = user.getMemberDTO().getUsername();
+    	ResponseDTO member = memberService.getById(id);
+    	
+    	Long cartCount = cartService.getCartCount(id);
+    	List<CartDTO> cartDTOList = cartService.getCartList(id);
+    	
+    	int totalPrice = 0;
+    	for (CartDTO cart : cartDTOList) {
+    		totalPrice += cart.getCPrice() * cart.getCount();
+    	}
+    	
+    	model.addAttribute("reviewCount", reviewService.myReviewCount(id));
+    	model.addAttribute("list", reviewService.read(username));
+    	model.addAttribute("member", member);
+    	model.addAttribute("totalPrice", totalPrice);
+    	model.addAttribute("cartList", cartDTOList);
+    	model.addAttribute("count", cartCount);
+    	
+    	return "content/user/mypage-reviewlist";
+    	
+    }
+	
 }

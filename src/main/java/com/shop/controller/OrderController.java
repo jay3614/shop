@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.shop.config.auth.UserAdapter;
 import com.shop.dto.CartDTO;
 import com.shop.dto.ItemDTO;
-import com.shop.dto.OrderDTO;
 import com.shop.dto.PageRequestDTO;
 import com.shop.dto.MemberDTO.ResponseDTO;
 import com.shop.service.CartService;
 import com.shop.service.ItemService;
 import com.shop.service.MemberService;
-import com.shop.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,26 +24,12 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class OrderController {
 	
-	private final OrderService orderService;
 	private final ItemService itemService;
 	private final MemberService memberService;
 	private final CartService cartService;
 	
-//	@GetMapping("/orderList")
-//	public void orderList(PageRequestDTO pageRequestDTO, Model model) {
-//		
-//		model.addAttribute("orderList", orderService.getList(pageRequestDTO));
-//	}
-	
-	@GetMapping("/orderDetail")
-	public void orderDetail(Long oNumber, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {
-		OrderDTO dto = orderService.read(oNumber);
-		
-		model.addAttribute("dto", dto);
-	}
-	
 	@GetMapping("/orderBy")
-	public String orderBy(Long iNumber, Long oCount, Long dPrice, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
+	public String orderBy(Long iNumber, Long oCount, Long dPrice, Long cart_id, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
 		
 		ItemDTO dto = itemService.order(iNumber);
 		Long id = user.getMemberDTO().getId();
@@ -57,8 +41,8 @@ public class OrderController {
 		Long totalPrice = iPrice * oCount + dPrice;
 		
 		int totalPrice2 = 0;
-		for (CartDTO cart : cartDTOList) {
-			totalPrice2 += cart.getCPrice() * cart.getCount();
+		for (CartDTO cartDTO : cartDTOList) {
+			totalPrice2 += cartDTO.getCPrice() * cartDTO.getCount();
 		}
 		model.addAttribute("totalPrice", totalPrice2);
 		model.addAttribute("ordering", dto);
@@ -66,6 +50,8 @@ public class OrderController {
 		model.addAttribute("member", responseDto);
 		model.addAttribute("cartList", cartDTOList);
 		model.addAttribute("count", cartCount);
+		model.addAttribute("cart_id", cart_id);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+ cart_id);
 		
 		return "content/user/orderBy";
 	}

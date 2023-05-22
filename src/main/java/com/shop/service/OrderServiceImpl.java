@@ -1,16 +1,11 @@
 package com.shop.service;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shop.dto.OrderDTO;
-import com.shop.dto.PageRequestDTO;
-import com.shop.dto.PageResultDTO;
 import com.shop.entity.OrderList;
 import com.shop.repository.OrderRepository;
 
@@ -21,18 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class OrderServiceImpl implements OrderService {
 
 	private final OrderRepository orderRepository;
-	
-//	@Override
-//	public PageResultDTO<OrderDTO, OrderList> getList(PageRequestDTO pageRequestDTO) {
-//
-//		Function<OrderList, OrderDTO> fn = (en -> entityToDto(en));
-//		
-//		String id = "user10";
-//		
-//		Page<OrderList> result = orderRepository.getListById(id, pageRequestDTO.getPageable(Sort.by("regDate").ascending()));
-//		
-//		return new PageResultDTO<>(result, fn);
-//	}
 	
 	@Override
 	public OrderDTO read(Long oNumber) {
@@ -73,15 +56,12 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 	
-	
 	@Override
-	public PageResultDTO<OrderDTO, OrderList> getList(Long id, PageRequestDTO pageRequestDTO) {
+	public List<OrderDTO> getList(Long id) {
 		
-		Function<OrderList, OrderDTO> fn = (en -> entityToDto(en));
+		List<OrderDTO> result = orderRepository.getOrderById(id).stream().map(order -> entityToDto(order)).collect(Collectors.toList());
 		
-		Page<OrderList> result = orderRepository.getOrderById(id, pageRequestDTO.getPageable(Sort.by("updatedDate").ascending()));
-		
-		return new PageResultDTO<>(result, fn);
+		return result;
 	}
 	
 	@Override
@@ -107,6 +87,14 @@ public class OrderServiceImpl implements OrderService {
 	public Long allStatus(Long id) {
 		
 		Long result = orderRepository.countAll(id);
+		
+		return result;
+	}
+	
+	@Override
+	public Long donePayment(Long id) {
+		
+		Long result = orderRepository.donePayment(id);
 		
 		return result;
 	}
@@ -143,4 +131,11 @@ public class OrderServiceImpl implements OrderService {
 		return result;
 	}
 	
+	@Override
+	public List<OrderList> getImgList(Long id) {
+		
+		List<OrderList> result = orderRepository.getImgById(id);
+		
+		return result;
+	}
 }

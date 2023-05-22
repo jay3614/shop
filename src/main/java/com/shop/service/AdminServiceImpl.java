@@ -1,7 +1,5 @@
 package com.shop.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.shop.dto.ItemDTO;
 import com.shop.entity.Item;
 import com.shop.repository.AdminRepository;
-import com.shop.repository.ItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,26 +18,25 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminRepository adminRepository;
-	private ItemRepository itemRepository;
-	
 	
 	// 상품 이미지 변경하는 메서드
 	@Override
 	public void modifyAll(ItemDTO dto, MultipartFile file) {
 		
-		Item entity = adminRepository.getById(1L);	// 테스트용으로 iNumber 1로 직접 줌
-//		Item entity = adminRepository.getById(dto.getINumber());	// dto에 저장된 iNumber 읽어오기
+		Item entity = adminRepository.getById(dto.getINumber());	// dto에 저장된 iNumber 읽어오기
 		
 		String orginName = file.getOriginalFilename();
 		
 		String savedImg = path + orginName;
 		
+		entity.changeIName(dto.getIName());
+		entity.changeBrand(dto.getBrand());
+		entity.changeICategory(dto.getICategory());
 		entity.changeImg(savedImg);
 		entity.changePrice(dto.getIPrice());
 		entity.changeInstock(dto.getIInstock());
 		entity.changeInfo(dto.getIInfo());
 		entity.changeSize(dto.getISize());
-//		entity.changeDeliveryPrice(dto.getIDeliveryPrice());
 		
 		adminRepository.save(entity);
 		
@@ -58,7 +54,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public Long deliverying() {
+	public long donePayment() {
+		
+		Long result = adminRepository.donePayment();
+		
+		return result;
+	}
+	
+	@Override
+	public long deliverying() {
 		
 		Long result = adminRepository.deliverying();
 		
@@ -66,7 +70,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public Long afterDelivery() {
+	public long afterDelivery() {
 		
 		Long result = adminRepository.afterDelivery();
 		
@@ -74,7 +78,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Long beforeCancle() {
+	public long beforeCancle() {
 		
 		Long result = adminRepository.beforeCancle();
 		
@@ -82,7 +86,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Long afterCancle() {
+	public long afterCancle() {
 		
 		Long result = adminRepository.afterCancle();
 		
