@@ -1,0 +1,17 @@
+INSERT INTO `brand` (`brand_number`, `brand_name`) VALUES
+	(1, 'NewBalance'),
+	(2, 'Prada'),
+	(3, 'Gucci'),
+	(4, 'Celine'),
+	(5, 'Diesel'),
+	(6, 'OurLegacy'),
+	(7, 'Apple'),
+	(8, 'Samsung'),
+	(9, 'Sonny'),
+	(10, 'Nike'),
+	(11, 'Stussy'),
+	(12, 'Arc\'teryx'),
+	(13, 'Emis'),
+	(14, 'MaisonKitsune'),
+	(15, 'AderError'),
+	(16, 'Nieeh');
