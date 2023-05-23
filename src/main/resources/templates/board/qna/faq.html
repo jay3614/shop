@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link rel="icon" type="image/png" href="img/icons/favicon.png" />
+<link rel="icon" type="image/png" href="img/icons/favicon.png"/>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.2.0/css/ionicons.min.css"
 	integrity="sha256-F3Xeb7IIFr1QsWD113kV2JXaEbjhsfpgrKkwZFGIA4E="
-	crossorigin="anonymous" />
+	crossorigin="anonymous"/>
 
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
@@ -65,8 +65,6 @@
 </head>
 
 <body class="animsition">
-
-
 
 
 	<!-- Header -->
@@ -290,9 +288,8 @@
 	<!-- 장바구니 끝 -->
 
 
-	<section>
+	<section id="memberFAQ" class="faq_section">
 		<div class="container-fluid">
-			<!-- Row -->
 			<div class="row">
 				<div class="col-xl-12 pa-0">
 					<div class="container mt-sm-60 m-t-30 m-b-40">
@@ -301,20 +298,23 @@
 								<div class="card">
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item d-flex align-items-center active">
-											<a href="javascript:void(0)" onclick="memberF"> <i
-												class="fa fa-user-circle m-r-15"></i> 회원정보
+											<a href="javascript:void(0)" onclick="toggleFAQ('memberFAQ')">
+												<i class="fa fa-user-circle m-r-15"></i> 회원정보
 										</a>
 										</li>
 										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-cart-plus m-r-15"></i> 주문 &amp;
-												결제
+											href="javascript:void(0)" onclick="toggleFAQ('orderPayment')">
+												<i class="fa fa-cart-plus m-r-15"></i> 주문 &amp; 결제
 										</a></li>
 										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-won m-r-15"></i> 교환 &amp; 환불
+											href="javascript:void(0)" onclick="toggleFAQ('exchange')">
+												<i class="fa fa-won m-r-15"></i> 교환 &amp; 환불
 										</a></li>
 										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-truck m-r-15"></i> 배송
+											href="javascript:void(0)" onclick="toggleFAQ('delivery')">
+												<i class="fa fa-truck m-r-15"></i> 배송
 										</a></li>
+
 									</ul>
 								</div>
 							</div>
@@ -339,7 +339,6 @@
 													■ 일반가입 :<br> 로그인 > 회원가입 <br> ■ 간편가입 : <br>
 													로그인 > 회원가입 > 간편가입 <br> ※ 상품 구매 및 서비스 이용을 위해서는 회원가입 및
 													로그인이 필요합니다.<br>
-
 												</div>
 											</div>
 										</div>
@@ -400,17 +399,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- /Row -->
 	</section>
 
-
-
-
-
-
-	<section>
-		<div class="container-fluid" style="display: none;">
-			<!-- Row -->
+	<section id="orderPayment" style="display: none;" class="faq_section">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xl-12 pa-0">
 					<div class="container mt-sm-60 m-t-30 m-b-40">
@@ -418,21 +410,24 @@
 							<div class="col-xl-4">
 								<div class="card">
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item d-flex align-items-center"><a
-											href="javascript:void(0)" onclick="memberFAQ"> <i
-												class="fa fa-user-circle m-r-15"></i> 회원정보
-										</a></li>
 										<li class="list-group-item d-flex align-items-center active">
-											<a href="#"> <i class="fa fa-cart-plus m-r-15"></i> 주문
-												&amp; 결제
+											<a href="javascript:void(0)" onclick="toggleFAQ('memberFAQ')">
+												<i class="fa fa-user-circle m-r-15"></i> 회원정보
 										</a>
 										</li>
 										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-won m-r-15"></i> 교환 &amp; 환불
+											href="javascript:void(0)" onclick="toggleFAQ('orderPayment')">
+												<i class="fa fa-cart-plus m-r-15"></i> 주문 &amp; 결제
 										</a></li>
 										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-truck m-r-15"></i> 배송
+											href="javascript:void(0)" onclick="toggleFAQ('exchange')">
+												<i class="fa fa-won m-r-15"></i> 교환 &amp; 환불
 										</a></li>
+										<li class="list-group-item d-flex align-items-center"><a
+											href="javascript:void(0)" onclick="toggleFAQ('delivery')">
+												<i class="fa fa-truck m-r-15"></i> 배송
+										</a></li>
+
 									</ul>
 								</div>
 							</div>
@@ -503,27 +498,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- /Row -->
 	</section>
 
-
-
-
-
-
-
-
-
-
-
-
-	<!-------------------------------------------------------------------------------------------->
-
-
-
-	<section>
-		<div class="container-fluid" style="display: none;">
-			<!-- Row -->
+	<section id="exchange" style="display: none;" class="faq_section">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xl-12 pa-0">
 					<div class="container mt-sm-60 m-t-30 m-b-40">
@@ -531,20 +509,22 @@
 							<div class="col-xl-4">
 								<div class="card">
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item d-flex align-items-center"><a
-											href="javascript:void(0)" onclick="memberFAQ"> <i
-												class="fa fa-user-circle m-r-15"></i> 회원정보
-										</a></li>
-										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-cart-plus m-r-15"></i> 주문 &amp;
-												결제
-										</a></li>
 										<li class="list-group-item d-flex align-items-center active">
-											<a href="#"> <i class="fa fa-won m-r-15"></i> 교환 &amp; 환불
+											<a href="javascript:void(0)" onclick="toggleFAQ('memberFAQ')">
+												<i class="fa fa-user-circle m-r-15"></i> 회원정보
 										</a>
 										</li>
 										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-truck m-r-15"></i> 배송
+											href="javascript:void(0)" onclick="toggleFAQ('orderPayment')">
+												<i class="fa fa-cart-plus m-r-15"></i> 주문 &amp; 결제
+										</a></li>
+										<li class="list-group-item d-flex align-items-center"><a
+											href="javascript:void(0)" onclick="toggleFAQ('exchange')">
+												<i class="fa fa-won m-r-15"></i> 교환 &amp; 환불
+										</a></li>
+										<li class="list-group-item d-flex align-items-center"><a
+											href="javascript:void(0)" onclick="toggleFAQ('delivery')">
+												<i class="fa fa-truck m-r-15"></i> 배송
 										</a></li>
 									</ul>
 								</div>
@@ -568,7 +548,7 @@
 												<div class="card-body pa-15 stext-302">
 													반품 접수 시 택배기사님이 평일 기준 1일~ 3일 이내 방문합니다.
 													<hr />
-													※계약된 택배사가 아닌 다른 택배사 이용 시 추가 비용이 발생할 수 있고, <br> 2개 이상
+													※계약된 택배사가 아닌 다른 택배사 이용 시 추가 비용이 발생 할 수 있고, <br> 2개 이상
 													브랜드 반송 시, 각각 반송지로 보내주세요.
 												</div>
 											</div>
@@ -601,24 +581,11 @@
 				</div>
 			</div>
 		</div>
-		<!-- /Row -->
 	</section>
 
 
-
-
-
-
-
-
-
-	<!-------------------------------------------------------------------------------------------->
-
-
-
-	<section>
-		<div class="container-fluid" style="display: none;">
-			<!-- Row -->
+	<section id="delivery" style="display: none;" class="faq_section">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xl-12 pa-0">
 					<div class="container mt-sm-60 m-t-30 m-b-40">
@@ -626,21 +593,23 @@
 							<div class="col-xl-4">
 								<div class="card">
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item d-flex align-items-center"><a
-											href="javascript:void(0)" onclick="memberFAQ"> <i
-												class="fa fa-user-circle m-r-15"></i> 회원정보
-										</a></li>
-										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-cart-plus m-r-15"></i> 주문 &amp;
-												결제
-										</a></li>
-										<li class="list-group-item d-flex align-items-center"><a
-											href="#"> <i class="fa fa-won m-r-15"></i> 교환 &amp; 환불
-										</a></li>
 										<li class="list-group-item d-flex align-items-center active">
-											<a href="#"> <i class="fa fa-truck m-r-15"></i> 배송
+											<a href="javascript:void(0)" onclick="toggleFAQ('memberFAQ')">
+												<i class="fa fa-user-circle m-r-15"></i> 회원정보
 										</a>
 										</li>
+										<li class="list-group-item d-flex align-items-center"><a
+											href="javascript:void(0)" onclick="toggleFAQ('orderPayment')">
+												<i class="fa fa-cart-plus m-r-15"></i> 주문 &amp; 결제
+										</a></li>
+										<li class="list-group-item d-flex align-items-center"><a
+											href="javascript:void(0)" onclick="toggleFAQ('exchange')">
+												<i class="fa fa-won m-r-15"></i> 교환 &amp; 환불
+										</a></li>
+										<li class="list-group-item d-flex align-items-center"><a
+											href="javascript:void(0)" onclick="toggleFAQ('delivery')">
+												<i class="fa fa-truck m-r-15"></i> 배송
+										</a></li>
 									</ul>
 								</div>
 							</div>
@@ -722,18 +691,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- /Row -->
 	</section>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -835,6 +793,7 @@
 		</div>
 	</footer>
 
+
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
 		<span class="symbol-btn-back-to-top"> <i
@@ -875,31 +834,6 @@
 		$('.parallax100').parallax100();
 	</script>
 	<!--===============================================================================================-->
-	<script src="vendor/sweetalert/sweetalert.min.js"></script>
-	<script>
-		$('.js-remove-item').on('click', function(e) {
-			e.preventDefault();
-		});
-
-		$('.js-remove-item').each(
-				function() {
-					var nameProduct = $(this).parent().parent().find(
-							'.js-name-item').html();
-					$(this).on('click', function() {
-						swal(nameProduct, "장바구니에서 삭제되었습니다 ! ", "success");
-					});
-				});
-
-		$('.js-addcart-detail').each(
-				function() {
-					var nameProduct = $(this).parent().parent().parent()
-							.parent().find('.js-name-detail').html();
-					$(this).on('click', function() {
-						swal(nameProduct, "장바구니에 담겼습니다 !", "success");
-					});
-				});
-	</script>
-	<!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
 		//스크롤바
@@ -917,7 +851,6 @@
 			})
 		});
 	</script>
-
 	<!--===============================================================================================-->
 	<script>
 		(function() {
@@ -936,68 +869,6 @@
 			function l() {
 				if (w.ChannelIOInitialized) {
 					return
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
-																				
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
-																									
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
-																				
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
 
 				}
 				w.ChannelIOInitialized = true;
@@ -1023,8 +894,30 @@
 		});
 	</script>
 	<!--===============================================================================================-->
+	<script>
+		function toggleFAQ(id) {
+			var faqItems = document.getElementsByClassName('list-group-item');
+			for (var i = 0; i < faqItems.length; i++) {
+				if (faqItems[i].getAttribute('onclick') === 'toggleFAQ("' + id
+						+ '")') {
+					faqItems[i].classList.add('active'); // 선택된 FAQ 항목에 active 클래스 추가
+				} else {
+					faqItems[i].classList.remove('active'); // 다른 FAQ 항목들의 active 클래스 제거
+				}
+			}
+
+			var sections = document.getElementsByTagName('section');
+			for (var i = 0; i < sections.length; i++) {
+				sections[i].style.display = 'none'; // 모든 섹션을 숨김
+			}
+			var targetSection = document.getElementById(id);
+			if (targetSection) {
+				targetSection.style.display = 'block'; // 해당 섹션만 보임
+			}
+		}
+	</script>
+	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
 </body>
-
 </html>
