@@ -17,7 +17,6 @@ public class ItemController {
 	
 	private final ItemService itemService;
 	
-	// 테스트중
 	@GetMapping("/ordering")
 	public void ordering(Long iNumber, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model) {
 		
@@ -31,7 +30,5 @@ public class ItemController {
 		
 		model.addAttribute("list", itemService.getList(pageRequestDTO));
 	}
-	
-	// 각 카테고리별로 해당 종류만 리스트 내보내는 서비스 메서드 작성하고 쿼리문에 조건으로 카테고리 번호 넣어야 함
 	
 }
