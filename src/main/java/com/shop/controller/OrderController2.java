@@ -2,7 +2,6 @@ package com.shop.controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @RequiredArgsConstructor
-@RestController	// 데이터만 주고받는 json
+@RestController
 @Log4j2
 public class OrderController2 {
 	
@@ -34,7 +33,6 @@ public class OrderController2 {
 		
 		cartService.deleteById(cart_id);
 		log.info(cart_id + " 이 삭제됨.");
-		
 		
 		redirectAttributes.addFlashAttribute(oNumber);
 		
