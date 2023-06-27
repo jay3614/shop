@@ -116,6 +116,8 @@
   2. application.properties 파일에서 datasource의 정보를 자신의 db계정에 맞게 수정합니다.
   3. application.properties 파일에서 하단의 naver, google oauth 계정 설정을 입력해야 소셜로그인이 가능합니다.
   4. 사이트 우하단에 표시되는 챗봇은 관리자가 사용을 중지시켰을 경우 작동이 안될 수도 있습니다.
+  5. spring boot 구동 시 "Got a packet bigger than 'max_allowed_packet' bytes" 라는 에러가 발생한다면
+     mysql 커멘드창을 열어서 SET GLOBAL max_allowed_packet = ???; 명령어를 통해 더 높은 패킷용량을 주시면 해결됩니다.
 
 
 
