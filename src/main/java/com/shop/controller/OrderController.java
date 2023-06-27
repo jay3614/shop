@@ -51,7 +51,6 @@ public class OrderController {
 		model.addAttribute("cartList", cartDTOList);
 		model.addAttribute("count", cartCount);
 		model.addAttribute("cart_id", cart_id);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+ cart_id);
 		
 		return "content/user/orderBy";
 	}
