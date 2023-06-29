@@ -405,7 +405,7 @@
 
 								<button
 									class="flex-c-m stext-101 cl2 size-116 bg8 bor14 hov-btn5 p-lr-15 trans-04 pointer m-t-20 paymentBtn"
-									type="button" onclick="requestPay()">결제하기</button>
+									type="button" onclick="validation()">결제하기</button>
 								<div id="root"></div>
 							</div>
 						</div>
@@ -586,7 +586,6 @@
 			new daum.Postcode({
 				oncomplete : function(data) {
 					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
 					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
 					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 					var addr = ''; // 주소 변수
@@ -597,7 +596,6 @@
 					} else { // 사용자가 지번 주소를 선택했을 경우(J)
 						addr = data.jibunAddress;
 					}
-
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
 					document.getElementById("sample6_address").value = addr;
 					// 커서를 상세주소 필드로 이동한다.
@@ -625,124 +623,146 @@
 
 		const IMP = window.IMP;
 		IMP.init('imp99053400');
+		
+		function validation() {// 빈 값이 있는지 먼저 검사
+		
+			var formData = new FormData();
+			var iNumber = $("input[name='iNumber']").val();
+			var img = $("input[name='img']").val();
+			var mId = $("input[name='mId']").val();
+			var mName = $("input[name='mName']").val();
+			var oCount = $("input[name='oCount']").val();
+			var oDeliveryPrice = $("input[name='dPrice']").val();
+			var oItemPrice = $("input[name='iPrice']").val();
+			var oGetPoint = Math.floor($("input[name='totalPrice']").val() / 100);
+			var oName = $("input[name='iName']").val();
+			var oTotalPrice = $("input[name='totalPrice']").val();
+			var firPoint = $("input[name='firPoint']").val();
+			var oUsePoint = $("input[name='oUsePoint']").val();
+			var phoneNumber = $("input[name='phoneNumber']").val()
+			var roadAddress = $("input[name='roadAddress']").val();
+			var detailAddress = $("input[name='detailAddress']").val();
+			var deliveryMessage = $("input[name='deliveryMessage']").val();
+			var oSize = $("input[name='oSize']").val();
+			var paymentMethod = $(":input:radio[name='payment']:checked").val();
+			var tmpPoint = parseInt(firPoint) + oGetPoint - oUsePoint;
+			var cart_id = $("input[name='cart_id']").val();
 
-		function requestPay() {
-
-			// IMP.request_pay(param, callback) 결제창 호출
-			IMP.request_pay(
-							{ // param
-								pg : "kakaopay.TC0ONETIME",
-								pay_method : "card",
-								merchant_uid : 'cart_' + new Date().getTime(),
-								name : oName,
-								amount : priceAmount,
-								buyer_email : buyerMemberEmail,
-								buyer_name : buyerMemberName,
-							},
-							function(rsp) { // callback
-								/** 결제 검증 **/
+			$('#point').val(tmpPoint);
+			var point = $("input[name='point']").val();
+			var checkNum = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/.test(phoneNumber);
+			
+			// 필수 입력값이 비어있는지 체크
+			if(phoneNumber == ""){
+				alert("휴대폰번호를 입력하세요.");
+			}else if(checkNum == false){
+				alert("올바른 휴대폰번호 양식으로 입력하세요. \n ex) 000-0000-0000");
+			}else if(roadAddress == ""){
+				alert("도로명 주소를 입력하세요. 잘못 기재시 배송이 취소될 수 있습니다.");
+			}else if(detailAddress == ""){
+				alert("상세 주소를 입력하세요. 잘못 기재시 배송이 취소될 수 있습니다.");
+			}else{	// 비어있는 항목이 없다면 결제 함수 호출
+				requestPay();
+			}
+			
+			function requestPay() {
+				
+				// IMP.request_pay(param, callback) 결제창 호출
+				IMP.request_pay(
+					{ // param
+						pg : "kakaopay.TC0ONETIME",
+						pay_method : "card",
+						merchant_uid : 'cart_' + new Date().getTime(),
+						name : oName,
+						amount : priceAmount,
+						buyer_email : buyerMemberEmail,
+						buyer_name : buyerMemberName,
+					},
+					function(rsp) { // callback
+						/** 결제 검증 **/
+						$.ajax({
+							type : 'POST',
+							url : '/verifyIamport/' + rsp.imp_uid,
+							beforeSend : function(xhr) {
+								xhr.setRequestHeader(header, token);
+							} // beforeSend
+						}).done(function(result) {
+							if (rsp.paid_amount === result.response.amount) {
+		
+								formData.append("iNumber", iNumber);
+								formData.append("img", img);
+								formData.append("mId", mId);
+								formData.append("mName", mName);
+								formData.append("oCount", oCount);
+								formData.append("oDeliveryPrice", oDeliveryPrice);
+								formData.append("oItemPrice", oItemPrice);
+								formData.append("oName", oName);
+								formData.append("oTotalPrice", oTotalPrice);
+								formData.append("phoneNumber", phoneNumber);
+								formData.append("roadAddress", roadAddress);
+								formData.append("detailAddress", detailAddress);
+								formData.append("deliveryMessage", deliveryMessage);
+								formData.append("oSize", oSize);
+								formData.append("paymentMethod", paymentMethod);
+								formData.append("point", point);
+								formData.append("cart_id", cart_id);
+											
+								if(cart_id === undefined) {
+									$.ajax({
+										type : 'POST',
+										url : 'insertOrder',
+										processData : false,
+										contentType : false,
+										data : formData,
+										type : 'POST',
+										dataType : 'JSON',
+										success : function(result) {
+											console.log(result);
+										},
+										error : function(jqXHR, textStatus, errThrown) {
+											window.location.href = "/orderlist"
+										},
+										beforeSend : function(xhr) {
+											xhr.setRequestHeader(header, token);
+										}}).done(function() {
+											window.location.href = "/orderlist"
+										}).fail(function(error) {
+											window.location.href = "/orderlist"
+										})
+								} else {
+												
 								$.ajax({
 									type : 'POST',
-									url : '/verifyIamport/' + rsp.imp_uid,
+									url : 'insertOrder/' + cart_id,
+									processData : false,
+									contentType : false,
+									data : formData,
+									type : 'POST',
+									dataType : 'JSON',
+									success : function(result) {
+										console.log(result);
+									},
+									error : function(jqXHR, textStatus, errThrown) {
+										window.location.href = "/orderlist"
+									},
 									beforeSend : function(xhr) {
 										xhr.setRequestHeader(header, token);
-													} // beforeSend
-								}).done(function(result) {
-									if (rsp.paid_amount === result.response.amount) {
-										var formData = new FormData();
-										var iNumber = $("input[name='iNumber']").val();
-										var img = $("input[name='img']").val();
-										var mId = $("input[name='mId']").val();
-										var mName = $("input[name='mName']").val();
-										var oCount = $("input[name='oCount']").val();
-										var oDeliveryPrice = $("input[name='dPrice']").val();
-										var oItemPrice = $("input[name='iPrice']").val();
-										var oGetPoint = Math.floor($("input[name='totalPrice']").val() / 100);
-										var oName = $("input[name='iName']").val();
-										var oTotalPrice = $("input[name='totalPrice']").val();
-										var firPoint = $("input[name='firPoint']").val();
-										var oUsePoint = $("input[name='oUsePoint']").val();
-										var phoneNumber = $("input[name='phoneNumber']").val()
-										var roadAddress = $("input[name='roadAddress']").val();
-										var detailAddress = $("input[name='detailAddress']").val();
-										var deliveryMessage = $("input[name='deliveryMessage']").val();
-										var oSize = $("input[name='oSize']").val();
-										var paymentMethod = $(":input:radio[name='payment']:checked").val();
-										var tmpPoint = parseInt(firPoint) + oGetPoint - oUsePoint;
-										var cart_id = $("input[name='cart_id']").val();
-										$('#point').val(tmpPoint);
-										var point = $("input[name='point']").val();
-										
-										formData.append("iNumber", iNumber);
-										formData.append("img", img);
-										formData.append("mId", mId);
-										formData.append("mName", mName);
-										formData.append("oCount", oCount);
-										formData.append("oDeliveryPrice", oDeliveryPrice);
-										formData.append("oItemPrice", oItemPrice);
-										formData.append("oName", oName);
-										formData.append("oTotalPrice", oTotalPrice);
-										formData.append("phoneNumber", phoneNumber);
-										formData.append("roadAddress", roadAddress);
-										formData.append("detailAddress", detailAddress);
-										formData.append("deliveryMessage", deliveryMessage);
-										formData.append("oSize", oSize);
-										formData.append("paymentMethod", paymentMethod);
-										formData.append("point", point);
-										formData.append("cart_id", cart_id);
-										
-										if(cart_id === undefined) {
-											$.ajax({
-												type : 'POST',
-												url : 'insertOrder',
-												processData : false,
-												contentType : false,
-												data : formData,
-												type : 'POST',
-												dataType : 'JSON',
-												success : function(result) {
-													console.log(result);
-												},
-												error : function(jqXHR, textStatus, errThrown) {
-													window.location.href = "/orderlist"
-												},
-												beforeSend : function(xhr) {
-													xhr.setRequestHeader(header, token);
-												}}).done(function() {
-													window.location.href = "/orderlist"
-												}).fail(function(error) {
-													window.location.href = "/orderlist"
-												})
-										} else {
-											
-										$.ajax({
-											type : 'POST',
-											url : 'insertOrder/' + cart_id,
-											processData : false,
-											contentType : false,
-											data : formData,
-											type : 'POST',
-											dataType : 'JSON',
-											success : function(result) {
-												console.log(result);
-											},
-											error : function(jqXHR, textStatus, errThrown) {
-												window.location.href = "/orderlist"
-											},
-											beforeSend : function(xhr) {
-												xhr.setRequestHeader(header, token);
-											}}).done(function() {
-												window.location.href = "/orderlist"
-											}).fail(function(error) {
-												window.location.href = "/orderlist"
-											})
-										}
-									} else {
-										alert("결제에 실패했습니다." + "에러코드 : " + rsp.error_code + "에러 메시지 : " + rsp.error_message);
-										}
+									}}).done(function() {
+										window.location.href = "/orderlist"
+									}).fail(function(error) {
+										window.location.href = "/orderlist"
 									})
-							});
-		};
+								}
+							} else {
+								alert("결제에 실패했습니다." + "에러코드 : " + rsp.error_code + "에러 메시지 : " + rsp.error_message);
+								}
+							})
+					});
+			};	// requestPay()의 끝
+			
+		};	// validation()의 끝
+		
+
 	</script>
 	<!--===============================================================================================-->
 	<script>
@@ -762,9 +782,6 @@
 			function l() {
 				if (w.ChannelIOInitialized) {
 					return
-
-					
-
 				}
 				w.ChannelIOInitialized = true;
 				var s = document.createElement("script");
