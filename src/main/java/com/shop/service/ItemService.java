@@ -64,5 +64,7 @@ public interface ItemService {
 	PageResultDTO<ItemDTO, Item> getPriceAsc(PageRequestDTO pageRequestDTO);
 	
 	PageResultDTO<ItemDTO, Item> getPriceDesc(PageRequestDTO pageRequestDTO);
+
+	PageResultDTO<ItemDTO, Item> getSearch(PageRequestDTO pageRequestDTO, String keyword);
 	
 }
