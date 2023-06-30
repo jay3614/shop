@@ -49,7 +49,7 @@ public class ItemController {
 		}
 		
 		model.addAttribute("itemDTO", itemService.getList(pageRequestDTO));
-		model.addAttribute("count", itemService.readAll());
+		model.addAttribute("itemCount", itemService.readAll());
 		model.addAttribute("categoryDTOList", categoryDTOList);
 		model.addAttribute("brandDTOList", brandDTOList);
 		model.addAttribute("totalPrice", totalPrice);
@@ -64,7 +64,6 @@ public class ItemController {
 		
 		Long member_id = user.getMemberDTO().getId();
 		ResponseDTO responseDto = memberService.getById(member_id);
-		
 		ItemDTO itemDTO = itemService.read(iNumber);
 		
 		Long x = itemService.readAll();
@@ -73,24 +72,23 @@ public class ItemController {
 		Long random3 = Math.round(Math.random() * (x-1)) + 1;
 		Long random4 = Math.round(Math.random() * (x-1)) + 1;
 		
-		model.addAttribute("member", responseDto);
-		model.addAttribute("recommend1", itemService.read(random1));
-		model.addAttribute("recommend2", itemService.read(random2));
-		model.addAttribute("recommend3", itemService.read(random3));
-		model.addAttribute("recommend4", itemService.read(random4));
-		model.addAttribute("item", itemDTO);
-		
 		Long id = user.getMemberDTO().getId();
+		Long cartCount = cartService.getCartCount(id);
 		
 		List<CartDTO> cartList = cartService.getCartList(id); // 장바구니 리스트 가져오기
 		int totalPrice = 0;
 	    for (CartDTO cart : cartList) {
 	        totalPrice += cart.getCPrice()*cart.getCount();
 	    }
+	    
+	    model.addAttribute("member", responseDto);
+	    model.addAttribute("recommend1", itemService.read(random1));
+	    model.addAttribute("recommend2", itemService.read(random2));
+	    model.addAttribute("recommend3", itemService.read(random3));
+	    model.addAttribute("recommend4", itemService.read(random4));
+	    model.addAttribute("item", itemDTO);
 	    model.addAttribute("cartList", cartList);
 	    model.addAttribute("totalPrice", totalPrice);
-		
-	    Long cartCount = cartService.getCartCount(id);
 	    model.addAttribute("count", cartCount);
 	    
 	}
@@ -112,7 +110,7 @@ public class ItemController {
 	    }
 
 	    model.addAttribute("itemDTO", itemService.getCategorySort(pageRequestDTO, iCategory));
-	    model.addAttribute("count", itemService.readAll());
+	    model.addAttribute("itemCount", itemService.readAll());
 	    model.addAttribute("categoryDTOList", categoryDTOList);
 	    model.addAttribute("brandDTOList", brandDTOList);
 	    model.addAttribute("totalPrice", totalPrice);
@@ -139,7 +137,7 @@ public class ItemController {
 		}
 		
 		model.addAttribute("itemDTO", itemService.getBrandSort(pageRequestDTO, brandNumber));
-		model.addAttribute("count", itemService.readAll());
+		model.addAttribute("itemCount", itemService.readAll());
 		model.addAttribute("categoryDTOList", categoryDTOList);
 		model.addAttribute("brandDTOList", brandDTOList);
 		model.addAttribute("totalPrice", totalPrice);
@@ -165,7 +163,7 @@ public class ItemController {
 		}
 		
 		model.addAttribute("itemDTO", itemService.getPriceAsc(pageRequestDTO));
-		model.addAttribute("count", itemService.readAll());
+		model.addAttribute("itemCount", itemService.readAll());
 		model.addAttribute("categoryDTOList", categoryDTOList);
 		model.addAttribute("brandDTOList", brandDTOList);
 		model.addAttribute("totalPrice", totalPrice);
@@ -191,7 +189,7 @@ public class ItemController {
 		}
 		
 		model.addAttribute("itemDTO", itemService.getPriceDesc(pageRequestDTO));
-		model.addAttribute("count", itemService.readAll());
+		model.addAttribute("itemCount", itemService.readAll());
 		model.addAttribute("categoryDTOList", categoryDTOList);
 		model.addAttribute("brandDTOList", brandDTOList);
 		model.addAttribute("totalPrice", totalPrice);
@@ -199,5 +197,31 @@ public class ItemController {
 		model.addAttribute("count", cartCount);
 		
 		return "content/product";
+	}
+	
+	@GetMapping("/searchResult")
+	public void productBySearch(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user,
+			@RequestParam("keyword") String keyword) {
+		
+		Long id = user.getMemberDTO().getId();
+		
+		List<CategoryDTO> categoryDTOList = categoryService.getCategoryList();
+		List<BrandDTO> brandDTOList = brandService.getBrandList();
+		List<CartDTO> cartDTOList = cartService.getCartList(id);
+		Long cartCount = cartService.getCartCount(id);
+		
+		int totalPrice = 0;
+		for (CartDTO cart : cartDTOList) {
+			totalPrice += cart.getCPrice() * cart.getCount();
+		}
+		
+		model.addAttribute("itemDTO", itemService.getSearch(pageRequestDTO, keyword));
+		model.addAttribute("itemCount", itemService.readAll());
+		model.addAttribute("categoryDTOList", categoryDTOList);
+		model.addAttribute("brandDTOList", brandDTOList);
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("cartList", cartDTOList);
+		model.addAttribute("count", cartCount);
+		
 	}
 }
