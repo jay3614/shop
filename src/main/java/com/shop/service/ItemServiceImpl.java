@@ -163,4 +163,14 @@ public class ItemServiceImpl implements ItemService {
 		return new PageResultDTO<>(result, fn);
 	}
 	
+	@Override
+	public PageResultDTO<ItemDTO, Item> getSearch(PageRequestDTO pageRequestDTO, String keyword) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.SearchResult(pageRequestDTO.getPageable(Sort.by("i_category").ascending()), keyword);
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
 }
