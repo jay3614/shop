@@ -20,19 +20,12 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	@Query(value = "SELECT * FROM Item WHERE i_number > 0 ORDER BY i_number ASC", nativeQuery = true)
 	Page<Item> getItem(Pageable pageable);
 	
-	// 테스트중
-	@Query(value = "SELECT * FROM Item WHERE i_number > 0 ORDER BY i_number ASC", nativeQuery = true)
-	List<Item> getList();
-	
-	// 테스트중1
 	@Query(value = "SELECT * FROM Item WHERE i_number > 0 AND i_category=1 ORDER BY i_number ASC", nativeQuery = true)
 	List<Item> getTopList();
 	
-	// 테스트중4
 	@Query(value = "SELECT * FROM Item WHERE i_number > 0 AND i_category=4 ORDER BY i_number ASC", nativeQuery = true)
 	List<Item> getBagList();
 	
-	// 테스트중6
 	@Query(value = "SELECT * FROM Item WHERE i_number > 0 AND i_category=6 ORDER BY i_number ASC", nativeQuery = true)
 	List<Item> getTechList();
 	
@@ -55,5 +48,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	// 가격 내림차순에 따른 정렬
 	@Query("SELECT i FROM Item i ORDER BY i_price DESC, i_number ASC")
 	Page<Item> sortPriceDesc(Pageable pageable);
+	
+	// 검색 결과에 따른 상품 리턴
+	@Query(value = "SELECT * FROM Item WHERE i_name LIKE %:keyword%", nativeQuery = true)
+	Page<Item> SearchResult(Pageable pageable, @Param("keyword") String keyword);
 	
 }
