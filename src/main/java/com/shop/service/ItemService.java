@@ -1,5 +1,7 @@
 package com.shop.service;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shop.dto.ItemDTO;
@@ -42,6 +44,12 @@ public interface ItemService {
 	ItemDTO getImg(Long number);
 	
 	PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO);
+	
+		List<ItemDTO> getTopListTest();
+
+		List<ItemDTO> getBagListTest();
+
+		List<ItemDTO> getTechListTest();
 	
 	ItemDTO read(Long iNumber);
 	
