@@ -76,6 +76,7 @@ public class SecurityConfig {
 			auth.antMatchers("/myReviewList").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/product-detail").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/shopping-cart").hasAnyRole("USER", "ADMIN", "SOCIAL");
+			auth.antMatchers("/searchResult").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			
 			
 			/** 관리자 권한이 있어야 들어올 수 있는 주소 **/
