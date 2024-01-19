@@ -45,22 +45,5 @@ public interface MemberService { //extends UserDetailsService {
 
     /** 임시 비밀번호로 업데이트 **/
     void updatePassword(String tmpPassword, String memberEmail);
-	
-	
-//    Long updateInfo(String username, String newName, String email);
-//    Long updatePassword(String username, String newPassword);
-//    Long createMember(MemberDTO memberDto);
-//    void deleteMember(String username);
-//    Optional<Member> findByUsername(String username);
-//    List<Member> findAll();
-//    Optional<Member> findByEmail(String email);
-//    public void deleteMember(Member member);
-//    public Member findOne(Long memberId);
-//    
-//    //////////////////////////////////////////////////////////////////
-//    
-//    Map<String, String> validateHandling(Errors errors);
-//    public void checkUsernameDuplication(MemberDTO memberDto);
-//    public void checkEmailDuplication(MemberDTO memberDto);
 
 }

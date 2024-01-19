@@ -212,11 +212,11 @@
 					<img src="img/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+				<form class="wrap-search-header flex-w p-l-15" action="/searchResult" method="get">
 					<button class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search"
+					<input class="plh3" type="text" name="keyword"
 						placeholder="Search...">
 				</form>
 			</div>
@@ -270,38 +270,27 @@
 	</div>
 	<!-- 장바구니 끝 -->
 
-
 	<section class="shop spad">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="shop__sidebar">
 						<div class="shop__sidebar__search">
-							<!-- <form action="#">
-                                <input type="text" placeholder="Search...">
-                                <button type="submit"><span class="icon_search"></span></button>
-                            </form> -->
-							<!-- 검색 테스트 시작 -->
-							<form action="/product" method="get" id="searchForm">
+							<form action="/searchResult" method="get" id="search">
 								<div class="input-group">
 									<input type="hidden" name="page" value="1">
 									<div class="input-group-prepend">
-										<select class="custom-select" name="type">
-											<option value="nb"
-												th:selected="${pageRequestDTO.type =='nb'}">이름 +
-												브랜드</option>
-										</select>
+										<input value="이름 + 브랜드">
 									</div>
-									<input class="form-control" name="keyword"
+									<input name="keyword"
 										th:value="${pageRequestDTO.keyword}" placeholder="Search..">
 									<div class="input-group-append" id="button-addon4">
-										<button type="button">
+										<button type="submit">
 											<span class="icon_search"></span>
 										</button>
 									</div>
 								</div>
 							</form>
-							<!-- 검색 테스트 끝 -->
 						</div>
 						<div class="shop__sidebar__accordion">
 							<div class="accordion" id="accordionExample">
@@ -323,8 +312,6 @@
 										</div>
 									</div>
 								</div>
-
-
 								<!--브랜드 카드-->
 								<div class="card">
 									<div class="card-heading">
@@ -346,15 +333,12 @@
 						</div>
 					</div>
 				</div>
-
-
-				<!--페이징넣어주시죠..-->
 				<div class="col-lg-9">
 					<div class="shop__product__option">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6">
 								<div class="shop__product__option__left">
-									<p>[[${count}]]개 결과 중
+									<p>[[${itemCount}]]개 결과 중
 										[[${itemDTO.page*15-14}]]~[[${itemDTO.page*15}]]번째 상품 표시 중</p>
 								</div>
 							</div>
@@ -372,9 +356,6 @@
 							</div>
 						</div>
 					</div>
-
-
-					<!--------------------------상품페이지-------------------------------------------------->
 					<div class="row2">
 						<div class="row">
 							<div class="col-lg-4 col-md-6 col-sm-6"
@@ -397,9 +378,6 @@
 							</div>
 						</div>
 					</div>
-					<!--------------------------상품페이지끝---------------------------------------->
-
-					<!--페이징 구간.....입니다만... 잘 처리해주시죠.. ㅎㅎ..-->
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="product__pagination">
@@ -442,8 +420,6 @@
 							</div>
 						</div>
 					</div>
-					<!------------------페이징끝------------------------->
-
 				</div>
 			</div>
 		</div>
@@ -787,13 +763,6 @@
 			function l() {
 				if (w.ChannelIOInitialized) {
 					return
-
-					
-
-										
-
-					
-
 				}
 				w.ChannelIOInitialized = true;
 				var s = document.createElement("script");

@@ -206,11 +206,11 @@
 					<img src="img/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+				<form class="wrap-search-header flex-w p-l-15" action="/searchResult" method="get">
 					<button class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search"
+					<input class="plh3" type="text" name="keyword"
 						placeholder="Search...">
 				</form>
 			</div>
@@ -295,6 +295,7 @@
 										<p>
 											ID<span class="m-r-92">*</span>
 										</p>
+										<input type="hidden" name="profile" value="/img/profile/profile0.png">
 										<input type="text" class="form-control"
 											aria-describedby="button-addon2" th:field="*{username}"
 											placeholder="소문자/숫자만 사용 4~20자리" required>
@@ -593,69 +594,6 @@
 			function l() {
 				if (w.ChannelIOInitialized) {
 					return
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
-																				
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
-																									
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
-																				
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
 				}
 				w.ChannelIOInitialized = true;
 				var s = document.createElement("script");

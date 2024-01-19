@@ -1,8 +1,14 @@
 package com.shop.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @RequiredArgsConstructor
-@RestController	// 데이터만 주고받는 json
+@RestController
 @Log4j2
 public class OrderController2 {
 	
@@ -35,14 +41,30 @@ public class OrderController2 {
 		cartService.deleteById(cart_id);
 		log.info(cart_id + " 이 삭제됨.");
 		
-		
 		redirectAttributes.addFlashAttribute(oNumber);
 		
 		return "content/user/orderBy";
 	}
 	
 	@PostMapping("/insertOrder")
-	public String insertItem(OrderDTO dto, RedirectAttributes redirectAttributes, RequestDTO requestDTO) {
+	public String insertItem(@Valid OrderDTO dto, RedirectAttributes redirectAttributes, RequestDTO requestDTO, BindingResult bindingResult) {
+		
+		//
+		if(bindingResult.hasErrors()) {
+
+			log.info("======== 회원 가입에 예외 있음");
+			Map<String, String> errorMap = new HashMap<>();
+			
+			for(FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put("valid_" + error.getField(), error.getDefaultMessage());
+				log.info("회원가입실패. : " + error.getDefaultMessage());
+			}
+
+			return "content/user/orderBy";
+		}
+		//
+		
+		
 		Long oNumber = orderService.order(dto);
 		
 		memberService.changePoint(requestDTO, dto.getMId());

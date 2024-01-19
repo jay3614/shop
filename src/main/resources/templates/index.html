@@ -222,11 +222,11 @@
 					<img src="img/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+				<form class="wrap-search-header flex-w p-l-15" action="/searchResult" method="get">
 					<button class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search"
+					<input class="plh3" type="text" name="keyword"
 						placeholder="Search...">
 				</form>
 			</div>
@@ -1142,173 +1142,146 @@
 	<!-- Categories Section End -->
 
 
-<!-- 후기게시판 내용 출력 예정 -->
-   <section class="sec-product bg0 p-t-40">
-      <div class="container">
-         <div class="row">
-            <div class="col-12">
-               <h3 class="ltext-106 cl5 txt-center respon1">Review</h3>
-            </div>
-         </div>
+	<!-- 후기게시판 내용 출력 예정 -->
+	<section class="sec-product bg0 p-t-40">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h3 class="ltext-106 cl5 txt-center respon1">Review</h3>
+				</div>
+			</div>
 
 
-         <!-- Tab01 -->
-         <div class="tab01 ">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
+			<!-- Tab01 -->
+			<div class="tab01 ">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
 
-               <li class="nav-item p-t-15"><a class="nav-link"
-                  data-toggle="tab" href="#review" role="tab">review</a></li>
+					<li class="nav-item p-t-15"><a class="nav-link"
+						data-toggle="tab" href="#review" role="tab">review</a></li>
 
-            </ul>
+				</ul>
 
-            <!-- Tab panes -->
-            <div class="tab-content p-t-45 bor1">
-               <!-- popular-user -->
-               <div class="tab-pane fade show active" id="review" role="tabpanel">
-                  <!-- Slide2 -->
-                  <div class="wrap-slick4">
-                     <div class="slick4">
-                        <div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-                           <!-- Block2 -->
-                           <div class="block2">
-                              <div class="block2-pic hov-img1">
-                                 <img src="/img/board/user/user1.jpg" alt="IMG-USER"> <a
-                                    href="#"
-                                    class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-                                    <div class="block1-txt-child2 p-b-4 trans-05">
-                                       <div class="block1-link stext-101 cl0 trans-09">
-                                          admin</div>
-                                    </div>
-                                 </a>
-                              </div>
-                           </div>
-                        </div>
+				<!-- Tab panes -->
+				<div class="tab-content p-t-45 bor1">
+					<!-- popular-user -->
+					<div class="tab-pane fade show active" id="review" role="tabpanel">
+						<!-- Slide2 -->
+						<div class="wrap-slick4">
+							<div class="slick4">
+								<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img1">
+											<div class="block1-txt-child2 p-b-4 trans-05">
+												<img src="/img/board/user/user1.jpg" alt="IMG-USER">
+												<div class="block1-link stext-101 cl0 trans-09">admin</div>
+											</div>
+										</div>
+									</div>
+								</div>
 
-                        <div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-                           <!-- Block2 -->
-                           <div class="block2">
-                              <div class="block2-pic hov-img1">
-                                 <img src="/img/board/user/user2.jpg" alt="IMG-USER"> <a
-                                    href="#"
-                                    class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-                                    <div class="block1-txt-child2 p-b-4 trans-05">
-                                       <div class="block1-link stext-101 cl0 trans-09">
-                                          admin</div>
-                                    </div>
-                                 </a>
-                              </div>
+								<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img1">
+											<div class="block1-txt-child2 p-b-4 trans-05">
+												<img src="/img/board/user/user2.jpg" alt="IMG-USER">
+												<div class="block1-link stext-101 cl0 trans-09">admin</div>
+											</div>
+										</div>
 
-                           </div>
-                        </div>
+									</div>
+								</div>
 
-                        <div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-                           <!-- Block2 -->
-                           <div class="block2">
-                              <div class="block2-pic hov-img1">
-                                 <img src="/img/board/user/user3.jpg" alt="IMG-USER"> <a
-                                    href="#"
-                                    class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-                                    <div class="block1-txt-child2 p-b-4 trans-05">
-                                       <div class="block1-link stext-101 cl0 trans-09">
-                                          jay3614</div>
-                                    </div>
-                                 </a>
-                              </div>
+								<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img1">
+											<div class="block1-txt-child2 p-b-4 trans-05">
+												<img src="/img/board/user/user3.jpg" alt="IMG-USER">
+												<div class="block1-link stext-101 cl0 trans-09">
+													jay3614</div>
+											</div>
+										</div>
 
-                           </div>
-                        </div>
+									</div>
+								</div>
 
-                        <div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-                           <!-- Block2 -->
-                           <div class="block2">
-                              <div class="block2-pic hov-img1">
-                                 <img src="/img/board/user/user4.jpg" alt="IMG-USER"> <a
-                                    href="#"
-                                    class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-                                    <div class="block1-txt-child2 p-b-4 trans-05">
-                                       <div class="block1-link stext-101 cl0 trans-09">
-                                          admin</div>
-                                    </div>
-                                 </a>
-                              </div>
+								<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img1">
+											<div class="block1-txt-child2 p-b-4 trans-05">
+												<img src="/img/board/user/user4.jpg" alt="IMG-USER">
+												<div class="block1-link stext-101 cl0 trans-09">admin</div>
+											</div>
+										</div>
 
-                           </div>
-                        </div>
+									</div>
+								</div>
 
-                        <div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-                           <!-- Block2 -->
-                           <div class="block2">
-                              <div class="block2-pic hov-img1">
-                                 <img src="/img/board/user/user5.jpg" alt="IMG-USER"> <a
-                                    href="#"
-                                    class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-                                    <div class="block1-txt-child2 p-b-4 trans-05">
-                                       <div class="block1-link stext-101 cl0 trans-09">
-                                          UserName</div>
-                                    </div>
-                                 </a>
-                              </div>
+								<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img1">
+											<div class="block1-txt-child2 p-b-4 trans-05">
+												<img src="/img/board/user/user5.jpg" alt="IMG-USER">
+												<div class="block1-link stext-101 cl0 trans-09">
+													UserName</div>
+											</div>
+										</div>
 
-                           </div>
-                        </div>
+									</div>
+								</div>
 
-                        <div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-                           <!-- Block2 -->
-                           <div class="block2">
-                              <div class="block2-pic hov-img1">
-                                 <img src="/img/board/user/user6.jpg" alt="IMG-USER"> <a
-                                    href="#"
-                                    class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-                                    <div class="block1-txt-child2 p-b-4 trans-05">
-                                       <div class="block1-link stext-101 cl0 trans-09">
-                                          UserName</div>
-                                    </div>
-                                 </a>
-                              </div>
+								<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img1">
+											<div class="block1-txt-child2 p-b-4 trans-05">
+												<img src="/img/board/user/user6.jpg" alt="IMG-USER">
+												<div class="block1-link stext-101 cl0 trans-09">
+													UserName</div>
+											</div>
+										</div>
 
-                           </div>
-                        </div>
+									</div>
+								</div>
 
-                        <div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
-                           <!-- Block2 -->
-                           <div class="block2">
-                              <div class="block2-pic hov-img1">
-                                 <img src="/img/board/user/user7.jpg" alt="IMG-USER"> <a
-                                    href="#"
-                                    class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-                                    <div class="block1-txt-child2 p-b-4 trans-05">
-                                       <div class="block1-link stext-101 cl0 trans-09">
-                                          UserName</div>
-                                    </div>
-                                 </a>
-                              </div>
+								<div class="item-slick4 p-l-15 p-r-15 p-t-15 p-b-15">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img1">
+											<div class="block1-txt-child2 p-b-4 trans-05">
+												<img src="/img/board/user/user7.jpg" alt="IMG-USER">
+												<div class="block1-link stext-101 cl0 trans-09">
+													UserName</div>
+											</div>
+										</div>
 
-                           </div>
-                        </div>
+									</div>
+								</div>
 
-                        <div class="item-slick4p-l-15 p-r-15 p-t-15 p-b-15">
-                           <!-- Block2 -->
-                           <div class="block2">
-                              <div class="block2-pic hov-img1 ">
-                                 <img src="/img/board/user/user8.jpg" alt="IMG-USER"> <a
-                                    href="#"
-                                    class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-18 p-tb-10 trans-03 respon3 ">
-                                    <div class="block1-txt-child2 p-b-4 trans-05">
-                                       <div class="block1-link stext-101 cl0 trans-09">
-                                          UserName</div>
-                                    </div>
-                                 </a>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </section>
+								<div class="item-slick4p-l-15 p-r-15 p-t-15 p-b-15">
+									<!-- Block2 -->
+									<div class="block2">
+										<div class="block2-pic hov-img1 ">
+											<div class="block1-txt-child2 p-b-4 trans-05">
+												<img src="/img/board/user/user8.jpg" alt="IMG-USER">
+												<div class="block1-link stext-101 cl0 trans-09">
+													UserName</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 
 	<!-- banner -->
@@ -1696,37 +1669,6 @@
 			function l() {
 				if (w.ChannelIOInitialized) {
 					return
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
-																				
-
-					
-
-										
-
-					
-
-															
-
-					
-
-										
-
-					
-
 				}
 				w.ChannelIOInitialized = true;
 				var s = document.createElement("script");

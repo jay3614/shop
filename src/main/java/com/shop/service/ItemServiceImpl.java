@@ -1,6 +1,5 @@
 package com.shop.service;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -76,39 +75,27 @@ public class ItemServiceImpl implements ItemService {
 		return new PageResultDTO<>(result, fn);
 	}
 	
-	//테스트
-	@Override
-	public List<ItemDTO> getListTest() {
-		
-		List<ItemDTO> result = itemRepository.getList().stream().map(item -> entityToDto(item)).collect(Collectors.toList());
-		
-		return result;
-	}
-	
-	//테스트1
 	@Override
 	public List<ItemDTO> getTopListTest() {
-		
+
 		List<ItemDTO> result = itemRepository.getTopList().stream().map(item -> entityToDto(item)).collect(Collectors.toList());
-		
+
 		return result;
 	}
-	
-	//테스트4
+
 	@Override
 	public List<ItemDTO> getBagListTest() {
-		
+
 		List<ItemDTO> result = itemRepository.getBagList().stream().map(item -> entityToDto(item)).collect(Collectors.toList());
-		
+
 		return result;
 	}
-	
-	//테스트6
+
 	@Override
 	public List<ItemDTO> getTechListTest() {
-		
+
 		List<ItemDTO> result = itemRepository.getTechList().stream().map(item -> entityToDto(item)).collect(Collectors.toList());
-		
+
 		return result;
 	}
 	
@@ -147,11 +134,11 @@ public class ItemServiceImpl implements ItemService {
 	}
 	
 	@Override
-	public PageResultDTO<ItemDTO, Item> getBrandSort(PageRequestDTO pageRequestDTO, Long iPrice) {
+	public PageResultDTO<ItemDTO, Item> getBrandSort(PageRequestDTO pageRequestDTO, Long brandNumber) {
 		
 		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
 		
-		Page<Item> result = itemRepository.sortBrand(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()), iPrice);
+		Page<Item> result = itemRepository.sortBrand(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()), brandNumber);
 		
 		return new PageResultDTO<>(result, fn);
 	}
@@ -172,6 +159,16 @@ public class ItemServiceImpl implements ItemService {
 		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
 		
 		Page<Item> result = itemRepository.sortPriceDesc(pageRequestDTO.getPageable(Sort.by("iNumber").ascending()));
+		
+		return new PageResultDTO<>(result, fn);
+	}
+	
+	@Override
+	public PageResultDTO<ItemDTO, Item> getSearch(PageRequestDTO pageRequestDTO, String keyword) {
+		
+		Function<Item, ItemDTO> fn = (en -> entityToDto(en));
+		
+		Page<Item> result = itemRepository.SearchResult(pageRequestDTO.getPageable(Sort.by("i_category").ascending()), keyword);
 		
 		return new PageResultDTO<>(result, fn);
 	}

@@ -25,12 +25,6 @@ public class NoticeService {
     @Autowired
     private NoticeRepository noticeRepository;
     
-//    public List<NoticeDTO> getAllNotices() {
-//    	return noticeRepository.findAll().stream()
-//    			.map(this::convertToDto)
-//    			.collect(Collectors.toList());
-//    }
-    
     public PageResultDTO2<NoticeDTO, Notice> getNotices(PageRequestDTO2 pageRequestDTO2) {
     	
     	Function<Notice, NoticeDTO> fn = (en -> convertToDto(en));
@@ -38,10 +32,6 @@ public class NoticeService {
     	Page<Notice> result = noticeRepository.findAll(pageRequestDTO2.getPageable(Sort.by("regDate").ascending()));
     	
     	return new PageResultDTO2<>(result, fn);
-    	
-//    	return noticeRepository.findAll().stream()
-//    			.map(this::convertToDto)
-//    			.collect(Collectors.toList());
     }
 
     public NoticeDTO createNotice(NoticeDTO noticeDto, String createdBy) {

@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class ReviewServiceImpl implements ReviewService {
 	
-	private final ReviewRepository reviewRepository2;
+	private final ReviewRepository reviewRepository;
 	
 	@Override
 	public Long write(ReviewDTO dto) {
@@ -34,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		Review entity = dtoToEntity(dto);
 		
-		reviewRepository2.save(entity);
+		reviewRepository.save(entity);
 		
 		return entity.getId();
 	}
@@ -42,8 +42,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public Long modify(ReviewDTO dto, Long id) {
 		
-		Review entity = reviewRepository2.getById(id);
-		String img = !dto.getReviewImg().equals("미선택") ? dto.getReviewImg() : "https://i.imgur.com/OEzmJJ8.jpeg";
+		Review entity = reviewRepository.getById(id);
 		String reviewContent = dto.getReviewContent();
 	    reviewContent = reviewContent.replaceAll("<p>", "").replaceAll("</p>", "");
 	    dto.setReviewContent(reviewContent);
@@ -51,9 +50,8 @@ public class ReviewServiceImpl implements ReviewService {
 		entity.changeTitle(dto.getReviewTitle());
 		entity.changeContent(dto.getReviewContent());
 		entity.changeRating(dto.getReviewRating());
-		entity.changeImg(img);
 		
-		reviewRepository2.save(entity);
+		reviewRepository.save(entity);
 		
 		return entity.getId();
 	}
@@ -61,7 +59,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewDTO> getAllList() {
 		
-		List<ReviewDTO> result = reviewRepository2.getAllList().stream().map(review -> entityToDto(review)).collect(Collectors.toList());
+		List<ReviewDTO> result = reviewRepository.getAllList().stream().map(review -> entityToDto(review)).collect(Collectors.toList());
 		
 		return result;
 	}
@@ -69,7 +67,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewDTO> getListByRating() {
 		
-		List<ReviewDTO> result = reviewRepository2.getListByRating().stream().map(review -> entityToDto(review)).collect(Collectors.toList());
+		List<ReviewDTO> result = reviewRepository.getListByRating().stream().map(review -> entityToDto(review)).collect(Collectors.toList());
 		
 		return result;
 	}
@@ -79,7 +77,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		Function<Review, ReviewDTO> fn = (en -> entityToDto(en));
 		
-		Page<Review> result = reviewRepository2.getList(pageRequestDTO.getPageable(Sort.by("id").ascending()));
+		Page<Review> result = reviewRepository.getList(pageRequestDTO.getPageable(Sort.by("id").ascending()));
 		
 		return new PageResultDTO<>(result, fn);
 	}
@@ -87,7 +85,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ReviewDTO read(Long id) {
 		
-		Review result = reviewRepository2.getReviewById(id);
+		Review result = reviewRepository.getReviewById(id);
 		
 		return entityToDto(result);
 	}
@@ -95,7 +93,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewDTO> read(String username) {
 		
-		List<ReviewDTO> result = reviewRepository2.getReviewByName(username).stream().map(en -> entityToDto(en)).collect(Collectors.toList());
+		List<ReviewDTO> result = reviewRepository.getReviewByName(username).stream().map(en -> entityToDto(en)).collect(Collectors.toList());
 		
 		return result;
 	}
@@ -103,14 +101,14 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void remove(Long id) {
 		
-		reviewRepository2.deleteById(id);
+		reviewRepository.deleteById(id);
 		
 	}
 
 	@Override
 	public Long myReviewCount(Long id) {
 
-		Long result = reviewRepository2.getReviewCount(id);
+		Long result = reviewRepository.getReviewCount(id);
 		
 		return result;
 	}

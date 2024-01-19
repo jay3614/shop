@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link rel="icon" type="image/png" href="images/icons/favicon.png" />
-<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="../vendor/bootstrap/css/bootstrap.min.css">
 <link
@@ -225,11 +223,11 @@
 					<img src="../img/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+				<form class="wrap-search-header flex-w p-l-15" action="/searchResult" method="get">
 					<button class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search"
+					<input class="plh3" type="text" name="keyword"
 						placeholder="Search...">
 				</form>
 			</div>
@@ -292,7 +290,7 @@
 				<div class="user-info">
 
 					<div class="user-img">
-						<img src="../img/icons/adminicon.png">
+						<img th:src="${member.profile}">
 					</div>
 
 					<div class="mypage-top">

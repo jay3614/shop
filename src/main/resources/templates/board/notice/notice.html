@@ -2,14 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-<title>주문내역 조회 - 마이페이지</title>
+<title>Notice</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-<link rel="icon" type="image/png" href="img/icons/favicon.png" />
+<link rel="icon" type="image/png" href="../img/icons/favicon.png" />
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="../img/icons/favicon.png" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.2.0/css/ionicons.min.css"
+	integrity="sha256-F3Xeb7IIFr1QsWD113kV2JXaEbjhsfpgrKkwZFGIA4E="
+	crossorigin="anonymous" />
+
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/bootstrap/css/bootstrap.min.css">
+	href="../vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+	crossorigin="anonymous">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -20,35 +34,27 @@
 <link rel="stylesheet" type="text/css"
 	href="fonts/linearicons-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/font-applesdgothicneo@1.0">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css"
+	href="../vendor/animate/animate.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/css-hamburgers/hamburgers.min.css">
+	href="../vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/animsition/css/animsition.min.css">
+	href="../vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/select2/select2.min.css">
+	href="../vendor/select2/select2.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+	href="../vendor/perfect-scrollbar/perfect-scrollbar.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="css/util.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<link rel="stylesheet" type="text/css" href="css/mypage.css">
 <!--===============================================================================================-->
-
-
 </head>
 
-<body class="animsition mypage_body">
-
-
-
+<body class="animsition">
 
 	<!-- Header -->
 	<header class="header-v4">
@@ -101,9 +107,9 @@
 									<li><a th:href="@{/productCategory(iCategory=6)}">TECH</a></li>
 								</ul></li>
 
-							<li><a href="/notice">ABOUT</a></li>
+							<li class="active-menu"><a href="/notice">ABOUT</a></li>
 							<li><a href="/contact">CONTACT</a></li>
-							<li class="active-menu"><a href="/mypage">MYPAGE</a></li>
+							<li><a href="/mypage">MYPAGE</a></li>
 						</ul>
 					</div>
 
@@ -271,120 +277,127 @@
 	</div>
 	<!-- 장바구니 끝 -->
 
-	<main class="content">
-		<div id="userMypage">
-			<section class="mypage-sc">
-				<h1 class="mypage-title">mypage</h1>
 
-				<div class="user-info">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-140"
+		style="background-image: url('../img/banner/banner7.png')">
+		<h2 class="ltext-201 cl5 float-center m-l-140">Notice</h2>
+	</section>
 
-					<div class="user-img">
-						<img th:src="${member.profile}">
-					</div>
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-5 p-lr-0-lg">
+			<a href="/index" class="stext-109 cl8 hov-cl1 trans-04"> Home <i
+				class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a> <a href="/notice" class="stext-109 cl8 hov-cl1 trans-04"> About
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a> <span class="stext-109 cl4"> Notice </span>
+		</div>
+	</div>
 
-					<div class="mypage-top">
-						<div class="user-nickname">
-							<strong>[[${member.username}]]</strong>
+	<section class="bg0 p-t-40 p-b-20">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-lg-9 p-b-80">
+					<div class="p-r-45 p-r-0-lg">
+						<div class="card card-lg">
+							<h3 class="card-header border-bottom-0 mtext-114">공지사항</h3>
+
+							<div class="accordion accordion-type-2 accordion-flush"
+								id="accordion_2"
+								th:each="notice, noticeStat : ${notices.dtoList}">
+								<div class="card">
+									<div
+										class="card-header d-flex justify-content-between activestate stext-302">
+										<div class="col-md-7">
+											<a role="button" data-toggle="collapse"
+												th:href="'#collapse_' + ${noticeStat.index}"
+												aria-expanded="true">
+												[[${notice.title}]]
+											</a> <small class="d-flex">작성자 : <strong>[[${notice.createdBy}]]</strong>
+												 &nbsp;&nbsp;&nbsp;[[${#temporals.format(notice.regDate, 'yyyy-MM-dd HH:mm:ss')}]]
+											</small>
+										</div>
+										<form th:action="@{/deleteNotice}" method="post">
+											<input type="hidden" name="id" th:value="${notice.id}">
+											<button type="submit" class="ml-auto btn btn-outline-dark"
+												sec:authorize="hasAuthority('ROLE_ADMIN')">삭제하기</button>
+										</form>
+									</div>
+									<div th:id="'collapse_' + ${noticeStat.index}" class="collapse"
+										data-parent="#accordion_2" role="tabpanel">
+										<div class="card-body pa-15 stext-302">
+											<p th:text="${notice.content}"></p>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-
-						<div class="user-name">
-							<em>[[${member.name}]]</em> <span> 가입일 :
-								"[[${member.createdDate}]]" </span>
-							<p class="admin-msg">[[${member.name}]]님 반갑습니다.</p>
-						</div>
-
-					</div>
-
-					<div class="user-bankbook">
-						<a href="#"> <svg width="38" height="38" viewBox="0 0 38 38"
-								fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-									d="M16.7834 25.7389L16.7834 13.8111H20.2369C21.8274 13.8111 23.1168 15.1005 23.1168 16.691V16.691C23.1168 18.2815 21.8274 19.5708 20.2369 19.5708H16.7834"
-									stroke="white"></path>
-                                <path
-									d="M5.06665 19.9843C5.65768 27.0734 11.6594 32.6444 18.9761 32.6444C26.6845 32.6444 32.9333 26.461 32.9333 18.8333C32.9333 11.2057 26.6845 5.02222 18.9761 5.02222C11.6594 5.02222 5.65768 10.5932 5.06665 17.6824"
-									stroke="white"></path>
-                            </svg> <em> 포인트 <i class="fa fa-angle-right"></i>
-						</em> <strong>[[${member.point}]]</strong>
-						</a> <a href="/review/write"> <svg width="38" height="38"
-								viewBox="0 0 38 38" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-                                <path
-									d="M31.6666 31.3889H17.7333M6.33325 24.4617L24.6781 6.27777L31.6666 13.205L13.3218 31.3889H6.33325V24.4617Z"
-									stroke="white"></path>
-                            </svg> <em> 후기작성 <i class="fa fa-angle-right"></i>
-						</em> <strong>[[${reviewCount}]]</strong>
-						</a>
 					</div>
 				</div>
-			</section>
+
+				<!-------------------------------------검색창----------------------------------------------------->
+				<div class="col-md-4 col-lg-3">
+					<div class="side-menu">
+						<div class="bor17 of-hidden pos-relative">
+							<input class="stext-103 cl2 plh4 size-116 p-l-28 p-r-55"
+								type="text" name="search" placeholder="Search">
+
+							<button
+								class="flex-c-m size-122 ab-t-r fs-18 cl4 hov-cl1 trans-04">
+								<i class="zmdi zmdi-search"></i>
+							</button>
+						</div>
+
+						<!-- -----------------------------------카테고리-------------------------------------------->
+						<div class="p-t-55 m-t-8">
+							<h4 class="mtext-112 cl2 p-b-33">Categories</h4>
+
+							<ul>
+								<li class="bor18"><a href="/notice"
+									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-15 p-lr-4">
+										Notice <!--자유게시판-->
+								</a></li>
+
+								<li class="bor18"><a href="/review/list"
+									class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-15 p-lr-4">
+										Review <!--리뷰 몰아넣기-->
+								</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="product__pagination">
+
+						<div
+							class="pagination h-100 justify-content-center align-items-center">
+
+							<!-- 페이지 링크 -->
+							<div class="product__pagination " th:if="${notices.prev}">
+								<a class="page-link"
+									th:href="@{/notice(page= ${notices.start -1})}" tabindex="-1">이전
+									페이지</a>
+							</div>
+
+							<div
+								th:class=" 'product__pagination ' + ${notices.page == page?'active':''} "
+								th:each="page: ${notices.pageList}">
+								<a class="page-link" th:href="@{/notice(page=${page})}">
+									[[${page}]] </a>
+							</div>
+							<div class="product__pagination" th:if="${notices.next}">
+								<a class="page-link"
+									th:href="@{/notice(page= ${notices.end + 1})}">다음 페이지</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<nav class="mypage-sidenav">
-			<h2 class="nav-tit">My page Navigation</h2>
-			<div class="my-account">
-				<h3>나의 쇼핑 활동</h3>
-				<a href="/orderlist" class="order_list">주문 내역 조회</a> <a
-					href="/myReviewList" class="product_reviews">내 구매후기</a> <a
-					href="/faq" class="product_inquiry">상품문의</a>
-			</div>
-
-			<div class="my-board">
-				<h3>커뮤니티</h3>
-				<a href="#" class="board-list">게시물 / 스크랩 / 댓글</a>
-			</div>
-		</nav>
-
-
-
-
-		<section class="mypage-cont mypage-order_list">
-			<div class="m-lr-auto m-b-50 table-responsive">
-				<table class="table table-hover table-col">
-					<thead>
-						<tr>
-							<th class="column-1x">이미지</th>
-							<th class="column-2x">제목</th>
-							<th class="column-3">작성일</th>
-							<th class="column-4">별점</th>
-							<th class="column-5">내용</th>
-							<th class="column-6">수정</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr class="table_row" th:each="list : ${list}">
-							<!--상품사진-->
-							<td class="column-1">
-								<div class="img-block">
-									<a href="#"> <img th:src="${list.reviewImg}" width="200">
-									</a>
-								</div>
-							</td>
-
-							<!--상품정보-->
-							<td class="column-2">[[${list.reviewTitle}]]</td>
-
-							<!--주문일자-->
-							<td class="column-3">[[${list.regDate}]]</td>
-
-							<!--주문번호--->
-							<td class="column-4 ">[[${list.reviewRating}]]</td>
-
-							<!--가격,갯수-->
-							<td class="column-5"><br> <span class="txt-default">
-									[[${list.reviewContent}]] </span></td>
-							<td class="txt-lighter column-5"><a
-								th:href="@{review/modify(id = ${list.id})}"
-								class="btn btn-outline-dark"> 수정하기
-									</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
-	</main>
-
+	</section>
 
 	<!-- Footer -->
 	<footer class="bg3 p-t-65 p-b-32">
@@ -484,7 +497,6 @@
 		</div>
 	</footer>
 
-
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
 		<span class="symbol-btn-back-to-top"> <i
@@ -493,96 +505,61 @@
 	</div>
 
 	<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<script src="../vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script src="../vendor/bootstrap/js/popper.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script
-		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-	<script>
-        //////////////////(미니팝업기능)//////////////////////////////////
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'center-center',
-            showConfirmButton: false,
-            timer: 1500,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        ////////////////////////////////////////////////////////////
-
-        $(".js-select2").each(function () {
-            $(this).select2({
-                minimumResultsForSearch: 20,
-                dropdownParent: $(this).next('.dropDownSelect2')
-            });
-        })
-    </script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+		crossorigin="anonymous"></script>
 	<!--===============================================================================================-->
+	<script src="../vendor/select2/select2.min.js"></script>
 	<script>
-
-        $('.js-remove-item').on('click', function (e) {
-            e.preventDefault();
-        });
-
-        $('.js-remove-item').each(function () {
-            var nameProduct = $(this).parent().parent().find('.js-name-item').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "장바구니에서 삭제되었습니다 ! ", "success");
-
-            });
-        });
-    </script>
+		$(".js-select2").each(function() {
+			$(this).select2({
+				minimumResultsForSearch : 20,
+				dropdownParent : $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
 	<!--===============================================================================================-->
-	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="../vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
-        $('.js-pscroll').each(function () {
-            $(this).css('position', 'relative');
-            $(this).css('overflow', 'hidden');
-            var ps = new PerfectScrollbar(this, {
-                wheelSpeed: 1,
-                scrollingThreshold: 1000,
-                wheelPropagation: false,
-            });
+		$('.js-remove-item').on('click', function(e) {
+			e.preventDefault();
+		});
 
-            $(window).on('resize', function () {
-                ps.update();
-            })
-        });
-    </script>
-	<!--==============================================================================================-->
+		$('.js-remove-item').each(
+				function() {
+					var nameProduct = $(this).parent().parent().find(
+							'.js-name-item').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "장바구니에서 삭제되었습니다 ! ", "success");
+
+					});
+				});
+	</script>
+	<!--===============================================================================================-->
+	<script src="../vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
-	
-	const spanElements = document.querySelectorAll('.dStatus');
-	
-	spanElements.forEach(function(spanElement) {
-	    const deliveryStatus = spanElement.textContent.trim();
-	    switch (deliveryStatus) {
-	        case '배송중':
-	        	spanElement.classList.remove('badge-success', 'badge-warning', 'badge-danger');
-	            spanElement.classList.add('badge-primary');
-	            break;
-	        case '배송완료':
-	            spanElement.classList.add('badge-success');
-	            break;
-	        case '반품대기':
-	            spanElement.classList.add('badge-warning');
-	            break;
-	        case '반품완료':
-	            spanElement.classList.add('badge-danger');
-	            break;
-	    }
-	});
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
 
-    </script>
-	<!--==============================================================================================-->
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
 	<script>
 		(function() {
 			var w = window;
@@ -599,7 +576,7 @@
 			w.ChannelIO = ch;
 			function l() {
 				if (w.ChannelIOInitialized) {
-					return
+					return;
 				}
 				w.ChannelIOInitialized = true;
 				var s = document.createElement("script");
@@ -623,8 +600,8 @@
 			"pluginKey" : "12c57252-c4dc-4954-94c5-9970d3cb1bfb",
 		});
 	</script>
-	<!--==============================================================================================-->
-	<script src="js/main.js"></script>
+	<!--===============================================================================================-->
+	<script src="../js/main.js"></script>
 
 </body>
 

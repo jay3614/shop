@@ -45,18 +45,12 @@ public interface ItemService {
 	
 	PageResultDTO<ItemDTO, Item> getList(PageRequestDTO pageRequestDTO);
 	
-	// 테스트
-	List<ItemDTO> getListTest();
-	
-	// 테스트1
-	List<ItemDTO> getTopListTest();
-	
-	// 테스트4
-	List<ItemDTO> getBagListTest();
-	
-	// 테스트6
-	List<ItemDTO> getTechListTest();
+		List<ItemDTO> getTopListTest();
 
+		List<ItemDTO> getBagListTest();
+
+		List<ItemDTO> getTechListTest();
+	
 	ItemDTO read(Long iNumber);
 	
 	Long readAll();
@@ -70,5 +64,7 @@ public interface ItemService {
 	PageResultDTO<ItemDTO, Item> getPriceAsc(PageRequestDTO pageRequestDTO);
 	
 	PageResultDTO<ItemDTO, Item> getPriceDesc(PageRequestDTO pageRequestDTO);
+	
+	PageResultDTO<ItemDTO, Item> getSearch(PageRequestDTO pageRequestDTO, String keyword);
 	
 }

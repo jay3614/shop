@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.shop.config.auth.CustomUserDetailsService;
 import com.shop.config.oauth.CustomOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,8 +22,6 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-	
-	private final CustomUserDetailsService customUserDetailsService;
 	
 	private final AuthenticationFailureHandler authenticationFailureHandler;
 	
@@ -50,7 +47,7 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
 		/** csrf 예외 처리 URL **/
-		http.csrf().ignoringAntMatchers("/css/**", "/confirm", "/uploadImg/**", "/mypage/**", "/findPassword/**", "/sendPwd/**", "/update/**", "/insertOrder/**", "/adminProduct/**", "/modifyItem/**", "/addCart/**", "/insertItem/**", "/modifyDeliveryStatus/**", "/notice/**", "/orderlist/**", "/returnDeliveryStatus/**", "/review/**", "/qna/**", "/reply/**");
+		http.csrf().ignoringAntMatchers("/css/**", "/confirm", "/uploadImg/**", "/mypage/**", "/findPassword/**", "/sendPwd/**", "/update/**", "/insertOrder/**", "/adminProduct/**", "/modifyItem/**", "/addCart/**", "/insertItem/**", "/modifyDeliveryStatus/**", "/notice/**", "/orderlist/**", "/returnDeliveryStatus/**", "/review/**");
 		
 		/** 권한별 접근가능 주소 설정하기 **/
 		
@@ -70,12 +67,12 @@ public class SecurityConfig {
 			auth.antMatchers("/update").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/orderBy").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/review/**").hasAnyRole("USER", "ADMIN", "SOCIAL");
-			auth.antMatchers("/reply").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/product").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/orderlist").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/myReviewList").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/product-detail").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			auth.antMatchers("/shopping-cart").hasAnyRole("USER", "ADMIN", "SOCIAL");
+			auth.antMatchers("/searchResult").hasAnyRole("USER", "ADMIN", "SOCIAL");
 			
 			
 			/** 관리자 권한이 있어야 들어올 수 있는 주소 **/

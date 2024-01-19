@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-<title>주문내역 조회 - 마이페이지</title>
+<title>Search | page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -20,9 +20,6 @@
 <link rel="stylesheet" type="text/css"
 	href="fonts/linearicons-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/font-applesdgothicneo@1.0">
-<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
@@ -32,23 +29,25 @@
 	href="vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
-	href="vendor/select2/select2.min.css">
+	href="vendor/select2/nice-select.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="vendor/MagnificPopup/magnific-popup.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="css/util.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<link rel="stylesheet" type="text/css" href="css/mypage.css">
 <!--===============================================================================================-->
-
-
 </head>
 
-<body class="animsition mypage_body">
-
-
-
+<body class="animsition">
 
 	<!-- Header -->
 	<header class="header-v4">
@@ -85,7 +84,7 @@
 					<div class="menu-desktop">
 						<ul class="customMenu expanded">
 							<li><a href="/index">HOME</a></li>
-							<li><a href="/product">SHOP</a>
+							<li class="active-menu"><a href="/product">SHOP</a>
 								<ul class="sub-menu">
 									<li><a th:href="@{/productCategory(iCategory=1)}">CLOTHING</a>
 										<ul class="sub-menu">
@@ -103,7 +102,7 @@
 
 							<li><a href="/notice">ABOUT</a></li>
 							<li><a href="/contact">CONTACT</a></li>
-							<li class="active-menu"><a href="/mypage">MYPAGE</a></li>
+							<li><a href="/mypage">MYPAGE</a></li>
 						</ul>
 					</div>
 
@@ -271,120 +270,98 @@
 	</div>
 	<!-- 장바구니 끝 -->
 
-	<main class="content">
-		<div id="userMypage">
-			<section class="mypage-sc">
-				<h1 class="mypage-title">mypage</h1>
-
-				<div class="user-info">
-
-					<div class="user-img">
-						<img th:src="${member.profile}">
-					</div>
-
-					<div class="mypage-top">
-						<div class="user-nickname">
-							<strong>[[${member.username}]]</strong>
+	<section class="shop spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="shop__sidebar">
+						<div class="shop__sidebar__search">
+							<form action="/searchResult" method="get" id="search">
+								<div class="input-group">
+									<input type="hidden" name="page" value="1">
+									<div class="input-group-prepend">
+										<input value="이름 + 브랜드">
+									</div>
+									<input name="keyword"
+										th:value="${pageRequestDTO.keyword}" placeholder="Search..">
+									<div class="input-group-append" id="button-addon4">
+										<button type="submit">
+											<span class="icon_search"></span>
+										</button>
+									</div>
+								</div>
+							</form>
 						</div>
-
-						<div class="user-name">
-							<em>[[${member.name}]]</em> <span> 가입일 :
-								"[[${member.createdDate}]]" </span>
-							<p class="admin-msg">[[${member.name}]]님 반갑습니다.</p>
-						</div>
-
-					</div>
-
-					<div class="user-bankbook">
-						<a href="#"> <svg width="38" height="38" viewBox="0 0 38 38"
-								fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-									d="M16.7834 25.7389L16.7834 13.8111H20.2369C21.8274 13.8111 23.1168 15.1005 23.1168 16.691V16.691C23.1168 18.2815 21.8274 19.5708 20.2369 19.5708H16.7834"
-									stroke="white"></path>
-                                <path
-									d="M5.06665 19.9843C5.65768 27.0734 11.6594 32.6444 18.9761 32.6444C26.6845 32.6444 32.9333 26.461 32.9333 18.8333C32.9333 11.2057 26.6845 5.02222 18.9761 5.02222C11.6594 5.02222 5.65768 10.5932 5.06665 17.6824"
-									stroke="white"></path>
-                            </svg> <em> 포인트 <i class="fa fa-angle-right"></i>
-						</em> <strong>[[${member.point}]]</strong>
-						</a> <a href="/review/write"> <svg width="38" height="38"
-								viewBox="0 0 38 38" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-                                <path
-									d="M31.6666 31.3889H17.7333M6.33325 24.4617L24.6781 6.27777L31.6666 13.205L13.3218 31.3889H6.33325V24.4617Z"
-									stroke="white"></path>
-                            </svg> <em> 후기작성 <i class="fa fa-angle-right"></i>
-						</em> <strong>[[${reviewCount}]]</strong>
-						</a>
 					</div>
 				</div>
-			</section>
-		</div>
+				<div class="col-lg-9">
+					<div class="row2">
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-sm-6"
+								th:each="dto : ${itemDTO.dtoList}">
+								<div class="block2">
+									<div class="block2-pic hov-img0">
+										<img th:src="${dto.iImg}" alt="IMG-PRODUCT">
+									</div>
 
-		<nav class="mypage-sidenav">
-			<h2 class="nav-tit">My page Navigation</h2>
-			<div class="my-account">
-				<h3>나의 쇼핑 활동</h3>
-				<a href="/orderlist" class="order_list">주문 내역 조회</a> <a
-					href="/myReviewList" class="product_reviews">내 구매후기</a> <a
-					href="/faq" class="product_inquiry">상품문의</a>
-			</div>
-
-			<div class="my-board">
-				<h3>커뮤니티</h3>
-				<a href="#" class="board-list">게시물 / 스크랩 / 댓글</a>
-			</div>
-		</nav>
-
-
-
-
-		<section class="mypage-cont mypage-order_list">
-			<div class="m-lr-auto m-b-50 table-responsive">
-				<table class="table table-hover table-col">
-					<thead>
-						<tr>
-							<th class="column-1x">이미지</th>
-							<th class="column-2x">제목</th>
-							<th class="column-3">작성일</th>
-							<th class="column-4">별점</th>
-							<th class="column-5">내용</th>
-							<th class="column-6">수정</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr class="table_row" th:each="list : ${list}">
-							<!--상품사진-->
-							<td class="column-1">
-								<div class="img-block">
-									<a href="#"> <img th:src="${list.reviewImg}" width="200">
-									</a>
+									<div class="block2-txt flex-w flex-t p-t-14">
+										<div class="block2-txt-child1 flex-col-l ">
+											<a th:href="@{product-detail(iNumber = ${dto.iNumber})}"
+												class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+												[[${dto.iName}]] </a> <span class="stext-105 cl3 product_price">
+												￦[[${dto.iPrice}]] </span>
+										</div>
+									</div>
 								</div>
-							</td>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="product__pagination">
 
-							<!--상품정보-->
-							<td class="column-2">[[${list.reviewTitle}]]</td>
+								<div
+									class="pagination h-100 justify-content-center align-items-center">
 
-							<!--주문일자-->
-							<td class="column-3">[[${list.regDate}]]</td>
+									<!-- 페이지 링크 -->
+									<div class="product__pagination " th:if="${itemDTO.prev}">
+										<a class="page-link"
+											th:href="@{/__${#httpServletRequest.getRequestURI().substring(1)}__(page= ${itemDTO.start -1},
+	                    type=${pageRequestDTO.type} ,
+	                    keyword = ${pageRequestDTO.keyword}
+	                     , iCategory=${param.iCategory},
+	                     brandNumber=${param.brandNumber} ) }"
+											tabindex="-1">이전 페이지</a>
+									</div>
 
-							<!--주문번호--->
-							<td class="column-4 ">[[${list.reviewRating}]]</td>
-
-							<!--가격,갯수-->
-							<td class="column-5"><br> <span class="txt-default">
-									[[${list.reviewContent}]] </span></td>
-							<td class="txt-lighter column-5"><a
-								th:href="@{review/modify(id = ${list.id})}"
-								class="btn btn-outline-dark"> 수정하기
-									</a></td>
-						</tr>
-					</tbody>
-				</table>
+									<div
+										th:class=" 'product__pagination ' + ${itemDTO.page == page?'active':''} "
+										th:each="page: ${itemDTO.pageList}">
+										<a class="page-link"
+											th:href="@{/__${#httpServletRequest.getRequestURI().substring(1)}__(page=${page} ,
+	                   type=${pageRequestDTO.type} ,
+	                   keyword = ${pageRequestDTO.keyword}
+	                    , iCategory=${param.iCategory},
+	                     brandNumber=${param.brandNumber}  )}">
+											[[${page}]] </a>
+									</div>
+									<div class="product__pagination" th:if="${itemDTO.next}">
+										<a class="page-link"
+											th:href="@{/__${#httpServletRequest.getRequestURI().substring(1)}__(page= ${itemDTO.end + 1} ,
+	                    type=${pageRequestDTO.type} ,
+	                    keyword = ${pageRequestDTO.keyword}
+	                     , iCategory=${param.iCategory},
+	                     brandNumber=${param.brandNumber} )}">다음
+											페이지</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</section>
-	</main>
-
+		</div>
+	</section>
 
 	<!-- Footer -->
 	<footer class="bg3 p-t-65 p-b-32">
@@ -484,7 +461,6 @@
 		</div>
 	</footer>
 
-
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">
 		<span class="symbol-btn-back-to-top"> <i
@@ -501,88 +477,154 @@
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
-	<script src="vendor/sweetalert/sweetalert.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
-        //////////////////(미니팝업기능)//////////////////////////////////
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'center-center',
-            showConfirmButton: false,
-            timer: 1500,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        ////////////////////////////////////////////////////////////
-
-        $(".js-select2").each(function () {
-            $(this).select2({
-                minimumResultsForSearch: 20,
-                dropdownParent: $(this).next('.dropDownSelect2')
-            });
-        })
-    </script>
+		$(".js-select2").each(function() {
+			$(this).select2({
+				minimumResultsForSearch : 20,
+				dropdownParent : $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
 	<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="vendor/nice-scroll/jquery.nicescroll.min.js"></script>
 	<script>
+		$(".nice-scroll").niceScroll({
+			cursorcolor : "#217af4",
+			cursorwidth : "5px",
+			background : "ffff",
+			cursorborder : "",
+			autohidemode : true,
+			horizrailenabled : false
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="vendor/slick/slick.min.js"></script>
+	<script src="js/slick-custom.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/parallax100/parallax100.js"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+				delegate : 'a', // the selector for gallery item
+				type : 'image',
+				gallery : {
+					enabled : true
+				},
+				mainClass : 'mfp-fade'
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
+			e.preventDefault();
+		});
 
-        $('.js-remove-item').on('click', function (e) {
-            e.preventDefault();
-        });
+		$('.js-addwish-b2').each(
+				function() {
+					var nameProduct = $(this).parent().parent().find(
+							'.js-name-b2').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
 
-        $('.js-remove-item').each(function () {
-            var nameProduct = $(this).parent().parent().find('.js-name-item').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "장바구니에서 삭제되었습니다 ! ", "success");
+						$(this).addClass('js-addedwish-b2');
+						$(this).off('click');
+					});
+				});
 
-            });
-        });
-    </script>
+		$('.js-addwish-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent().find(
+							'.js-name-detail').html();
+
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-detail');
+						$(this).off('click');
+					});
+				});
+
+		$('.js-addcart-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent()
+							.parent().find('.js-name-detail').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to cart !", "success");
+					});
+				});
+	</script>
 	<!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
-        $('.js-pscroll').each(function () {
-            $(this).css('position', 'relative');
-            $(this).css('overflow', 'hidden');
-            var ps = new PerfectScrollbar(this, {
-                wheelSpeed: 1,
-                scrollingThreshold: 1000,
-                wheelPropagation: false,
-            });
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			if ($(this).height() > 450) {
+				$(this).css('height', '450px');
+				$(this).css('overflow', 'auto');
+			}
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
 
-            $(window).on('resize', function () {
-                ps.update();
-            })
-        });
-    </script>
-	<!--==============================================================================================-->
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
 	<script>
-	
-	const spanElements = document.querySelectorAll('.dStatus');
-	
-	spanElements.forEach(function(spanElement) {
-	    const deliveryStatus = spanElement.textContent.trim();
-	    switch (deliveryStatus) {
-	        case '배송중':
-	        	spanElement.classList.remove('badge-success', 'badge-warning', 'badge-danger');
-	            spanElement.classList.add('badge-primary');
-	            break;
-	        case '배송완료':
-	            spanElement.classList.add('badge-success');
-	            break;
-	        case '반품대기':
-	            spanElement.classList.add('badge-warning');
-	            break;
-	        case '반품완료':
-	            spanElement.classList.add('badge-danger');
-	            break;
-	    }
-	});
+		//Accordin Active
 
-    </script>
-	<!--==============================================================================================-->
+		$('.collapse').on('shown.bs.collapse', function() {
+			$(this).prev().addClass('active');
+		});
+
+		$('.collapse').on('hidden.bs.collapse', function() {
+			$(this).prev().removeClass('active');
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="vendor/select2/jquery.nice-select.min.js"></script>
+	<script>
+		$("select").niceSelect();
+		//가격정렬
+	</script>
+	<!--===============================================================================================-->
+	<script>
+		var msg = "메세지";
+
+		if (msg) {
+			$(".modal").modal();
+		}
+		var searchForm = $("#searchForm");
+
+		$('.btn-search').click(function(e) {
+
+			searchForm.submit();
+
+		});
+
+		$('.btn-clear').click(function(e) {
+
+			searchForm.empty().submit();
+
+		});
+	</script>
+	<!--===============================================================================================-->
 	<script>
 		(function() {
 			var w = window;
@@ -623,9 +665,8 @@
 			"pluginKey" : "12c57252-c4dc-4954-94c5-9970d3cb1bfb",
 		});
 	</script>
-	<!--==============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
 </body>
-
 </html>

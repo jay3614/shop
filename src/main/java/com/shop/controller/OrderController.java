@@ -2,9 +2,12 @@ package com.shop.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -28,6 +31,7 @@ public class OrderController {
 	private final MemberService memberService;
 	private final CartService cartService;
 	
+	@Validated
 	@GetMapping("/orderBy")
 	public String orderBy(Long iNumber, Long oCount, Long dPrice, Long cart_id, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal UserAdapter user) {
 		
@@ -51,7 +55,6 @@ public class OrderController {
 		model.addAttribute("cartList", cartDTOList);
 		model.addAttribute("count", cartCount);
 		model.addAttribute("cart_id", cart_id);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+ cart_id);
 		
 		return "content/user/orderBy";
 	}
